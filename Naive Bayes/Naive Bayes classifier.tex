@@ -1,0 +1,198 @@
+\documentclass[11pt, a4paper]{article}
+
+
+\usepackage{amsmath}
+\usepackage{booktabs}
+
+\begin{document}
+
+\title{NAIVE BAYES CLASSIFIER}
+\date{}
+\maketitle
+
+Supervised learning algorithm based on the application of Bayes\textsc{\char13} theorem with the 
+``naive'' assumption of independence between every pair of features.
+
+\section{Bayes' Theorem}
+
+\begin{align*}
+	\mathbf{P}(A\cap B) = \mathbf{P}(A|B) \times \mathbf{P}(B)                   \\
+	= \mathbf{P}(B|A) \times \mathbf{P}(A)                                       \\
+	                                                                             \\
+	\mathbf{P}(A|B) = \frac{\mathbf{P}(B|A) \times \mathbf{P}(A)}{\mathbf{P}(B)} 
+\end{align*}
+
+\section{Derivation}
+
+\begin{align*}
+	\mathbf{P}(\mathbf{Y}=y_k\ |\ x_1,\ x_2,\ ...\ x_p) = \frac{\mathbf{P}(x_1,\ x_2,\ ...\ x_p|\mathbf{Y}=y_k) \times \mathbf{P}(\mathbf{Y}=y_k)}{\mathbf{P}(x_1,\ x_2,\ ...\ x_p)} \\
+\end{align*}
+
+Choose $y_k$ which maximizes $\mathbf{P}(\mathbf{Y}=y_k | x_1,\ x_2,\ ...\ x_p)$. 
+
+\begin{align*}
+	\mathbf{Y} = \operatorname*{argmax}_{y_k}\left\{                                                                             
+	\begin{array}{ll}                                                                                                            
+	\frac{\mathbf{P}(x_1,\ x_2,\ ...\ x_p | \mathbf{Y}=y_k) \times \mathbf{P}(\mathbf{Y=y_k)}}{\mathbf{P}(x_1,\ x_2,\ ...\ x_p)} \\
+	\end{array}                                                                                                                  
+	\right.                                                                                                                      \\
+\end{align*}
+
+Since $\mathbf{P}(x_1,\ x_2,\ ...\ x_p)$ is constant for all $y_k$, the above can be written as follows: 
+
+\begin{align*}
+	\mathbf{Y} = \operatorname*{argmax}_{y_k}\left\{                                    
+	\begin{array}{ll}                                                                   
+	\mathbf{P}(x_1,\ x_2,\ ...\ x_p | \mathbf{Y}=y_k) \times \mathbf{P}(\mathbf{Y=y_k)} \\
+	\end{array}                                                                         
+	\right.                                                                             \\
+\end{align*}
+
+The ``naive'' assumption that all $\mathbf{X_1},\ \mathbf{X_2},\ ...\ \mathbf{X_p}$ are independent allows for the following simplification.
+
+\begin{align*}
+	\mathbf{Y} = \operatorname*{argmax}_{y_k}\left\{                           
+	\begin{array}{ll}                                                          
+	\prod_{i} \mathbf{P}(x_i|\mathbf{Y}=y_k) \times \mathbf{P}(\mathbf{Y=y_k)} \\
+	\end{array}                                                                
+	\right.                                                                    \\
+\end{align*}
+
+All the terms on the right are easy to calculate.
+
+\section{Example}
+
+\begin{table}[h!]
+	\centering
+	\caption{Training data}
+	\label{tab:table1}
+	\begin{tabular}{c|cccc|c}
+		\toprule
+		\textbf{Sr.} & \textbf{Outlook} & \textbf{Temperature} & \textbf{Humidity} & \textbf{Windy} & \textbf{PLAY GOLF} \\
+		\midrule
+		1            & rainy            & hot                  & high              & false          & NO                 \\
+		2            & rainy            & hot                  & high              & true           & NO                 \\
+		3            & overcast         & hot                  & high              & false          & YES                \\
+		4            & sunny            & mild                 & high              & false          & YES                \\
+		5            & sunny            & cool                 & normal            & false          & YES                \\
+		6            & sunny            & cool                 & normal            & true           & NO                 \\
+		7            & overcast         & cool                 & normal            & true           & YES                \\
+		8            & rainy            & mild                 & high              & false          & NO                 \\
+		9            & raniy            & cool                 & normal            & false          & YES                \\
+		10           & sunny            & mild                 & normal            & false          & YES                \\
+		11           & rainy            & mild                 & normal            & true           & YES                \\
+		12           & overcast         & mild                 & high              & true           & YES                \\
+		13           & overcast         & hot                  & normal            & false          & YES                \\
+		14           & sunny            & mild                 & high              & true           & NO                 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\noindent The following tables are calculated.
+
+\begin{table}[h!]
+	\centering
+	\label{tab:table2}
+	\begin{tabular}{c|cc}
+		\toprule
+		\textbf{Outlook} & \textbf{YES} & \textbf{NO} \\
+		\midrule
+		rainy            & 2            & 3           \\
+		overcast         & 4            & 0           \\
+		sunny            & 3            & 2           \\
+	\end{tabular}
+	\hspace{2em}
+	\vspace{2em}
+	\label{tab:table3}
+	\begin{tabular}{c|cc}
+		\toprule
+		\textbf{Temperature} & \textbf{YES} & \textbf{NO} \\
+		\midrule
+		hot                  & 2            & 2           \\
+		mild                 & 4            & 2           \\
+		cool                 & 3            & 1           \\
+	\end{tabular}
+	\label{tab:table4}
+	\begin{tabular}{c|cc}
+		\toprule
+		\textbf{Humidity} & \textbf{YES} & \textbf{NO} \\
+		\midrule
+		high              & 3            & 4           \\
+		normal            & 6            & 1           \\
+	\end{tabular}
+	\hspace{2em}
+	\label{tab:table5}
+	\begin{tabular}{c|cc}
+		\toprule
+		\textbf{Windy} & \textbf{YES} & \textbf{NO} \\
+		\midrule
+		false          & 6            & 2           \\
+		true           & 3            & 3           \\
+	\end{tabular}
+\end{table}
+
+If $X = (sunny, hot, normal, false)$, then 
+
+\begin{align*}
+	\mathbf{PLAY\ GOLF} = \operatorname*{argmax}_{y_k}\left\{          
+	\begin{array}{ll}                                                  
+	\mathbf{P}(\textbf{Outlook}=sunny|\textbf{PLAY\ GOLF}=YES)         \\
+	\times\mathbf{P}(\textbf{Temprature}=hot|\textbf{PLAY\ GOLF}=YES)  \\
+	\times\mathbf{P}(\textbf{Humidity}=normal|\textbf{PLAY\ GOLF}=YES) \\
+	\times\mathbf{P}(\textbf{Windy}=false|\textbf{PLAY\ GOLF}=YES)     \\
+	\times\mathbf{P}(\textbf{PLAY\ GOLF}=YES)                          \\
+	                                                                   \\
+	\mathbf{P}(\textbf{Outlook}=sunny|\textbf{PLAY\ GOLF}=NO)          \\
+	\times\mathbf{P}(\textbf{Temprature}=hot|\textbf{PLAY\ GOLF}=NO)   \\
+	\times\mathbf{P}(\textbf{Humidity}=normal|\textbf{PLAY\ GOLF}=NO)  \\
+	\times\mathbf{P}(\textbf{Windy}=false|\textbf{PLAY\ GOLF}=NO)      \\
+	\times\mathbf{P}(\textbf{PLAY\ GOLF}=NO)                           \\
+	\end{array}                                                        
+	\right.                                                            
+\end{align*}
+
+\begin{align*}
+	\mathbf{PLAY\ GOLF} = \operatorname*{argmax}_{y_k}\left\{ 
+	\begin{array}{ll}                                         
+	3/9                                                       \\
+	\times2/9                                                 \\
+	\times6/9                                                 \\
+	\times6/9                                                 \\
+	\times9/14                                                \\
+	                                                          \\
+	2/5                                                       \\
+	\times2/5                                                 \\
+	\times1/5                                                 \\
+	\times2/5                                                 \\
+	\times5/14                                                \\
+	\end{array}                                               
+	\right.                                                   
+\end{align*}
+
+\begin{align*}
+	\mathbf{PLAY\ GOLF} = \operatorname*{argmax}_{y_k}\left\{ 
+	\begin{array}{ll}                                         
+	0.0212                                                    
+	                                                          \\
+	0.0046                                                    \\
+	\end{array}                                               
+	\right.                                                   
+\end{align*}
+
+Therefore, $\textbf{PLAY\ GOLF}=YES$ because $0.0212 > 0.0046$.
+
+\section{Extensions} 
+
+\begin{itemize}
+	\item For a continuous input feature, assumption regarding the distribution needs to be made. Examples: \textbf{Gaussian}, \textbf{Multinomial} and \textbf{Bernoulli}. 
+	\item Smoothing may be required to prevent the multiplication from being zero when one probability term is zero.
+\end{itemize}
+
+\section{Comments}
+\begin{itemize}
+	\item Due to independence assumption, naive Bayes' classifiers often perform good even with less training data.
+	\item Main applications include \textbf{spam filtering} and \textbf{document classification}.
+	\item Extremely fast in both training and prediction.
+	\item Often fail to produce a good estimate of the correct class probabilities but make the correct classification if the correct class is more probable than any other class.
+\end{itemize}
+\end{document}
