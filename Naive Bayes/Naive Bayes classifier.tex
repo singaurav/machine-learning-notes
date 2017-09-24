@@ -68,22 +68,22 @@ All the terms on the right are easy to calculate.
 	\label{tab:table1}
 	\begin{tabular}{c|cccc|c}
 		\toprule
-		\textbf{Sr.} & \textbf{Outlook} & \textbf{Temperature} & \textbf{Humidity} & \textbf{Windy} & \textbf{PLAY GOLF} \\
+		\textbf{Sr.} & \textbf{Outlook} & \textbf{Temperature} & \textbf{Humidity} & \textbf{Windy} & \textbf{PlayGolf} \\
 		\midrule
-		1            & rainy            & hot                  & high              & false          & NO                 \\
-		2            & rainy            & hot                  & high              & true           & NO                 \\
-		3            & overcast         & hot                  & high              & false          & YES                \\
-		4            & sunny            & mild                 & high              & false          & YES                \\
-		5            & sunny            & cool                 & normal            & false          & YES                \\
-		6            & sunny            & cool                 & normal            & true           & NO                 \\
-		7            & overcast         & cool                 & normal            & true           & YES                \\
-		8            & rainy            & mild                 & high              & false          & NO                 \\
-		9            & raniy            & cool                 & normal            & false          & YES                \\
-		10           & sunny            & mild                 & normal            & false          & YES                \\
-		11           & rainy            & mild                 & normal            & true           & YES                \\
-		12           & overcast         & mild                 & high              & true           & YES                \\
-		13           & overcast         & hot                  & normal            & false          & YES                \\
-		14           & sunny            & mild                 & high              & true           & NO                 \\
+		1            & Rainy            & Hot                  & High              & False          & No                \\
+		2            & Rainy            & Hot                  & High              & True           & No                \\
+		3            & Overcast         & Hot                  & High              & False          & Yes               \\
+		4            & Sunny            & Mild                 & High              & False          & Yes               \\
+		5            & Sunny            & Cool                 & Normal            & False          & Yes               \\
+		6            & Sunny            & Cool                 & Normal            & True           & No                \\
+		7            & Overcast         & Cool                 & Normal            & True           & Yes               \\
+		8            & Rainy            & Mild                 & High              & False          & No                \\
+		9            & Rainy            & Cool                 & Normal            & False          & Yes               \\
+		10           & Sunny            & Mild                 & Normal            & False          & Yes               \\
+		11           & Rainy            & Mild                 & Normal            & True           & Yes               \\
+		12           & Overcast         & Mild                 & High              & True           & Yes               \\
+		13           & Overcast         & Hot                  & Normal            & False          & Yes               \\
+		14           & Sunny            & Mild                 & High              & True           & No                \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -95,91 +95,91 @@ All the terms on the right are easy to calculate.
 	\label{tab:table2}
 	\begin{tabular}{c|cc}
 		\toprule
-		\textbf{Outlook} & \textbf{YES} & \textbf{NO} \\
+		\textbf{Outlook} & \textbf{Yes} & \textbf{No} \\
 		\midrule
-		rainy            & 2            & 3           \\
-		overcast         & 4            & 0           \\
-		sunny            & 3            & 2           \\
+		Rainy            & 2            & 3           \\
+		Overcast         & 4            & 0           \\
+		Sunny            & 3            & 2           \\
 	\end{tabular}
 	\hspace{2em}
 	\vspace{2em}
 	\label{tab:table3}
 	\begin{tabular}{c|cc}
 		\toprule
-		\textbf{Temperature} & \textbf{YES} & \textbf{NO} \\
+		\textbf{Temperature} & \textbf{Yes} & \textbf{No} \\
 		\midrule
-		hot                  & 2            & 2           \\
-		mild                 & 4            & 2           \\
-		cool                 & 3            & 1           \\
+		Hot                  & 2            & 2           \\
+		Mild                 & 4            & 2           \\
+		Cool                 & 3            & 1           \\
 	\end{tabular}
 	\label{tab:table4}
 	\begin{tabular}{c|cc}
 		\toprule
-		\textbf{Humidity} & \textbf{YES} & \textbf{NO} \\
+		\textbf{Humidity} & \textbf{Yes} & \textbf{No} \\
 		\midrule
-		high              & 3            & 4           \\
-		normal            & 6            & 1           \\
+		High              & 3            & 4           \\
+		Normal            & 6            & 1           \\
 	\end{tabular}
 	\hspace{2em}
 	\label{tab:table5}
 	\begin{tabular}{c|cc}
 		\toprule
-		\textbf{Windy} & \textbf{YES} & \textbf{NO} \\
+		\textbf{Windy} & \textbf{Yes} & \textbf{No} \\
 		\midrule
-		false          & 6            & 2           \\
-		true           & 3            & 3           \\
+		False          & 6            & 2           \\
+		True           & 3            & 3           \\
 	\end{tabular}
 \end{table}
 
-If $X = (sunny, hot, normal, false)$, then 
+If $X = (Sunny, Hot, Normal, False)$, then 
 
 \begin{align*}
-	\mathbf{PLAY\ GOLF} = \operatorname*{argmax}_{y_k}\left\{          
-	\begin{array}{ll}                                                  
-	\mathbf{P}(\textbf{Outlook}=sunny|\textbf{PLAY\ GOLF}=YES)         \\
-	\times\mathbf{P}(\textbf{Temprature}=hot|\textbf{PLAY\ GOLF}=YES)  \\
-	\times\mathbf{P}(\textbf{Humidity}=normal|\textbf{PLAY\ GOLF}=YES) \\
-	\times\mathbf{P}(\textbf{Windy}=false|\textbf{PLAY\ GOLF}=YES)     \\
-	\times\mathbf{P}(\textbf{PLAY\ GOLF}=YES)                          \\
-	                                                                   \\
-	\mathbf{P}(\textbf{Outlook}=sunny|\textbf{PLAY\ GOLF}=NO)          \\
-	\times\mathbf{P}(\textbf{Temprature}=hot|\textbf{PLAY\ GOLF}=NO)   \\
-	\times\mathbf{P}(\textbf{Humidity}=normal|\textbf{PLAY\ GOLF}=NO)  \\
-	\times\mathbf{P}(\textbf{Windy}=false|\textbf{PLAY\ GOLF}=NO)      \\
-	\times\mathbf{P}(\textbf{PLAY\ GOLF}=NO)                           \\
-	\end{array}                                                        
-	\right.                                                            
+	\mathbf{PlayGolf} = \operatorname*{argmax}_{y_k}\left\{          
+	\begin{array}{ll}                                                
+	\mathbf{P}(\textbf{Outlook}=Sunny|\textbf{PlayGolf}=Yes)         \\
+	\times\mathbf{P}(\textbf{Temprature}=Hot|\textbf{PlayGolf}=Yes)  \\
+	\times\mathbf{P}(\textbf{Humidity}=Normal|\textbf{PlayGolf}=Yes) \\
+	\times\mathbf{P}(\textbf{Windy}=False|\textbf{PlayGolf}=Yes)     \\
+	\times\mathbf{P}(\textbf{PlayGolf}=Yes)                          \\
+	                                                                 \\
+	\mathbf{P}(\textbf{Outlook}=Sunny|\textbf{PlayGolf}=No)          \\
+	\times\mathbf{P}(\textbf{Temprature}=Hot|\textbf{PlayGolf}=No)   \\
+	\times\mathbf{P}(\textbf{Humidity}=Normal|\textbf{PlayGolf}=No)  \\
+	\times\mathbf{P}(\textbf{Windy}=False|\textbf{PlayGolf}=No)      \\
+	\times\mathbf{P}(\textbf{PlayGolf}=No)                           \\
+	\end{array}                                                      
+	\right.                                                          
 \end{align*}
 
 \begin{align*}
-	\mathbf{PLAY\ GOLF} = \operatorname*{argmax}_{y_k}\left\{ 
-	\begin{array}{ll}                                         
-	3/9                                                       \\
-	\times2/9                                                 \\
-	\times6/9                                                 \\
-	\times6/9                                                 \\
-	\times9/14                                                \\
-	                                                          \\
-	2/5                                                       \\
-	\times2/5                                                 \\
-	\times1/5                                                 \\
-	\times2/5                                                 \\
-	\times5/14                                                \\
-	\end{array}                                               
-	\right.                                                   
+	\mathbf{PlayGolf} = \operatorname*{argmax}_{y_k}\left\{ 
+	\begin{array}{ll}                                       
+	3/9                                                     \\
+	\times2/9                                               \\
+	\times6/9                                               \\
+	\times6/9                                               \\
+	\times9/14                                              \\
+	                                                        \\
+	2/5                                                     \\
+	\times2/5                                               \\
+	\times1/5                                               \\
+	\times2/5                                               \\
+	\times5/14                                              \\
+	\end{array}                                             
+	\right.                                                 
 \end{align*}
 
 \begin{align*}
-	\mathbf{PLAY\ GOLF} = \operatorname*{argmax}_{y_k}\left\{ 
-	\begin{array}{ll}                                         
-	0.0212                                                    
-	                                                          \\
-	0.0046                                                    \\
-	\end{array}                                               
-	\right.                                                   
+	\mathbf{PlayGolf} = \operatorname*{argmax}_{y_k}\left\{ 
+	\begin{array}{ll}                                       
+	0.0212                                                  
+	                                                        \\
+	0.0046                                                  \\
+	\end{array}                                             
+	\right.                                                 
 \end{align*}
 
-Therefore, $\textbf{PLAY\ GOLF}=YES$ because $0.0212 > 0.0046$.
+Therefore, $\textbf{PlayGolf}=Yes$ because $0.0212 > 0.0046$.
 
 \section{Extensions} 
 
