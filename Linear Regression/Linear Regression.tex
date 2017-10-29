@@ -119,4 +119,49 @@ Correlation always resides in the interval $[-1, 1]$. It is 1 or -1 if all the d
  
 \section{Multiple Variable Regression} 
 
+In the general case, the equation becomes
+
+\begin{align*}
+    \hat{y} = \beta_0 + \sum\limits_{j = 1}^p \beta_j x_j
+\end{align*}
+
+Let $\mathbf{X}$ be $N\times(p+1)$ matrix where the first column is all ones and the $j^{th}$ column represents the $N$ values of the input variable $x_j$. Similarly, let $\mathbf{Y}$ be a vector of the $N$ values of the output variable $y$. For all the $N$ given observations, it can be written,
+
+\begin{align*}
+    \mathbf{y} = \mathbf{X}\boldsymbol{\beta}
+\end{align*} 
+
+The error vector becomes,
+
+\begin{align*}
+    \mathbf{\epsilon} = \mathbf{y} - \mathbf{X}\boldsymbol{\beta}
+\end{align*}
+
+The residual sum of squares can be represented as,
+
+\begin{align*}
+    RSS(\boldsymbol{\beta}) &= \mathbf{\epsilon}^T\mathbf{\epsilon} \\
+    &= (\mathbf{y} - \mathbf{X}\boldsymbol{\beta})^T(\mathbf{y} - \mathbf{X}\boldsymbol{\beta}) \\
+    &= (\mathbf{y}^T - \boldsymbol{\beta}^T\mathbf{X}^T)(\mathbf{y} - \mathbf{X}\boldsymbol{\beta}) \\
+    &= \mathbf{y}^T\mathbf{y} - \boldsymbol{\beta}^T\mathbf{X}^T\mathbf{y} - \mathbf{y}^T\mathbf{X}\boldsymbol{\beta} + \boldsymbol{\beta}^T\mathbf{X}^T\mathbf{X}\boldsymbol{\beta} 
+\end{align*}
+
+Taking the derivative w.r.t. $\boldsymbol{\beta}$
+
+\begin{align*}
+    \frac{\partial RSS(\boldsymbol{\beta})}{\partial \boldsymbol{\beta}} &= 
+    \frac{\partial}{\partial \boldsymbol{\beta}}(\mathbf{y}^T\mathbf{y}) - \frac{\partial}{\partial \boldsymbol{\beta}}(\boldsymbol{\beta}^T\mathbf{X}^T\mathbf{y}) - \frac{\partial}{\partial \boldsymbol{\beta}}(\mathbf{y}^T\mathbf{X}\boldsymbol{\beta}) + \frac{\partial}{\partial \boldsymbol{\beta}}(\boldsymbol{\beta}^T\mathbf{X}^T\mathbf{X}\boldsymbol{\beta}) \\
+    &= 0 - \mathbf{X}^T\mathbf{y} - \mathbf{X}^T\mathbf{y} + 2\mathbf{X}^T\mathbf{X}\boldsymbol{\beta} \\
+    &= -2\mathbf{X}^T\mathbf{y} + 2\mathbf{X}^T\mathbf{X}\boldsymbol{\beta}
+\end{align*}
+
+Equating the derivative to zero for minimization,
+
+\begin{align*}
+    \mathbf{X}^T\mathbf{X}\boldsymbol{\beta} &= \mathbf{X}^T\mathbf{y} \\
+    \boldsymbol{\beta} &= (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}    
+\end{align*}
+
+\section{Gauss-Markov Theorem}
+
 \end{document}
