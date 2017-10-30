@@ -4,6 +4,7 @@
 \usetikzlibrary{shapes,arrows}
 \usepackage{amsmath}
 \usepackage{placeins}
+\usepackage{amssymb}
 
 \begin{document}
 
@@ -33,25 +34,25 @@ Generally, sum of squares of all the $N$ errors is minimized to define the best 
 \begin{figure}[htbp]
 	\centering
 	\begin{tikzpicture}
-					    
+							    
 		\draw[-latex] (0,0) -- (6,0) node[right]{x};
 		\draw[-latex] (0,0) -- (0,5) node[left]{y};	
-				
+						
 		\draw (0, 1) -- (5, 4);
-				
+						
 		\draw (5, 4) node [above right] {$y = \beta_0 + \beta_1x$};
 		\draw (0, 1) node [left] {$\beta_0$};
-				
+						
 		\foreach \Point in {(1,3), (2, 3), (4, 4), (3, 2), (1.5, 1)}{
 			\node at \Point {\textbullet};
 		};
-		        
+				        
 		\draw (1, 3) node [above] {$x_1, y_1$};
 		\draw (1.5, 1) node [below] {$x_2, y_2$};
 		\draw (2, 3) node [above right] {$x_3, y_3$};
 		\draw (3, 2) node [below] {$x_4, y_4$};
 		\draw (4, 4) node [above] {$x_5, y_5$};
-		        
+				        
 		\draw [thick] (1, 3) -- (1, 1.6);
 		\draw [thick] (1.5, 1) -- (1.5, 1.9);
 		\draw [thick] (2, 3) -- (2, 2.2);
@@ -86,9 +87,9 @@ This can be written in matrix form as follows,
 Multiplying by inverse of the $2\times2$ matrix on both sides,
 
 \begin{align*}
-	\begin{pmatrix} \beta_0 &                                                                   &           \\ \beta_1 \end{pmatrix} &= \begin{pmatrix} N & \sum x_i \\ \sum x_i & \sum x_i^2 \end{pmatrix}^{-1} \begin{pmatrix}
+	\begin{pmatrix} \beta_0 &   &   \\ \beta_1 \end{pmatrix} &= \begin{pmatrix} N & \sum x_i \\ \sum x_i & \sum x_i^2 \end{pmatrix}^{-1} \begin{pmatrix}
 	\sum y_i \\ \sum x_iy_i \end{pmatrix} \\
-	                        & = \frac{1}{N\sum x_i^2 - (\sum x_i)^2} \begin{pmatrix} \sum x_i^2 & -\sum x_i \\ -\sum x_i & N \end{pmatrix} \begin{pmatrix}
+	& = \frac{1}{N\sum x_i^2 - (\sum x_i)^2} \begin{pmatrix} \sum x_i^2 & -\sum x_i \\ -\sum x_i & N \end{pmatrix} \begin{pmatrix}
 	\sum y_i \\ \sum x_iy_i \end{pmatrix} \\
 	&= \frac{1}{N\sum x_i^2 - (\sum x_i)^2} \begin{pmatrix}
 	\sum x_i^2 \sum y_i -\sum x_iy_i  \sum x_i  \\ N \sum x_i y_i - \sum x_i \sum y_i \end{pmatrix} \\
@@ -122,46 +123,131 @@ Correlation always resides in the interval $[-1, 1]$. It is 1 or -1 if all the d
 In the general case, the equation becomes
 
 \begin{align*}
-    \hat{y} = \beta_0 + \sum\limits_{j = 1}^p \beta_j x_j
+	\hat{y} = \beta_0 + \sum\limits_{j = 1}^p \beta_j x_j 
 \end{align*}
 
 Let $\mathbf{X}$ be $N\times(p+1)$ matrix where the first column is all ones and the $j^{th}$ column represents the $N$ values of the input variable $x_j$. Similarly, let $\mathbf{Y}$ be a vector of the $N$ values of the output variable $y$. For all the $N$ given observations, it can be written,
 
 \begin{align*}
-    \mathbf{y} = \mathbf{X}\boldsymbol{\beta}
+	\mathbf{y} = \mathbf{X}\boldsymbol{\beta} 
 \end{align*} 
 
 The error vector becomes,
 
 \begin{align*}
-    \mathbf{\epsilon} = \mathbf{y} - \mathbf{X}\boldsymbol{\beta}
+	\mathbf{\epsilon} = \mathbf{y} - \mathbf{X}\boldsymbol{\beta} 
 \end{align*}
 
 The residual sum of squares can be represented as,
 
 \begin{align*}
-    RSS(\boldsymbol{\beta}) &= \mathbf{\epsilon}^T\mathbf{\epsilon} \\
-    &= (\mathbf{y} - \mathbf{X}\boldsymbol{\beta})^T(\mathbf{y} - \mathbf{X}\boldsymbol{\beta}) \\
-    &= (\mathbf{y}^T - \boldsymbol{\beta}^T\mathbf{X}^T)(\mathbf{y} - \mathbf{X}\boldsymbol{\beta}) \\
-    &= \mathbf{y}^T\mathbf{y} - \boldsymbol{\beta}^T\mathbf{X}^T\mathbf{y} - \mathbf{y}^T\mathbf{X}\boldsymbol{\beta} + \boldsymbol{\beta}^T\mathbf{X}^T\mathbf{X}\boldsymbol{\beta} 
+	RSS(\boldsymbol{\beta}) & = \mathbf{\epsilon}^T\mathbf{\epsilon}                                                                                                                                          \\
+	                        & = (\mathbf{y} - \mathbf{X}\boldsymbol{\beta})^T(\mathbf{y} - \mathbf{X}\boldsymbol{\beta})                                                                                      \\
+	                        & = (\mathbf{y}^T - \boldsymbol{\beta}^T\mathbf{X}^T)(\mathbf{y} - \mathbf{X}\boldsymbol{\beta})                                                                                  \\
+	                        & = \mathbf{y}^T\mathbf{y} - \boldsymbol{\beta}^T\mathbf{X}^T\mathbf{y} - \mathbf{y}^T\mathbf{X}\boldsymbol{\beta} + \boldsymbol{\beta}^T\mathbf{X}^T\mathbf{X}\boldsymbol{\beta} 
 \end{align*}
 
 Taking the derivative w.r.t. $\boldsymbol{\beta}$
 
 \begin{align*}
-    \frac{\partial RSS(\boldsymbol{\beta})}{\partial \boldsymbol{\beta}} &= 
-    \frac{\partial}{\partial \boldsymbol{\beta}}(\mathbf{y}^T\mathbf{y}) - \frac{\partial}{\partial \boldsymbol{\beta}}(\boldsymbol{\beta}^T\mathbf{X}^T\mathbf{y}) - \frac{\partial}{\partial \boldsymbol{\beta}}(\mathbf{y}^T\mathbf{X}\boldsymbol{\beta}) + \frac{\partial}{\partial \boldsymbol{\beta}}(\boldsymbol{\beta}^T\mathbf{X}^T\mathbf{X}\boldsymbol{\beta}) \\
-    &= 0 - \mathbf{X}^T\mathbf{y} - \mathbf{X}^T\mathbf{y} + 2\mathbf{X}^T\mathbf{X}\boldsymbol{\beta} \\
-    &= -2\mathbf{X}^T\mathbf{y} + 2\mathbf{X}^T\mathbf{X}\boldsymbol{\beta}
+	\frac{\partial RSS(\boldsymbol{\beta})}{\partial \boldsymbol{\beta}} & =                                                                                                 
+	\frac{\partial}{\partial \boldsymbol{\beta}}(\mathbf{y}^T\mathbf{y}) - \frac{\partial}{\partial \boldsymbol{\beta}}(\boldsymbol{\beta}^T\mathbf{X}^T\mathbf{y}) - \frac{\partial}{\partial \boldsymbol{\beta}}(\mathbf{y}^T\mathbf{X}\boldsymbol{\beta}) + \frac{\partial}{\partial \boldsymbol{\beta}}(\boldsymbol{\beta}^T\mathbf{X}^T\mathbf{X}\boldsymbol{\beta}) \\
+	                                                                     & = 0 - \mathbf{X}^T\mathbf{y} - \mathbf{X}^T\mathbf{y} + 2\mathbf{X}^T\mathbf{X}\boldsymbol{\beta} \\
+	                                                                     & = -2\mathbf{X}^T\mathbf{y} + 2\mathbf{X}^T\mathbf{X}\boldsymbol{\beta}                            
 \end{align*}
 
 Equating the derivative to zero for minimization,
 
 \begin{align*}
-    \mathbf{X}^T\mathbf{X}\boldsymbol{\hat{\beta}} &= \mathbf{X}^T\mathbf{y} \\
-    \boldsymbol{\hat{\beta}} &= (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}    
+	\mathbf{X}^T\mathbf{X}\boldsymbol{\hat{\beta}} & = \mathbf{X}^T\mathbf{y}                              \\
+	\boldsymbol{\hat{\beta}}                       & = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y} 
+\end{align*}
+
+These estimators are also known as OLS(Ordinary Least Square) estimators.
+
+\section{Bias and Variance}
+\subsection{Definitions}
+Note that the expectation of a vector $\mathbf{V}$ is defined as,
+
+\begin{align*}
+	\mathbb{E}[\mathbf{V}] = \begin{pmatrix} \mathbb{E}(v_1) \\ \mathbb{E}(v_2) \\ . \\ . \\ .  \\ \mathbb{E}(v_n) \end{pmatrix}
+\end{align*}
+
+The variance of a vector is a little trickier,
+\begin{align*}
+	Var[\mathbf{V}] = \begin{pmatrix} Var(v_1) & Cov(v_1, v_2) & . & . & . & Cov(v_1, v_n) \\ Cov(v_2, v_1) & . & . & . & . & . \\ . & . & . & . & . & . \\ . & . & . & . & . & . \\ . & . & . & . & . & . \\ Cov(v_n, v_1) & . & . & . & . & Var(v_n, v_n) \\ \end{pmatrix}
+\end{align*}
+
+\subsection{Bias}
+Let the true population process of $\mathbf{y}$ be
+
+\begin{align*}
+	\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \mathbf{u} 
+\end{align*}
+
+where $\boldsymbol{\beta}$ is the true population variable and $\mathbf{u}$ is the population error. Least squares estimate as derived above is,
+
+\begin{align*}
+	\boldsymbol{\hat{\beta}} & = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}                                   \\
+	                         & = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T (\mathbf{X}\boldsymbol{\beta} + \mathbf{u}) \\
+	                         & = \boldsymbol{\beta} + (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{u}              
+\end{align*}
+
+Taking expectation on both sides,
+
+\begin{align*}
+	\mathbb{E}[\hat{\boldsymbol{\beta}}] & = \mathbb{E}[\boldsymbol{\beta}] + \mathbb{E}[(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{u}] \\
+	                                     & = \boldsymbol{\beta} + \mathbb{E}[(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{u}]             
+\end{align*}
+
+Assuming $\mathbf{u}$ and $\mathbf{X}$ are independent, the equation can be simplified to,
+
+\begin{align*}
+	\mathbb{E}[\hat{\boldsymbol{\beta}}] & = \boldsymbol{\beta} + (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbb{E}[\mathbf{u}] \\
+\end{align*} 
+
+Assuming $\mathbb{E}[\mathbf{u}] = 0$, the equation gets further simplified,
+
+\begin{align*}
+	\mathbb{E}[\hat{\boldsymbol{\beta}}] & = \boldsymbol{\beta} 
+\end{align*}
+
+Under the conditional independence zero mean assumption [1], the least squares estimator is unbiased and on average the estimate is equivalent to the true population parameter.
+
+\subsection{Variance} 
+
+Once again start with the least squares estimate equation,
+
+\begin{align*}
+	\boldsymbol{\hat{\beta}} & = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y} \\
+\end{align*}
+
+Taking variance on both sides,
+
+\begin{align*}
+	Var[\boldsymbol{\hat{\beta}}] & = Var[(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}] 
+\end{align*}
+
+Since the variance of the product of a non-stochastic matrix $\mathbf{A}$ and a vector $\mathbf{V}$ is $\mathbf{A}Var(\mathbf{V})\mathbf{A}^T$,
+
+\begin{align*}
+	Var[\boldsymbol{\hat{\beta}}] & = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\ Var[\mathbf{y}]\ ((\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T)^T \\
+	                              & = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\ Var[\mathbf{y}]\  \mathbf{X}(\mathbf{X}^T\mathbf{X})^{-1}      
+\end{align*} 
+
+Assume that $Var[\mathbf{v}] = \sigma^2\mathbf{I}$. This is same as saying that,
+
+\begin{itemize}
+	\item All $y_i's$ are  homoscedastic i.e. $Var(y_i) = \sigma^2 \ \forall\ i\ [2]$.
+	\item Distinct $y_i's$ are uncorrelated i.e. $Cov(y_i, y_j) = 0\  \forall\ i \neq j\ [3]$.
+\end{itemize}
+
+\begin{align*}
+	Var[\boldsymbol{\hat{\beta}}] & = \sigma^2 (\mathbf{X}^T\mathbf{X})^{-1} 
 \end{align*}
 
 \section{Gauss-Markov Theorem}
+
+This theorem states that under above assumptions [1], [2] and [3], the OLS estimators are BLUE (Best Linear Unbiased Estimators). This means that there are no other unbiased linear estimators which have a lower variance of $\boldsymbol{\beta}$ than OLS.  
 
 \end{document}
