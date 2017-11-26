@@ -34,25 +34,25 @@ Generally, sum of squares of all the $N$ errors is minimized to define the best 
 \begin{figure}[htbp]
 	\centering
 	\begin{tikzpicture}
-									    
+											    
 		\draw[-latex] (0,0) -- (6,0) node[right]{x};
 		\draw[-latex] (0,0) -- (0,5) node[left]{y};	
-								
+										
 		\draw (0, 1) -- (5, 4);
-								
+										
 		\draw (5, 4) node [above right] {$y = \beta_0 + \beta_1x$};
 		\draw (0, 1) node [left] {$\beta_0$};
-								
+										
 		\foreach \Point in {(1,3), (2, 3), (4, 4), (3, 2), (1.5, 1)}{
 			\node at \Point {\textbullet};
 		};
-						        
+								        
 		\draw (1, 3) node [above] {$x_1, y_1$};
 		\draw (1.5, 1) node [below] {$x_2, y_2$};
 		\draw (2, 3) node [above right] {$x_3, y_3$};
 		\draw (3, 2) node [below] {$x_4, y_4$};
 		\draw (4, 4) node [above] {$x_5, y_5$};
-						        
+								        
 		\draw [thick] (1, 3) -- (1, 1.6);
 		\draw [thick] (1.5, 1) -- (1.5, 1.9);
 		\draw [thick] (2, 3) -- (2, 2.2);
@@ -271,5 +271,56 @@ If $\mathbf{X}^T\mathbf{X}$ is non-invertible, OLS has no unique solution, but t
 
 The fundamental idea with ridge regression is to incur some bias in order to reduce variance which may often be desirable in practical situations.
 
+Now, a short excursion on Lagrange multipliers before the  introduction to Lasso regression.
+
+\section{Lagrange Multipliers}
+
+Suppose a function $f$ is to be minimized subject to the constraint that the value of another function $g$ on the same inputs is $t$. For illustration, consider two inputs $x$ and $y$ with $f(x, y) = x^2 + y^2$, $g(x, y) = 4x + 3y$ and $t = 25$. Hence the problem is posed as follows:
+
+\begin{align*}
+	minimize\ \&x^2 + y^2 &              \\
+	subject\ to\ \&4x + 3y = 25 &              \\
+\end{align*}
+
+$f(x, y) = x^2 + y^2$ has a circular countour centered at origin. All points on this circle have the same value of $f$. On the ohter hand, the curve $4x + 3y = 25$ is a line offset from the origin. 
+
+One can imagine an expanding circle at origin which finally hits the line. The point where the circle hits the line is the solution as it is the minimum value of $f$ satisfying the constraint $g=25$. 
+
+At this intersection of the circle and the line, their gradients must be aligned to the same direction. More precisely, for some scalar $\lambda$,
+
+\begin{align*}
+	\begin{pmatrix}\frac{\partial f}{\partial x} \\
+	                                             \\  \frac{\partial f}{\partial y} \end{pmatrix} = \lambda  \begin{pmatrix}\frac{\partial g}{\partial x} \\ \\ \frac{\partial g}{\partial y} \end{pmatrix}
+\end{align*}
+
+Note that if one were to minimize $f - \lambda g$, taking the partials and equating them to zero would have have led to the same equation above. Hence it makes no difference to pose the same problem differently as follows,
+
+\begin{align*}
+	minimize\ \&f - \lambda g &                            \\
+	            & for\ some\ scalar\ \lambda \\
+\end{align*}
+
+The function $f - \lambda g$ is called the Langrangian function and $\lambda$ the Langragial multiplier.
+
+\section{Lasso Regression}
+
+Instead of ridge regression's penalty which is proportional to the sum of squares of the $\boldsymbol\beta$s, Lasso penalizes the sum of moduli of the $\boldsymbol\beta$s. 
+
+\begin{align*}
+	\mathbf{Error}(\boldsymbol{\beta}) & = \boldsymbol{\epsilon}^T\boldsymbol{\epsilon} + \lambda \sum |\boldsymbol\beta_i| 
+\end{align*}
+
+From the discussion of Lagrange mutlipliers, the same problem can be posed as, 
+
+\begin{align*}
+	minimize\ \&\boldsymbol{\epsilon}^T\boldsymbol{\epsilon} &                                               \\
+	            & subject\ to\ \sum |\boldsymbol\beta_i| \leq t 
+\end{align*}
+
+The graphs of $\sum |\boldsymbol\beta_i| \leq t$ are right angle rotated squares centered at origin in two dimensions. 
+
+As before, imagine the expanding contours of $\boldsymbol{\epsilon}^T\boldsymbol{\epsilon}$ till they hit the constraint graph to deliver the solution. Since the constraint graph has corners, it is highly likely that the expanding contour of $\boldsymbol{\epsilon}^T\boldsymbol{\epsilon}$ will hit one of the corners. At that corner, one or more of the $\boldsymbol\beta$s will be zero.
+
+Hence, Lasso not only shrinks the $\boldsymbol\beta$s but also makes some of them zero introducing sparsity in the solution and only retains only the most important $\boldsymbol\beta$s. This feature makes it considerably varied from the ridge regression.     
 
 \end{document}
