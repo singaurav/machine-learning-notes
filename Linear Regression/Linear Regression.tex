@@ -278,8 +278,8 @@ Now, a short excursion on Lagrange multipliers before the  introduction to Lasso
 Suppose a function $f$ is to be minimized subject to the constraint that the value of another function $g$ on the same inputs is $t$. For illustration, consider two inputs $x$ and $y$ with $f(x, y) = x^2 + y^2$, $g(x, y) = 4x + 3y$ and $t = 25$. Hence the problem is posed as follows:
 
 \begin{align*}
-	minimize\ \&x^2 + y^2 &              \\
-	subject\ to\ \&4x + 3y = 25 &              \\
+	minimize\ \ &x^2 + y^2 &              \\
+	subject\ to\ \ &4x + 3y = 25 &              \\
 \end{align*}
 
 $f(x, y) = x^2 + y^2$ has a circular countour centered at origin. All points on this circle have the same value of $f$. On the ohter hand, the curve $4x + 3y = 25$ is a line offset from the origin. 
@@ -296,7 +296,7 @@ At this intersection of the circle and the line, their gradients must be aligned
 Note that if one were to minimize $f - \lambda g$, taking the partials and equating them to zero would have have led to the same equation above. Hence it makes no difference to pose the same problem differently as follows,
 
 \begin{align*}
-	minimize\ \&f - \lambda g &                            \\
+	minimize\ \ &f - \lambda g &                            \\
 	            & for\ some\ scalar\ \lambda \\
 \end{align*}
 
@@ -313,7 +313,7 @@ Instead of ridge regression's penalty which is proportional to the sum of square
 From the discussion of Lagrange mutlipliers, the same problem can be posed as, 
 
 \begin{align*}
-	minimize\ \&\boldsymbol{\epsilon}^T\boldsymbol{\epsilon} &                                               \\
+	minimize\ \ &\boldsymbol{\epsilon}^T\boldsymbol{\epsilon} &                                               \\
 	            & subject\ to\ \sum |\boldsymbol\beta_i| \leq t 
 \end{align*}
 
