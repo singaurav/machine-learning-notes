@@ -23,28 +23,28 @@ Consider the following set of four observations in two dimesions,
 	\begin{tikzpicture}
 		\tikzstyle {point line} = [line width=0.15em]
 		\tikzstyle {margin} = [dashed]
-				
-		\draw[step=1.0, gray, very thin] (-4.5, -4.5) grid (4.5, 4.5);
-								    
-		\draw[-latex] (-5,0) -- (5,0) node[right]{x};
-		\draw[-latex] (0,-5) -- (0,5) node[left]{y};	
 						
+		\draw[step=1.0, gray, very thin] (-4.5, -4.5) grid (4.5, 4.5);
+										    
+		\draw[-latex] (-5,0) -- (5,0) node[right]{x1};
+		\draw[-latex] (0,-5) -- (0,5) node[left]{x2};	
+								
 		\draw[point line] (2.7, 2) -- (3.3, 2);	
 		\draw[point line] (3, 1.7) -- (3, 2.3);
 		\draw (3, 2) node [below right] {(3, 2)};    	
-				
+						
 		\draw[point line] (-1.3, 0) -- (-0.7, 0);	
 		\draw[point line] (-1, -0.3) -- (-1, 0.3);	
 		\draw (-1, 0) node [below left] {(-1, 0)};   
-				
+						
 		\draw[point line] (-1.3, 2) -- (-0.7, 2);	
 		\draw[point line] (-1, 1.7) -- (-1, 2.3);	
 		\draw (-1, 2) node [above left] {(-1, 2)};   
-				
+						
 		\draw[point line] (-1.3, -4) -- (-0.7, -4);	
 		\draw[point line] (-1, -4.3) -- (-1, -3.7);	
 		\draw (-1, -4) node [above left] {(-1, -4)};   
-					   		
+							   		
 	\end{tikzpicture}
 \end{figure}
 
@@ -57,32 +57,32 @@ To see how PCA alters the representation of this tiny dataset, the dataset is fi
 \end{align*}
 
 The x-axis intercepts are represented by the first row of this matrix while y-axis intercepts are represented by the second row.
-This matrix can be thought of as a representation composed of two random variables x and y. The variances of these variables and their covariance are useful quantities to describe the structure of the dataset.
+This matrix can be thought of as a representation composed of two random variables x1 and x2. The variances of these variables and their covariance are useful quantities to describe the structure of the dataset.
 
 \begin{align*}
-	Var(x)    & = \frac{1}{N} \sum\limits_{i = 1}^N (x_i - \bar{x})^2              \\
-	          & = \frac{1}{4} \sum\limits_{i = 1}^4 (x_i - 0)^2                    \\
-	          & = \frac{1}{4} |x|^2                                                \\
-	          & = \frac{3^2 + (-1)^ 2 + (-1)^2 + (-1)^2}{4}                        \\
-	          & = 3                                                                \\
-	Var(y)    & = \frac{1}{4} \sum\limits_{i = 1}^4 (y_i - 0)^2                    \\
-	          & = \frac{1}{4} |y|^2                                                \\
-	          & = \frac{2^2 + 0^ 2 + 2^2 + (-4)^2}{4}                              \\           
-	          & = 6                                                                \\
-	Cov(x, y) & = \frac{1}{N} \sum\limits_{i = 1}^N (x_i - \bar{x})(y_i - \bar{y}) \\
-	          & = \frac{1}{4} \sum\limits_{i = 1}^4 (x_i - 0)(y_i - 0)             \\  
-	          & = \frac{1}{4} \vec{x}.\vec{y}                                      \\
-	          & = \frac{3*2 + (-1)*0 + (-1)*2 + (-1)*(-4)}{4}                      \\
-	          & = 2                                                                
+	Var(x1)     & = \frac{1}{N} \sum\limits_{i = 1}^N (x1_i - \bar{x1})^2                \\
+	            & = \frac{1}{4} \sum\limits_{i = 1}^4 (x1_i - 0)^2                       \\
+	            & = \frac{1}{4} |x1|^2                                                   \\
+	            & = \frac{3^2 + (-1)^ 2 + (-1)^2 + (-1)^2}{4}                            \\
+	            & = 3                                                                    \\
+	Var(x2)     & = \frac{1}{4} \sum\limits_{i = 1}^4 (x2_i - 0)^2                       \\
+	            & = \frac{1}{4} |x2|^2                                                   \\
+	            & = \frac{2^2 + 0^ 2 + 2^2 + (-4)^2}{4}                                  \\           
+	            & = 6                                                                    \\
+	Cov(x1, x2) & = \frac{1}{N} \sum\limits_{i = 1}^N (x1_i - \bar{x1})(x2_i - \bar{x2}) \\
+	            & = \frac{1}{4} \sum\limits_{i = 1}^4 (x1_i - 0)(x2_i - 0)               \\  
+	            & = \frac{1}{4} \vec{x1}.\vec{x2}                                        \\
+	            & = \frac{3*2 + (-1)*0 + (-1)*2 + (-1)*(-4)}{4}                          \\
+	            & = 2                                                                    
 \end{align*}
 
 Note that the mean of both the vectors is zero in the dataset. This is a necessary precondition for PCA, the reason for this constraint will become apparent in later sections. Next, these variances and covariance are arranged in a matrix as follows.
 
 \begin{align*}
-	\sum & = \begin{pmatrix} Var(x) & Cov(x, y) \\
-	Cov(x, y) & Var(y) \\ 
+	\sum & = \begin{pmatrix} Var(x1) & Cov(x1, x2) \\
+	Cov(x1, x2) & Var(x2) \\ 
 	\end{pmatrix} \\
-	     & = \begin{pmatrix} 3      & 2         \\
+	     & = \begin{pmatrix} 3       & 2           \\
 	2 & 6 \\ 
 	\end{pmatrix}           
 \end{align*}
@@ -121,6 +121,48 @@ This gives eigenvalues $\lambda = 2, 7$ and eignevectors $\phi = (\frac{-2}{\sqr
 	\end{pmatrix}	                
 \end{align*}
 
+
+See the following visualization of eigenvectors.
+
+\FloatBarrier\clearpage
+\begin{figure}[htbp]
+	\centering
+	\begin{tikzpicture}
+		\tikzstyle {point line} = [line width=0.15em]
+		\tikzstyle {margin} = [dashed]
+						
+		\draw[step=1.0, gray, very thin] (-4.5, -4.5) grid (4.5, 4.5);
+										    
+		\draw[-latex] (-5,0) -- (5,0) node[right]{x1};
+		\draw[-latex] (0,-5) -- (0,5) node[left]{x2};	
+								
+		\draw[point line] (2.7, 2) -- (3.3, 2);	
+		\draw[point line] (3, 1.7) -- (3, 2.3);
+		\draw (3, 2) node [below right] {(3, 2)};    	
+						
+		\draw[point line] (-1.3, 0) -- (-0.7, 0);	
+		\draw[point line] (-1, -0.3) -- (-1, 0.3);	
+		\draw (-1, 0) node [below left] {(-1, 0)};   
+						
+		\draw[point line] (-1.3, 2) -- (-0.7, 2);	
+		\draw[point line] (-1, 1.7) -- (-1, 2.3);	
+		\draw (-1, 2) node [above left] {(-1, 2)};   
+						
+		\draw[point line] (-1.3, -4) -- (-0.7, -4);	
+		\draw[point line] (-1, -4.3) -- (-1, -3.7);	
+		\draw (-1, -4) node [above left] {(-1, -4)}; 
+				
+		\draw[very thick,->] (0,0) -- (.45,.90);  
+		\draw[dashed] (-2.25, -4.5) -- (2.25,4.5);
+		\draw (.45, .90) node [right] {$(\frac{1}{\sqrt{5}}, \frac{2}{\sqrt{5}})$}; 
+				
+		\draw[very thick,->] (0,0) -- (-0.90,0.45);  
+		\draw[dashed] (-4.5, 2.25) -- (4.5,-2.25);
+		\draw (-0.90,0.45) node [above] {$(\frac{-2}{\sqrt{5}}, \frac{1}{\sqrt{5}})$};
+							   		
+	\end{tikzpicture}
+\end{figure}
+
 Now the transformed dataset Y is calculated simply as product of P and X.
 
 \begin{align*}
@@ -142,35 +184,35 @@ To visualize the result, Y is plotted on a graph,
 	\begin{tikzpicture}
 		\tikzstyle {point line} = [line width=0.15em]
 		\tikzstyle {margin} = [dashed]
-				
-		\draw[step=1.0, gray, very thin] (-4.5, -4.5) grid (4.5, 4.5);
-								    
-		\draw[-latex] (-5,0) -- (5,0) node[right]{x};
-		\draw[-latex] (0,-5) -- (0,5) node[left]{y};	
 						
+		\draw[step=1.0, gray, very thin] (-4.5, -4.5) grid (4.5, 4.5);
+										    
+		\draw[-latex] (-5,0) -- (5,0) node[right]{y1};
+		\draw[-latex] (0,-5) -- (0,5) node[left]{y2};	
+								
 		\draw[point line] (2.83, -1.78) -- (3.43, -1.78);	
 		\draw[point line] (3.13, -2.08) -- (3.13, -1.48);
-		\draw (3.13, -1.78) node [below right] {};    	
-				
+		\draw (3.13, -1.78) node [below left] {$(\frac{7}{\sqrt{5}}, \frac{-4}{\sqrt{5}})$};    	
+						
 		\draw[point line] (-0.74, 0.89) -- (-0.14, 0.89);	
 		\draw[point line] (-0.44, 0.59) -- (-0.44, 1.19);	
-		\draw (-0.44, 0.89) node [below left] {};   
-				
+		\draw (-0.44, 0.89) node [below left] {$(\frac{-1}{\sqrt{5}}, \frac{2}{\sqrt{5}})$};   
+						
 		\draw[point line] (1.04, 1.78) -- (1.64, 1.78);	
 		\draw[point line] (1.34, 1.48) -- (1.34, 2.08);	
-		\draw (1.34, 1.78) node [above left] {};   
-				
+		\draw (1.34, 1.78) node [below right] {$(\frac{3}{\sqrt{5}}, \frac{4}{\sqrt{5}})$};   
+						
 		\draw[point line] (-4.32 , -0.89) -- (-3.72 , -0.89);	
 		\draw[point line] (-4.02, -1.19) -- (-4.02,-0.59 );	
-		\draw (-4.02, -0.89) node [above left] {};   
-					   		
+		\draw (-4.02, -0.89) node [below right] {$(\frac{-9}{\sqrt{5}}, \frac{-2}{\sqrt{5}})$};   
+							   		
 	\end{tikzpicture}
 \end{figure}
 
 Visually, the points on the transformed graph arise due to a change of axes from the original axes to the axes defined by the eigenvectors of $\sum$. To see why this choice of axes was made, the variance covariance matrix of the transformed data is calculated.
 
 \begin{align*}
-	\sum_y &= \frac{1}{N} YY^T \\
+	\sum_{new} &= \frac{1}{N} YY^T \\
 	  & = \frac{1}{4} \frac{1}{\sqrt{5}} \begin{pmatrix} 7 & -1 & 3 & -9 \\
 	-4 & 2 & 4 & -2  
 	\end{pmatrix} \frac{1}{\sqrt{5}}  \begin{pmatrix} 7 & -4 \\
@@ -186,8 +228,81 @@ Visually, the points on the transformed graph arise due to a change of axes from
 	\end{pmatrix}          
 \end{align*}
 
-Two notes - the variance covariance matrix of transformed data is diagonalized meaning there is no correlation between the new variables and the variance values i.e. the diagonal terms are equal to the eigenvalues. 
+This results in the variance covariance of transformed data being diagonalized. Also notice that the variance values i.e. the diagonal terms are equal to the corresponding eigenvalues. PCA yields a set of a new set of variables/axes from the original set of variables/axes which have the following properties.
 
-This is the central point of PCA: it gives you a transformation of variables which are uncorrelated and you are free to choose a subset of these variables depending on the tradeoff between smaller number of dimensions vs loss in variance. In practice, a large chunk of calculated variables in the bottom right part of the diagonal are near zero in their variance and thus are ignored resulting in dimensionality reduction.
+
+\begin{itemize}
+	\item New variables are mutually uncorrelated.
+	\item New variables are orthogonal to each other.
+\end{itemize}
+
+You are free to choose a subset of these new variables depending on the tradeoff between smaller number of dimensions vs loss in variance. In practice, a large chunk of calculated variables in the bottom right part of the diagonal are near zero in their variance and thus are ignored resulting in dimensionality reduction. 
+In this example, if the new variable corresponding to lower variance is dropped, the dataset is transformed from 2-d to 1-d as shown below.
+
+
+\begin{figure}[htbp]
+	\centering
+	\begin{tikzpicture}
+		\tikzstyle {point line} = [line width=0.15em]
+										    
+		\draw[-latex] (-5,0) -- (5,0) node[right]{y1};
+								
+		\draw[point line] (2.83, 0) -- (3.43, 0);	
+		\draw[point line] (3.13, -0.3) -- (3.13, 0.3);
+		\draw (3.13, -0.2) node [below] {$\frac{7}{\sqrt{5}}$};    	
+						
+		\draw[point line] (-0.74, 0) -- (-0.14, 0);	
+		\draw[point line] (-0.44, -.3) -- (-0.44, .3);	
+		\draw (-0.44, -0.2) node [below] {$\frac{-1}{\sqrt{5}}$};   
+						
+		\draw[point line] (1.04, 0) -- (1.64, 0);	
+		\draw[point line] (1.34, -.3) -- (1.34, .3);	
+		\draw (1.34, -0.2) node [below] {$\frac{3}{\sqrt{5}}$};   
+						
+		\draw[point line] (-4.32 , 0) -- (-3.72 , 0);	
+		\draw[point line] (-4.02, -0.3) -- (-4.02,0.3 );	
+		\draw (-4.02, -0.2) node [below] {$\frac{-9}{\sqrt{5}}$};   
+							   		
+	\end{tikzpicture}
+\end{figure}
+
+\section{Mathematics}
+
+Assume a (mxn) matrix X as a set of n observations of m random variables such that each observation is a column in the matrix X. Furthermore, assume that each variable has zero mean meaning that each row of the matrix sums up to zero. Denote by $\sum_x$ the variance covariance matrix of the variables. Due to the zero mean condition, 
+
+\begin{align*}
+	\sum_x = XX^T 
+\end{align*} 
+
+Let $\phi_i, \phi_2, ..., \phi_m$ be the m orthonormal eigenvectors of $\sum_x$. Let P be defined as the matrix $[\phi_1^T, \phi_2^T, ..., \phi_m^T]^T$. Consider the following transformation, 
+
+\begin{align*}
+	Y = PX 
+\end{align*}
+
+It can be shown that the resulting variables are also zero-mean based. So, their variance covariance matrix can be written as,
+
+\begin{align*}
+	\sum_y & = YY^T       \\
+	       & = (PX)(PX)^T \\
+	       & = PXX^TP^T   \\
+	       & = P\sum_xP^T \\           
+\end{align*}
+
+$\sum_x$ is symmetric and all symmetric matrices are diagonalized by a matrix of their orthonormal eigenvectors. Or more precisely,
+
+\begin{align*}
+	\sum_x = P^TDP 
+\end{align*}
+
+where D is a diagonal matrix. Upon substitution in the preceding equation,
+
+\begin{align*}
+	\sum_y = PP^TDPP^T 
+\end{align*}
+
+Since P is orthonormal, its transpose is its inverse and thus $PP^T = I$ which reduces $\sum_y$ to D.
+
+\section{Kernel PCA}
 
 \end{document}
