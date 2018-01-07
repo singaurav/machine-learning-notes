@@ -23,28 +23,28 @@ Consider the following set of four observations in two dimesions,
 	\begin{tikzpicture}
 		\tikzstyle {point line} = [line width=0.15em]
 		\tikzstyle {margin} = [dashed]
-						
+										
 		\draw[step=1.0, gray, very thin] (-4.5, -4.5) grid (4.5, 4.5);
-										    
+														    
 		\draw[-latex] (-5,0) -- (5,0) node[right]{x1};
 		\draw[-latex] (0,-5) -- (0,5) node[left]{x2};	
-								
+												
 		\draw[point line] (2.7, 2) -- (3.3, 2);	
 		\draw[point line] (3, 1.7) -- (3, 2.3);
 		\draw (3, 2) node [below right] {(3, 2)};    	
-						
+										
 		\draw[point line] (-1.3, 0) -- (-0.7, 0);	
 		\draw[point line] (-1, -0.3) -- (-1, 0.3);	
 		\draw (-1, 0) node [below left] {(-1, 0)};   
-						
+										
 		\draw[point line] (-1.3, 2) -- (-0.7, 2);	
 		\draw[point line] (-1, 1.7) -- (-1, 2.3);	
 		\draw (-1, 2) node [above left] {(-1, 2)};   
-						
+										
 		\draw[point line] (-1.3, -4) -- (-0.7, -4);	
 		\draw[point line] (-1, -4.3) -- (-1, -3.7);	
 		\draw (-1, -4) node [above left] {(-1, -4)};   
-							   		
+											   		
 	\end{tikzpicture}
 \end{figure}
 
@@ -130,36 +130,36 @@ See the following visualization of eigenvectors.
 	\begin{tikzpicture}
 		\tikzstyle {point line} = [line width=0.15em]
 		\tikzstyle {margin} = [dashed]
-						
+										
 		\draw[step=1.0, gray, very thin] (-4.5, -4.5) grid (4.5, 4.5);
-										    
+														    
 		\draw[-latex] (-5,0) -- (5,0) node[right]{x1};
 		\draw[-latex] (0,-5) -- (0,5) node[left]{x2};	
-								
+												
 		\draw[point line] (2.7, 2) -- (3.3, 2);	
 		\draw[point line] (3, 1.7) -- (3, 2.3);
 		\draw (3, 2) node [below right] {(3, 2)};    	
-						
+										
 		\draw[point line] (-1.3, 0) -- (-0.7, 0);	
 		\draw[point line] (-1, -0.3) -- (-1, 0.3);	
 		\draw (-1, 0) node [below left] {(-1, 0)};   
-						
+										
 		\draw[point line] (-1.3, 2) -- (-0.7, 2);	
 		\draw[point line] (-1, 1.7) -- (-1, 2.3);	
 		\draw (-1, 2) node [above left] {(-1, 2)};   
-						
+										
 		\draw[point line] (-1.3, -4) -- (-0.7, -4);	
 		\draw[point line] (-1, -4.3) -- (-1, -3.7);	
 		\draw (-1, -4) node [above left] {(-1, -4)}; 
-				
+								
 		\draw[very thick,->] (0,0) -- (.45,.90);  
 		\draw[dashed] (-2.25, -4.5) -- (2.25,4.5);
 		\draw (.45, .90) node [right] {$(\frac{1}{\sqrt{5}}, \frac{2}{\sqrt{5}})$}; 
-				
+								
 		\draw[very thick,->] (0,0) -- (-0.90,0.45);  
 		\draw[dashed] (-4.5, 2.25) -- (4.5,-2.25);
 		\draw (-0.90,0.45) node [above] {$(\frac{-2}{\sqrt{5}}, \frac{1}{\sqrt{5}})$};
-							   		
+											   		
 	\end{tikzpicture}
 \end{figure}
 
@@ -184,28 +184,28 @@ To visualize the result, Y is plotted on a graph,
 	\begin{tikzpicture}
 		\tikzstyle {point line} = [line width=0.15em]
 		\tikzstyle {margin} = [dashed]
-						
+										
 		\draw[step=1.0, gray, very thin] (-4.5, -4.5) grid (4.5, 4.5);
-										    
+														    
 		\draw[-latex] (-5,0) -- (5,0) node[right]{y1};
 		\draw[-latex] (0,-5) -- (0,5) node[left]{y2};	
-								
+												
 		\draw[point line] (2.83, -1.78) -- (3.43, -1.78);	
 		\draw[point line] (3.13, -2.08) -- (3.13, -1.48);
 		\draw (3.13, -1.78) node [below left] {$(\frac{7}{\sqrt{5}}, \frac{-4}{\sqrt{5}})$};    	
-						
+										
 		\draw[point line] (-0.74, 0.89) -- (-0.14, 0.89);	
 		\draw[point line] (-0.44, 0.59) -- (-0.44, 1.19);	
 		\draw (-0.44, 0.89) node [below left] {$(\frac{-1}{\sqrt{5}}, \frac{2}{\sqrt{5}})$};   
-						
+										
 		\draw[point line] (1.04, 1.78) -- (1.64, 1.78);	
 		\draw[point line] (1.34, 1.48) -- (1.34, 2.08);	
 		\draw (1.34, 1.78) node [below right] {$(\frac{3}{\sqrt{5}}, \frac{4}{\sqrt{5}})$};   
-						
+										
 		\draw[point line] (-4.32 , -0.89) -- (-3.72 , -0.89);	
 		\draw[point line] (-4.02, -1.19) -- (-4.02,-0.59 );	
 		\draw (-4.02, -0.89) node [below right] {$(\frac{-9}{\sqrt{5}}, \frac{-2}{\sqrt{5}})$};   
-							   		
+											   		
 	\end{tikzpicture}
 \end{figure}
 
@@ -244,25 +244,25 @@ In this example, if the new variable corresponding to lower variance is dropped,
 	\centering
 	\begin{tikzpicture}
 		\tikzstyle {point line} = [line width=0.15em]
-										    
+														    
 		\draw[-latex] (-5,0) -- (5,0) node[right]{y1};
-								
+												
 		\draw[point line] (2.83, 0) -- (3.43, 0);	
 		\draw[point line] (3.13, -0.3) -- (3.13, 0.3);
 		\draw (3.13, -0.2) node [below] {$\frac{7}{\sqrt{5}}$};    	
-						
+										
 		\draw[point line] (-0.74, 0) -- (-0.14, 0);	
 		\draw[point line] (-0.44, -.3) -- (-0.44, .3);	
 		\draw (-0.44, -0.2) node [below] {$\frac{-1}{\sqrt{5}}$};   
-						
+										
 		\draw[point line] (1.04, 0) -- (1.64, 0);	
 		\draw[point line] (1.34, -.3) -- (1.34, .3);	
 		\draw (1.34, -0.2) node [below] {$\frac{3}{\sqrt{5}}$};   
-						
+										
 		\draw[point line] (-4.32 , 0) -- (-3.72 , 0);	
 		\draw[point line] (-4.02, -0.3) -- (-4.02,0.3 );	
 		\draw (-4.02, -0.2) node [below] {$\frac{-9}{\sqrt{5}}$};   
-							   		
+											   		
 	\end{tikzpicture}
 \end{figure}
 
@@ -308,149 +308,154 @@ Since P is orthonormal, its transpose is its inverse and thus $PP^T = I$ which r
 Let X be $[x_1, x_2, ..., x_N]$ where each $x_i$ is an observation of M variables. Consider mapping each $x_i$ to $f(x_i)$ where $f$ is non-linear and may increase the dimensionality of each $x_i$. So,
 
 \begin{align*}
-    f(X) = [f(x_1), f(x_2), ..., f(x_N)]
+	f(X) = [f(x_1), f(x_2), ..., f(x_N)] 
 \end{align*}
 
 Now examine the variance covariance matrix of $f(X)$.
 
 \begin{align*}
-    \sum_f &= \frac{1}{N}f(X)f(X)^T \\
-           &= \frac{1}{N}[f(x_1), f(x_2), ..., f(x_N)]\begin{pmatrix}
-               f(x_1^T) \\
-               f(x_2^T) \\
-               ... \\
-               f(x_N^T) 
-           \end{pmatrix} \\
-           &= \frac{1}{N} \sum_{i = 1}^{N} f(x_i)f(x_i^T) \\
+	\sum_f & = \frac{1}{N}f(X)f(X)^T                                   \\
+	       & = \frac{1}{N}[f(x_1), f(x_2), ..., f(x_N)]\begin{pmatrix} 
+	f(x_1^T) \\
+	f(x_2^T) \\
+	... \\
+	f(x_N^T) 
+	\end{pmatrix} \\
+	       & = \frac{1}{N} \sum_{i = 1}^{N} f(x_i)f(x_i^T)             \\
 \end{align*}
 
 To find principal components, eigenvalues and eigenvectors of the variance covariance matrix must be found out. since there are N eigenvalue, eigenvector pairs, they will be subscripted by j.
 
 \begin{align*}
-    \lambda_j\phi_j &= \sum_f\phi_j\\
-    \lambda_j\phi_j &= \frac{1}{N} \sum_{i = 1}^{N} f(x_i)f(x_i^T)\phi_j \\
+	\lambda_j\phi_j & = \sum_f\phi_j                                      \\
+	\lambda_j\phi_j & = \frac{1}{N} \sum_{i = 1}^{N} f(x_i)f(x_i^T)\phi_j \\
 \end{align*}
 
 Since $f(x_i^T)\phi_j = \vec{f(x_i)}.\vec{\phi_j}$ is just a scalar, the equation can be simplified to,
 
 \begin{align*}
-    \phi_j &= \sum_{i = 1}^{N} \frac{\vec{f(x_i)}.\vec{\phi_j}}{N\lambda_j}f(x_i) \\
+	\phi_j & = \sum_{i = 1}^{N} \frac{\vec{f(x_i)}.\vec{\phi_j}}{N\lambda_j}f(x_i) \\
 \end{align*}
 
 Substituting $\frac{\vec{f(x_i)}.\vec{\phi_j}}{N\lambda_j}$ = $a_{ij}$, the equation becomes,
 
 \begin{align*}
-    \phi_j = \sum_{i = 1}^{N} a_{ij} f(x_i) 
+	\phi_j = \sum_{i = 1}^{N} a_{ij} f(x_i) 
 \end{align*} 
 
 This equation reveas that the principal components are linear combinations of the observations.
 
 \begin{align*}
-    \phi_j = a_{1j}f(x_1) + a_{2j}f(x_2) + ... + a_{Nj}f(x_N) \\ 
+	\phi_j = a_{1j}f(x_1) + a_{2j}f(x_2) + ... + a_{Nj}f(x_N) \\ 
 \end{align*}
 
 Taking dot products by $f(x_1), f(x_2) ... f(x_N)$ successively,
 
 \begin{align*}
-       \vec{f(x_1)}.\vec{\phi_j} &= a_{1j}\vec{f(x_1)}.\vec{f(x_1)} + a_{2j}\vec{f(x_1)}.\vec{f(x_2)} + ... + a_{Nj}\vec{f(x_1)}.\vec{f(x_N)} \\
-\vec{f(x_2)}.\vec{\phi_j} &= a_{1j}\vec{f(x_2)}.\vec{f(x_1)} + a_{2j}\vec{f(x_2)}.\vec{f(x_2)} + ... + a_{Nj}\vec{f(x_2)}.\vec{f(x_N)} \\ 
-    ... &= ... \\
-    \vec{f(x_N)}.\vec{\phi_j} &= a_{1j}\vec{f(x_N)}.\vec{f(x_1)} + a_{2j}\vec{f(x_N)}.\vec{f(x_2)} + ... + a_{Nj}\vec{f(x_N)}.\vec{f(x_N)}
+	\vec{f(x_1)}.\vec{\phi_j} & = a_{1j}\vec{f(x_1)}.\vec{f(x_1)} + a_{2j}\vec{f(x_1)}.\vec{f(x_2)} + ... + a_{Nj}\vec{f(x_1)}.\vec{f(x_N)} \\
+	\vec{f(x_2)}.\vec{\phi_j} & = a_{1j}\vec{f(x_2)}.\vec{f(x_1)} + a_{2j}\vec{f(x_2)}.\vec{f(x_2)} + ... + a_{Nj}\vec{f(x_2)}.\vec{f(x_N)} \\ 
+	...                       & = ...                                                                                                       \\
+	\vec{f(x_N)}.\vec{\phi_j} & = a_{1j}\vec{f(x_N)}.\vec{f(x_1)} + a_{2j}\vec{f(x_N)}.\vec{f(x_2)} + ... + a_{Nj}\vec{f(x_N)}.\vec{f(x_N)} 
 \end{align*}
 
-In matrix form, these equation look like,
+In matrix form, these equations look like,
 
 \begin{align*}
-    \begin{pmatrix}
-        \vec{f(x_1)}.\vec{\phi_j} \\
-        \vec{f(x_2)}.\vec{\phi_j} \\
-        ... \\
-        \vec{f(x_N)}.\vec{\phi_j} 
-    \end{pmatrix} = \begin{pmatrix}
-        \vec{f(x_1)}.\vec{f(x_1)} & \vec{f(x_1)}.\vec{f(x_2)} & ... &  \vec{f(x_1)}.\vec{f(x_N)} \\
-        \vec{f(x_2)}.\vec{f(x_1)} & \vec{f(x_2)}.\vec{f(x_2)} & ... &  \vec{f(x_2)}.\vec{f(x_N)} \\
-        ... \\
-        \vec{f(x_N)}.\vec{f(x_1)} & \vec{f(x_N)}.\vec{f(x_2)} & ... &  \vec{f(x_N)}.\vec{f(x_N)} \\
-    \end{pmatrix} \begin{pmatrix}
-        a_{1j} \\
-        a_{2j} \\
-        ... \\
-        a_{Nj} \\
-    \end{pmatrix}
+	\begin{pmatrix}
+	\vec{f(x_1)}.\vec{\phi_j} \\
+	\vec{f(x_2)}.\vec{\phi_j} \\
+	... \\
+	\vec{f(x_N)}.\vec{\phi_j} 
+	\end{pmatrix} = \begin{pmatrix}
+	\vec{f(x_1)}.\vec{f(x_1)} & \vec{f(x_1)}.\vec{f(x_2)} & ... & \vec{f(x_1)}.\vec{f(x_N)} \\
+	\vec{f(x_2)}.\vec{f(x_1)} & \vec{f(x_2)}.\vec{f(x_2)} & ... & \vec{f(x_2)}.\vec{f(x_N)} \\
+	... \\
+	\vec{f(x_N)}.\vec{f(x_1)} & \vec{f(x_N)}.\vec{f(x_2)} & ... & \vec{f(x_N)}.\vec{f(x_N)} \\
+	\end{pmatrix} \begin{pmatrix}
+	a_{1j} \\
+	a_{2j} \\
+	... \\
+	a_{Nj} \\
+	\end{pmatrix}
 \end{align*}
 
 The first matrix on the right is a NxN matrix. Denote it by the kernel matrix: K. For every term on the left hand side matrix use the fact that $\vec{f(x_i)}.\vec{\phi_j} = N\lambda_j a_{ij}$.
 
 \begin{align*}
-    N\lambda_j \begin{pmatrix}
-        a_{1j} \\
-        a_{2j} \\
-        ... \\
-        a_{Nj} \\
-    \end{pmatrix} = K \begin{pmatrix}
-        a_{1j} \\
-        a_{2j} \\
-        ... \\
-        a_{Nj} \\
-    \end{pmatrix}
+	N\lambda_j \begin{pmatrix}        
+	a_{1j}                            \\
+	a_{2j}                            \\
+	...                               \\
+	a_{Nj}                            \\
+	\end{pmatrix} = K \begin{pmatrix} 
+	a_{1j}                            \\
+	a_{2j}                            \\
+	...                               \\
+	a_{Nj}                            \\
+	\end{pmatrix}                     
 \end{align*}
 
 It is apparent that $N\lambda_j, [a_{1j}, a_{2j}, ..., a_{Nj}]^T \forall j \in [1, N]$are eigenvalue, eigenvector pairs for the matrix K. The PCA transform for $f(X)$ can be written as,
 
 \begin{align*}
-    Y &= \begin{pmatrix}
-        \phi_1^T \\
-        \phi_2^T \\
-        ... \\
-        \phi_N^T \\
-    \end{pmatrix} f(X) \\
-      &= \begin{pmatrix}
-        \phi_1^T \\
-        \phi_2^T \\
-        ... \\
-        \phi_N^T \\
-    \end{pmatrix} [f(x_1), f(x_2), ..., f(x_N)] \\
-      &= \begin{pmatrix}
-          \vec{\phi_1}.\vec{f(x_1)} & \vec{\phi_1}.\vec{f(x_2)} & ... & \vec{\phi_1}.\vec{f(x_N)} \\
-          \vec{\phi_2}.\vec{f(x_1)} & \vec{\phi_2}.\vec{f(x_2)} & ... & \vec{\phi_2}.\vec{f(x_N)} \\
-          ... \\
-          \vec{\phi_N}.\vec{f(x_1)} & \vec{\phi_N}.\vec{f(x_2)} & ... & \vec{\phi_N}.\vec{f(x_N)} \\
-\end{pmatrix}       
+	Y &= \begin{pmatrix}
+	\phi_1^T \\
+	\phi_2^T \\
+	... \\
+	\phi_N^T \\
+	\end{pmatrix} f(X) \\
+	&= \begin{pmatrix}
+	\phi_1^T \\
+	\phi_2^T \\
+	... \\
+	\phi_N^T \\
+	\end{pmatrix} [f(x_1), f(x_2), ..., f(x_N)] \\
+	&= \begin{pmatrix}
+	\vec{\phi_1}.\vec{f(x_1)} & \vec{\phi_1}.\vec{f(x_2)} & ... & \vec{\phi_1}.\vec{f(x_N)} \\
+	\vec{\phi_2}.\vec{f(x_1)} & \vec{\phi_2}.\vec{f(x_2)} & ... & \vec{\phi_2}.\vec{f(x_N)} \\
+	... \\
+	\vec{\phi_N}.\vec{f(x_1)} & \vec{\phi_N}.\vec{f(x_2)} & ... & \vec{\phi_N}.\vec{f(x_N)} \\
+	\end{pmatrix}       
 \end{align*} 
 
 Using the relation $\vec{f(x_i)}.\vec{\phi_j} = N\lambda_j a_{ij}$,
 
 \begin{align*}
-    Y &= \begin{pmatrix}
-          N\lambda_1 a_{11} & N\lambda_1 a_{21} & ... & N\lambda_1 a_{N1} \\ 
-          N\lambda_2 a_{12} & N\lambda_2 a_{22} & ... & N\lambda_2 a_{N2} \\ 
-          ... \\
-          N\lambda_N a_{1N} & N\lambda_N a_{2N} & ... & N\lambda_N a_{NN} \\ 
-\end{pmatrix} \\
-    &=  N\begin{pmatrix}
-          \lambda_1 a_{11} & \lambda_1 a_{21} & ... & \lambda_1 a_{N1} \\ 
-          \lambda_2 a_{12} & \lambda_2 a_{22} & ... & \lambda_2 a_{N2} \\ 
-          ... \\
-          \lambda_N a_{1N} & \lambda_N a_{2N} & ... & \lambda_N a_{NN} \\ 
-\end{pmatrix}      
+	Y &= \begin{pmatrix}
+	N\lambda_1 a_{11} & N\lambda_1 a_{21} & ... & N\lambda_1 a_{N1} \\ 
+	N\lambda_2 a_{12} & N\lambda_2 a_{22} & ... & N\lambda_2 a_{N2} \\ 
+	... \\
+	N\lambda_N a_{1N} & N\lambda_N a_{2N} & ... & N\lambda_N a_{NN} \\ 
+	\end{pmatrix} \\
+	&=  N\begin{pmatrix}
+	\lambda_1 a_{11}  & \lambda_1 a_{21}  & ... & \lambda_1 a_{N1}  \\ 
+	\lambda_2 a_{12}  & \lambda_2 a_{22}  & ... & \lambda_2 a_{N2}  \\ 
+	... \\
+	\lambda_N a_{1N}  & \lambda_N a_{2N}  & ... & \lambda_N a_{NN}  \\ 
+	\end{pmatrix}      
 \end{align*} 
 
 This is the kernel trick for PCA where it is not required to explicit map each point to higher dimensions whcich may be computationally expensive. PCA transformation in nonlinear higher dimensions can be calculated by performing the following steps in the order below. 
 
 \begin{itemize}
-    \item Choose a kernel $ k(x_i, x_j) = \vec{f(x_i)}.\vec{f(x_j)}$.
-    \item Calculate kernel matrix K = $\begin{pmatrix}
-        k(x_1, x_1) & k(x_1, x_2) & ... & k(x_1, x_N) \\
-        k(x_2, x_1) & k(x_2, x_2) & ... & k(x_2, x_N) \\
-        ... \\
-        k(x_N, x_1) & k(x_N, x_2) & ... & k(x_N, x_N) \\
-    \end{pmatrix}$.
-    \item Find the eigenvalue, eigenvalue pairs of K.
-    \item Use eigenvalue, eigenvector pairs to calcuate the kernel PCA transform as shown above.
-    \item Do dimensinality reduction as appropriate.  
+	\item Choose a kernel $ k(x_i, x_j) = \vec{f(x_i)}.\vec{f(x_j)}$.
+	\item Calculate kernel matrix K = $\begin{pmatrix}
+	      k(x_1, x_1) & k(x_1, x_2) & ... & k(x_1, x_N) \\
+	      k(x_2, x_1) & k(x_2, x_2) & ... & k(x_2, x_N) \\
+	      ... \\
+	      k(x_N, x_1) & k(x_N, x_2) & ... & k(x_N, x_N) \\
+	\end{pmatrix}$.
+	\item Find the eigenvalue, eigenvalue pairs of K.
+	\item Use eigenvalue, eigenvector pairs to calcuate the kernel PCA transform as shown above.
+	\item Do dimensinality reduction as appropriate.  
 \end{itemize}
 
 \section{Assumptions and Limitations}
 
+\begin{itemize}
+	\item The new variables are linear combinations of the original ones. Kernel PCA helps alleviate this problem.
+	\item PCA assumes that mean and variance are sufficient statistics to describe a random variable. Since only Gaussian distributions are described fully by their variance, the assumption that input dataset is Gaussian is inherent.
+	\item The new variables are orthogonal which can be limiting but makes the solution to be readily expressible through linear algebra. 
+\end{itemize}
 
 \end{document}
