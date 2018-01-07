@@ -268,7 +268,7 @@ In this example, if the new variable corresponding to lower variance is dropped,
 
 \section{Mathematics}
 
-Assume a (mxn) matrix X as a set of n observations of m random variables such that each observation is a column in the matrix X. Furthermore, assume that each variable has zero mean meaning that each row of the matrix sums up to zero. Denote by $\sum_x$ the variance covariance matrix of the variables. Due to the zero mean condition, 
+Assume a (MxN) matrix X as a set of N observations of M random variables such that each observation is a column in the matrix X. Furthermore, assume that each variable has zero mean meaning that each row of the matrix sums up to zero. Denote by $\sum_x$ the variance covariance matrix of the variables. Due to the zero mean condition, 
 
 \begin{align*}
 	\sum_x = XX^T 
@@ -304,5 +304,153 @@ where D is a diagonal matrix. Upon substitution in the preceding equation,
 Since P is orthonormal, its transpose is its inverse and thus $PP^T = I$ which reduces $\sum_y$ to D.
 
 \section{Kernel PCA}
+
+Let X be $[x_1, x_2, ..., x_N]$ where each $x_i$ is an observation of M variables. Consider mapping each $x_i$ to $f(x_i)$ where $f$ is non-linear and may increase the dimensionality of each $x_i$. So,
+
+\begin{align*}
+    f(X) = [f(x_1), f(x_2), ..., f(x_N)]
+\end{align*}
+
+Now examine the variance covariance matrix of $f(X)$.
+
+\begin{align*}
+    \sum_f &= \frac{1}{N}f(X)f(X)^T \\
+           &= \frac{1}{N}[f(x_1), f(x_2), ..., f(x_N)]\begin{pmatrix}
+               f(x_1^T) \\
+               f(x_2^T) \\
+               ... \\
+               f(x_N^T) 
+           \end{pmatrix} \\
+           &= \frac{1}{N} \sum_{i = 1}^{N} f(x_i)f(x_i^T) \\
+\end{align*}
+
+To find principal components, eigenvalues and eigenvectors of the variance covariance matrix must be found out. since there are N eigenvalue, eigenvector pairs, they will be subscripted by j.
+
+\begin{align*}
+    \lambda_j\phi_j &= \sum_f\phi_j\\
+    \lambda_j\phi_j &= \frac{1}{N} \sum_{i = 1}^{N} f(x_i)f(x_i^T)\phi_j \\
+\end{align*}
+
+Since $f(x_i^T)\phi_j = \vec{f(x_i)}.\vec{\phi_j}$ is just a scalar, the equation can be simplified to,
+
+\begin{align*}
+    \phi_j &= \sum_{i = 1}^{N} \frac{\vec{f(x_i)}.\vec{\phi_j}}{N\lambda_j}f(x_i) \\
+\end{align*}
+
+Substituting $\frac{\vec{f(x_i)}.\vec{\phi_j}}{N\lambda_j}$ = $a_{ij}$, the equation becomes,
+
+\begin{align*}
+    \phi_j = \sum_{i = 1}^{N} a_{ij} f(x_i) 
+\end{align*} 
+
+This equation reveas that the principal components are linear combinations of the observations.
+
+\begin{align*}
+    \phi_j = a_{1j}f(x_1) + a_{2j}f(x_2) + ... + a_{Nj}f(x_N) \\ 
+\end{align*}
+
+Taking dot products by $f(x_1), f(x_2) ... f(x_N)$ successively,
+
+\begin{align*}
+       \vec{f(x_1)}.\vec{\phi_j} &= a_{1j}\vec{f(x_1)}.\vec{f(x_1)} + a_{2j}\vec{f(x_1)}.\vec{f(x_2)} + ... + a_{Nj}\vec{f(x_1)}.\vec{f(x_N)} \\
+\vec{f(x_2)}.\vec{\phi_j} &= a_{1j}\vec{f(x_2)}.\vec{f(x_1)} + a_{2j}\vec{f(x_2)}.\vec{f(x_2)} + ... + a_{Nj}\vec{f(x_2)}.\vec{f(x_N)} \\ 
+    ... &= ... \\
+    \vec{f(x_N)}.\vec{\phi_j} &= a_{1j}\vec{f(x_N)}.\vec{f(x_1)} + a_{2j}\vec{f(x_N)}.\vec{f(x_2)} + ... + a_{Nj}\vec{f(x_N)}.\vec{f(x_N)}
+\end{align*}
+
+In matrix form, these equation look like,
+
+\begin{align*}
+    \begin{pmatrix}
+        \vec{f(x_1)}.\vec{\phi_j} \\
+        \vec{f(x_2)}.\vec{\phi_j} \\
+        ... \\
+        \vec{f(x_N)}.\vec{\phi_j} 
+    \end{pmatrix} = \begin{pmatrix}
+        \vec{f(x_1)}.\vec{f(x_1)} & \vec{f(x_1)}.\vec{f(x_2)} & ... &  \vec{f(x_1)}.\vec{f(x_N)} \\
+        \vec{f(x_2)}.\vec{f(x_1)} & \vec{f(x_2)}.\vec{f(x_2)} & ... &  \vec{f(x_2)}.\vec{f(x_N)} \\
+        ... \\
+        \vec{f(x_N)}.\vec{f(x_1)} & \vec{f(x_N)}.\vec{f(x_2)} & ... &  \vec{f(x_N)}.\vec{f(x_N)} \\
+    \end{pmatrix} \begin{pmatrix}
+        a_{1j} \\
+        a_{2j} \\
+        ... \\
+        a_{Nj} \\
+    \end{pmatrix}
+\end{align*}
+
+The first matrix on the right is a NxN matrix. Denote it by the kernel matrix: K. For every term on the left hand side matrix use the fact that $\vec{f(x_i)}.\vec{\phi_j} = N\lambda_j a_{ij}$.
+
+\begin{align*}
+    N\lambda_j \begin{pmatrix}
+        a_{1j} \\
+        a_{2j} \\
+        ... \\
+        a_{Nj} \\
+    \end{pmatrix} = K \begin{pmatrix}
+        a_{1j} \\
+        a_{2j} \\
+        ... \\
+        a_{Nj} \\
+    \end{pmatrix}
+\end{align*}
+
+It is apparent that $N\lambda_j, [a_{1j}, a_{2j}, ..., a_{Nj}]^T \forall j \in [1, N]$are eigenvalue, eigenvector pairs for the matrix K. The PCA transform for $f(X)$ can be written as,
+
+\begin{align*}
+    Y &= \begin{pmatrix}
+        \phi_1^T \\
+        \phi_2^T \\
+        ... \\
+        \phi_N^T \\
+    \end{pmatrix} f(X) \\
+      &= \begin{pmatrix}
+        \phi_1^T \\
+        \phi_2^T \\
+        ... \\
+        \phi_N^T \\
+    \end{pmatrix} [f(x_1), f(x_2), ..., f(x_N)] \\
+      &= \begin{pmatrix}
+          \vec{\phi_1}.\vec{f(x_1)} & \vec{\phi_1}.\vec{f(x_2)} & ... & \vec{\phi_1}.\vec{f(x_N)} \\
+          \vec{\phi_2}.\vec{f(x_1)} & \vec{\phi_2}.\vec{f(x_2)} & ... & \vec{\phi_2}.\vec{f(x_N)} \\
+          ... \\
+          \vec{\phi_N}.\vec{f(x_1)} & \vec{\phi_N}.\vec{f(x_2)} & ... & \vec{\phi_N}.\vec{f(x_N)} \\
+\end{pmatrix}       
+\end{align*} 
+
+Using the relation $\vec{f(x_i)}.\vec{\phi_j} = N\lambda_j a_{ij}$,
+
+\begin{align*}
+    Y &= \begin{pmatrix}
+          N\lambda_1 a_{11} & N\lambda_1 a_{21} & ... & N\lambda_1 a_{N1} \\ 
+          N\lambda_2 a_{12} & N\lambda_2 a_{22} & ... & N\lambda_2 a_{N2} \\ 
+          ... \\
+          N\lambda_N a_{1N} & N\lambda_N a_{2N} & ... & N\lambda_N a_{NN} \\ 
+\end{pmatrix} \\
+    &=  N\begin{pmatrix}
+          \lambda_1 a_{11} & \lambda_1 a_{21} & ... & \lambda_1 a_{N1} \\ 
+          \lambda_2 a_{12} & \lambda_2 a_{22} & ... & \lambda_2 a_{N2} \\ 
+          ... \\
+          \lambda_N a_{1N} & \lambda_N a_{2N} & ... & \lambda_N a_{NN} \\ 
+\end{pmatrix}      
+\end{align*} 
+
+This is the kernel trick for PCA where it is not required to explicit map each point to higher dimensions whcich may be computationally expensive. PCA transformation in nonlinear higher dimensions can be calculated by performing the following steps in the order below. 
+
+\begin{itemize}
+    \item Choose a kernel $ k(x_i, x_j) = \vec{f(x_i)}.\vec{f(x_j)}$.
+    \item Calculate kernel matrix K = $\begin{pmatrix}
+        k(x_1, x_1) & k(x_1, x_2) & ... & k(x_1, x_N) \\
+        k(x_2, x_1) & k(x_2, x_2) & ... & k(x_2, x_N) \\
+        ... \\
+        k(x_N, x_1) & k(x_N, x_2) & ... & k(x_N, x_N) \\
+    \end{pmatrix}$.
+    \item Find the eigenvalue, eigenvalue pairs of K.
+    \item Use eigenvalue, eigenvector pairs to calcuate the kernel PCA transform as shown above.
+    \item Do dimensinality reduction as appropriate.  
+\end{itemize}
+
+\section{Assumptions and Limitations}
+
 
 \end{document}
