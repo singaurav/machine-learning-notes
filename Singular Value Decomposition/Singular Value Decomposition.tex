@@ -1,0 +1,156 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\usepackage{amsmath}
+\usepackage{placeins}
+\usepackage{amssymb}
+
+\begin{document}
+
+\title{SINGULAR VALUE DECOMPOSITION}
+\date{}
+\maketitle
+
+Singular Value Decomposition (SVD) is the factorization of any $m\times n$ matrix $A$ as $A = U \Sigma V^T$ where $U$ is a $m \times m$ matrix made up of columns of mutually perpendicular unit vectors, $\Sigma$ is a diagonal matrix of the same shape as $A$ and $V^T$ is a $n \times n$ matrix made up of rows of mutually perpendicular unit vectors. 
+
+\section{Example}
+
+Let $A$ be a $2 \times 3$ matrix as follows,
+
+\begin{align*}
+	A = \begin{pmatrix}
+	3  & 0 & 0 \\
+	-8 & 0 & 3 
+	\end{pmatrix}
+\end{align*}
+
+To calculate unit vectors of $U$, eigenvalues and eigenvectors of $AA^T$ are calculated,
+
+\begin{align*}
+	AA^T &= \begin{pmatrix}
+	3  & 0 & 0 \\
+	-8 & 0 & 3 
+	\end{pmatrix} \begin{pmatrix}
+	3 & -8 \\
+	0 & 0 \\
+	0 & 3
+	\end{pmatrix} \\
+	&= \begin{pmatrix}
+	9 & -24 \\
+	-24 & 73
+	\end{pmatrix}
+\end{align*}
+
+$AA^T - \lambda I$ must be singular if eigenvectors are non-zero. Hence,
+
+\begin{align*}
+	\begin{vmatrix}
+	9 - \lambda             & -24          \\
+	-24                     & 73 - \lambda 
+	\end{vmatrix}           & = 0          \\
+	(9-\lambda)(73-\lambda) & = 576        
+\end{align*}
+
+This gives $\lambda = 81, 1$ and $\hat{u} = \begin{pmatrix}
+\frac{1}{\sqrt{10}} \\
+\frac{-3}{\sqrt{10}}
+\end{pmatrix},\begin{pmatrix}
+\frac{3}{\sqrt{10}} \\
+\frac{1}{\sqrt{10}}
+\end{pmatrix}$ respectively. 
+
+At this step, decomposition is as follows:
+
+\begin{align*}
+	A = (\hat{u_1}, \hat{u_2}) \begin{pmatrix}
+	\sqrt{\lambda_1} & 0                & 0 \\
+	0                & \sqrt{\lambda_2} & 0 
+	\end{pmatrix} V^T \\
+	A = \begin{pmatrix}
+	\frac{1}{\sqrt{10}} & \frac{3}{\sqrt{10}} \\
+	\frac{-3}{\sqrt{10}} & \frac{1}{\sqrt{10}}
+	\end{pmatrix}      \begin{pmatrix}
+	9                & 0                & 0 \\
+	0                & 1                & 0 
+	\end{pmatrix} V^T 
+\end{align*}
+
+To continue and calculate $V$, the relation $A\hat{v_i} = \sqrt{\lambda_i}\hat{u_i}$ is used. It is clear that $V$ is a $3 \times 3$ matrix.
+
+\begin{align*}
+	A\hat{v_1} &= \sqrt{\lambda_1}\hat{u_1} \\
+	\begin{pmatrix}
+	3  & 0 & 0 \\
+	-8 & 0 & 3 
+	\end{pmatrix}\hat{v_1} &= \sqrt{81}\begin{pmatrix}
+	\frac{1}{\sqrt{10}} \\
+	\frac{-3}{\sqrt{10}}
+	\end{pmatrix} \\
+	\hat{v_1} &= \begin{pmatrix}
+	\frac{3}{\sqrt{10}} \\
+	0 \\
+	\frac{-1}{\sqrt{10}} \\
+	\end{pmatrix}
+\end{align*}
+
+Similarly,
+
+\begin{align*}
+	A\hat{v_2} &= \sqrt{\lambda_2}\hat{u_2} \\
+	\begin{pmatrix}
+	3  & 0 & 0 \\
+	-8 & 0 & 3 
+	\end{pmatrix}\hat{v_2} &= \sqrt{1}\begin{pmatrix}
+	\frac{3}{\sqrt{10}} \\
+	\frac{1}{\sqrt{10}}
+	\end{pmatrix} \\
+	\hat{v_2} &= \begin{pmatrix}
+	\frac{1}{\sqrt{10}} \\
+	0 \\
+	\frac{3}{\sqrt{10}} \\
+	\end{pmatrix}
+\end{align*}
+
+Notice that $\hat{v_1}.\hat{v_2}$ is zero. The choices for $\hat{v_3}$ which must be perpendicular to both $\hat{v_1}$ and $\hat{v_2}$ are $(0, \pm 1, 0)^T$ and both are admissible in the decomposition as follows,
+
+\begin{align*}    
+	A &= \begin{pmatrix}
+	\frac{1}{\sqrt{10}} & \frac{3}{\sqrt{10}} \\
+	\frac{-3}{\sqrt{10}} & \frac{1}{\sqrt{10}}
+	\end{pmatrix}      \begin{pmatrix}
+	9                    & 0                   & 0                    \\
+	0                    & 1                   & 0                    
+	\end{pmatrix} \begin{pmatrix}
+	\hat{v_1}            & \hat{v_2}           & \hat{v_3}            
+	\end{pmatrix}^T \\
+	A &= \begin{pmatrix}
+	\frac{1}{\sqrt{10}} & \frac{3}{\sqrt{10}} \\
+	\frac{-3}{\sqrt{10}} & \frac{1}{\sqrt{10}}
+	\end{pmatrix}      \begin{pmatrix}
+	9                    & 0                   & 0                    \\
+	0                    & 1                   & 0                    
+	\end{pmatrix} \begin{pmatrix}
+	\frac{3}{\sqrt{10}}  & \frac{1}{\sqrt{10}} & 0                    \\
+	0                    & 0                   & \pm 1                \\
+	\frac{-1}{\sqrt{10}} & \frac{3}{\sqrt{10}} & 0                    \\              
+	\end{pmatrix}^T \\
+	\begin{pmatrix}
+	3                    & 0                   & 0                    \\
+	-8                   & 0                   & 3                    
+	\end{pmatrix} &= \begin{pmatrix}
+	\frac{1}{\sqrt{10}} & \frac{3}{\sqrt{10}} \\
+	\frac{-3}{\sqrt{10}} & \frac{1}{\sqrt{10}}
+	\end{pmatrix}      \begin{pmatrix}
+	9                    & 0                   & 0                    \\
+	0                    & 1                   & 0                    
+	\end{pmatrix} \begin{pmatrix}
+	\frac{3}{\sqrt{10}}  & 0                   & \frac{-1}{\sqrt{10}} \\
+	\frac{1}{\sqrt{10}}  & 0                   & \frac{3}{\sqrt{10}}  \\              
+	0                    & \pm 1               & 0                    \\    
+	\end{pmatrix}
+\end{align*}
+
+\section{Interpretation}
+
+\end{document}
