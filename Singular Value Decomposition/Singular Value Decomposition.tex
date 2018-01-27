@@ -151,6 +151,134 @@ Notice that $\hat{v_1}.\hat{v_2}$ is zero. The choices for $\hat{v_3}$ which mus
 	\end{pmatrix}
 \end{align*}
 
-\section{Interpretation}
+\section{Analysis}
 
+SVD can be visualized as follows:
+
+\begin{align*}
+	A_{m \times n} &= \begin{pmatrix}
+	| & | & .. & | \\
+	\hat{u_1} & \hat{u_2} & .. & \hat{u_m} \\
+	| & | & .. & | \\        
+	\end{pmatrix}_{m \times m} \begin{pmatrix}
+	\sqrt{\lambda_1} & 0                & .. & 0                & 0 & .. & 0 \\
+	0                & \sqrt{\lambda_2} & .. & 0                & 0 & .. & 0 \\
+	0                & 0                & .. & 0                & 0 & .. & 0 \\
+	0                & 0                & .. & \sqrt{\lambda_r} & 0 & .. & 0 \\ 
+	0                & 0                & .. & 0                & 0 & .. & 0 \\ 
+	.                & .                & .. & .                & . & .. & . \\
+	.                & .                & .. & .                & . & .. & . \\       
+	0                & 0                & .. & 0                & 0 & .. & 0 \\        
+	\end{pmatrix}_{m \times n} \begin{pmatrix}
+	| & | & .. & | \\
+	\hat{v_1} & \hat{v_2} & .. & \hat{v_n} \\
+	| & | & .. & | \\        
+	\end{pmatrix}_{n \times n}^T \\
+	&u_i \perp u_j\ \forall\ i \neq j \\
+	&v_i \perp v_j\ \forall\ i \neq j \\
+	&\sqrt{\lambda_1} \geq \sqrt{\lambda_2} \geq .. \geq \sqrt{\lambda_r} > 0 \\ 
+	&r = rank(A)    
+\end{align*}
+
+The product of the last two matrices can be simplified as follows,
+
+\begin{align*}
+	A_{m \times n} &= \begin{pmatrix}
+	|         & |         & .. & |         \\
+	\hat{u_1} & \hat{u_2} & .. & \hat{u_m} \\
+	|         & |         & .. & |         \\        
+	\end{pmatrix}_{m \times m} \begin{pmatrix}
+	\sqrt{\lambda_1} \hat{v_1}^T \\
+	\sqrt{\lambda_2} \hat{v_2}^T \\    
+	. \\
+	. \\
+	\sqrt{\lambda_r} \hat{v_r}^T \\
+	0 \\
+	. \\
+	. \\
+	0 \\
+	\end{pmatrix}_{m \times n}
+\end{align*}
+
+leading to the representation of $A$ as a sum of $r$ rank-1 matrices as follows:
+
+\begin{align*}
+	A = \sum_{i=1}^r \sqrt{\lambda_i}\ \hat{u_i}\ \hat{v_i}^T 
+\end{align*}
+
+Multiplying by $\hat{v_j}$ on both sides,
+
+\begin{align*}
+	A\ \hat{v_j} = \sum_{i=1}^r \sqrt{\lambda_i}\ \hat{u_i}\ \hat{v_i}^T\ \hat{v_j} 
+\end{align*}
+
+Since all the $\hat{v_i}$s are mutually perpendicular to each other,
+
+\begin{align*}
+	A\ \hat{v_j} = \sqrt{\lambda_j} \hat{u_j} 
+\end{align*}
+
+Note the similarity of this equation to the regular eigenvalue equation. The constraint of the same unit vector on both sides of the equation was let go in the return of universal applicability on any matrix whatsoever.
+
+\section{Application: Matrix Compression}
+
+Subjecting the matrix in example above to the rank-1 breakdown equation,
+
+\begin{align*}
+	A &= \sum_{i=1}^r \sqrt{\lambda_i}\ \hat{u_i}\ \hat{v_i}^T \\
+	\begin{pmatrix}
+	3    & 0 & 0    \\
+	-8   & 0 & 3    
+	\end{pmatrix} &= \begin{pmatrix}
+	2.7  & 0 & -0.9 \\
+	-8.1 & 0 & 2.7  \\
+	\end{pmatrix} + \begin{pmatrix}
+	0.3  & 0 & 0.9  \\
+	0.1  & 0 & 0.3  
+	\end{pmatrix}
+\end{align*}
+
+Note that the first matrix on the right hand side is a resonable approximation of the matrix on the left hand side and the other matrix just represents minor tweaks.
+
+\begin{align*}
+	\begin{pmatrix}
+	3                   & 0 & 0                    \\
+	-8                  & 0 & 3                    
+	\end{pmatrix} &\approx \begin{pmatrix}
+	2.7                 & 0 & -0.9                 \\
+	-8.1                & 0 & 2.7                  \\
+	\end{pmatrix} \\
+	&\approx \sqrt{81} \begin{pmatrix}
+	\frac{1}{\sqrt{10}} \\
+	\frac{-3}{\sqrt{10}}
+	\end{pmatrix} \begin{pmatrix}
+	\frac{3}{\sqrt{10}} & 0 & \frac{-1}{\sqrt{10}} \\
+	\end{pmatrix}
+\end{align*}
+
+The left hand side representation requires to store $mn$ entries while the right hand side only requires to store $k(m+n)$ entries. So if $k << m, n$, the right hand side is highly compressed. The right hand side is also a good approximation if k is of the order of the rank of the matrix. So for low-rank highly redundant matrices (example digital images), SVD can serve as a reasonable compression algorithm.
+ 
+\section{Appendix} 
+ 
+\begin{align*}
+	A    & = U\Sigma V^T                \\
+	AA^T & = U\Sigma V^T V \Sigma^T U^T \\
+\end{align*} 
+ 
+Since $V^TV = I$ and $\Sigma$ is diagonal.
+
+\begin{align*}
+	AA^T & = U \Sigma^2 U^T                                   \\
+	AA^T & = \sum_{i = 1}^r \lambda_i\ \hat{u_i}\ \hat{u_i}^T 
+\end{align*}
+
+Multiplying both sides by $\hat{u_j}$ and using the fact that all $u_i$s
+are mutually perpendicular to each other.
+
+\begin{align*}
+	AA^T\ \hat{u_j} & = \sum_{i = 1}^r \lambda_i\ \hat{u_i}\ \hat{u_i}^T \ \hat{u_j} \\
+	AA^T \hat{u_j}  & = \lambda_j\ \hat{u_j}                                         
+\end{align*}
+
+It is clear that $\hat{u}$s are eigenvectors of $AA^T$. Similarly, it can be seen that $\hat{v}$s are eigenvectors of $A^TA$. 
 \end{document}
