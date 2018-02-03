@@ -1,6 +1,8 @@
 \documentclass[11pt, a4paper]{article}
 
 \usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{placeins}
 
 \begin{document}
 
@@ -50,15 +52,15 @@ The projections of each class should be as condensed as possible. The within-cla
 
 \begin{align*}
 	s_k^2 & = \sum_{i \in C_k} (y_i - m_k)^2                                                                                            \\
-	      & = \sum_{i \in C_k} (\boldsymbol{w}^T\boldsymbol{x_i} - \boldsymbol{w}^T\boldsymbol{m_i})^2                                  \\
-	      & = \sum_{i \in C_k} (\boldsymbol{w}^T(\boldsymbol{x_i} -\boldsymbol{m_i}))^2                                                 \\
-	      & = \sum_{i \in C_k} \boldsymbol{w}^T(\boldsymbol{x_i} -\boldsymbol{m_i})(\boldsymbol{x_i} -\boldsymbol{m_i})^T\boldsymbol{w} \\
+	      & = \sum_{i \in C_k} (\boldsymbol{w}^T\boldsymbol{x_i} - \boldsymbol{w}^T\boldsymbol{m_k})^2                                  \\
+	      & = \sum_{i \in C_k} (\boldsymbol{w}^T(\boldsymbol{x_i} -\boldsymbol{m_k}))^2                                                 \\
+	      & = \sum_{i \in C_k} \boldsymbol{w}^T(\boldsymbol{x_i} -\boldsymbol{m_k})(\boldsymbol{x_i} -\boldsymbol{m_k})^T\boldsymbol{w} \\
 	      & = \boldsymbol{w}^T \boldsymbol{S_k} \boldsymbol{w}                                                                          \\
 \end{align*}  
 
 where,
 \begin{align*}
-	\boldsymbol{S_k} = \sum_{i \in C_k}(\boldsymbol{x_i} -\boldsymbol{m_i})(\boldsymbol{x_i} -\boldsymbol{m_i})^T 
+	\boldsymbol{S_k} = \sum_{i \in C_k}(\boldsymbol{x_i} -\boldsymbol{m_k})(\boldsymbol{x_i} -\boldsymbol{m_k})^T 
 \end{align*}
 
 In the case of two classes, total within class scatter is denoted by,
@@ -86,7 +88,7 @@ Note that $J(\boldsymbol{w})$ is invariant under rescalings of the form $\boldsy
 	\text{s.t.}     & \ \ \boldsymbol{w}^T \boldsymbol{S_W} \boldsymbol{w} = 1 
 \end{align*}
 
-Using the concept of Langrangian, 
+Using the concept of Lagrangian, 
 
 \begin{align*}
 	L(\boldsymbol{w}, \lambda) = \boldsymbol{w}^T \boldsymbol{S_B} \boldsymbol{w} - \lambda(\boldsymbol{w}^T \boldsymbol{S_W} \boldsymbol{w} - 1) 
@@ -105,6 +107,193 @@ Equating the diffenrential to zero, the solution follows,
 \end{align*}
 
 This is the generalized eigenvalue problem that can be solved easily. Note that since $\boldsymbol{S_B}$ is a product of two vectors and thus of rank one, the above equation will only yield one eigenvalue, eigenvector pair. The eigenvector is the sought projection direction.
+
+\section{Example}
+
+Consider the following set of six points in two dimesions distributed equally among the two classes,
+
+\FloatBarrier\clearpage
+\begin{figure}[htbp]
+	\centering
+	\begin{tikzpicture}
+		\tikzstyle {point line} = [line width=0.15em]
+		\tikzstyle {margin} = [dashed]
+												
+		\draw[step=1.0, gray, very thin] (-5.5, -2.5) grid (5.5, 4.5);
+																    
+		\draw[-latex] (-6,0) -- (6,0) node[right]{x1};
+		\draw[-latex] (0,-3) -- (0,5) node[left]{x2};	
+														
+		\draw[point line] (-1.3, 1) -- (-0.7, 1);	
+		\draw[point line] (-1, 0.7) -- (-1, 1.3);
+		\draw (-1, 1) node [below right] {(-1, 1)};    	
+												
+		\draw[point line] (-4.3, -1) -- (-3.7, -1);	
+		\draw[point line] (-4, -1.3) -- (-4, -0.7);	
+		\draw (-4, -1) node [below left] {(-4, -1)};   
+												
+		\draw[point line] (-4.3, 3) -- (-3.7, 3);	
+		\draw[point line] (-4, 2.7) -- (-4, 3.3);	
+		\draw (-4, 3) node [above left] {(-4, 3)};   
+												
+		\draw[point line] (1.7, 1) -- (2.3, 1);		
+		\draw (2, 1) node [above left] {(2, 1)}; 
+				
+		\draw[point line] (2.7, 0) -- (3.3, 0);		
+		\draw (3, 0) node [above left] {(3, 0)};
+				
+		\draw[point line] (0.7, 2) -- (1.3, 2);		
+		\draw (1, 2) node [above left] {(1, 2)};				  
+													   		
+	\end{tikzpicture}
+\end{figure}
+
+The means for the respective classes are,
+
+\begin{align*}
+	\boldsymbol{m_{+}} & = \begin{pmatrix} 
+	-3 \\
+	1 
+	\end{pmatrix} \\
+	\boldsymbol{m_{-}} & = \begin{pmatrix} 
+	2 \\
+	1 
+	\end{pmatrix}    
+\end{align*}
+
+Now, the between-class scatter matrix is calculated as follows,
+
+\begin{align*}
+	\boldsymbol{S_B} & = (\boldsymbol{m_{+}} - \boldsymbol{m_{-}})(\boldsymbol{m_{+}} - \boldsymbol{m_{-}})^T \\ 
+	                 & = \begin{pmatrix}                                                                      
+	-5 \\
+	0 
+	\end{pmatrix} \begin{pmatrix}
+	-5               & 0                                                                                      
+	\end{pmatrix} \\
+	                 & = \begin{pmatrix}                                                                      
+	25               & 0                                                                                      \\
+	0                & 0                                                                                      
+	\end{pmatrix}         
+\end{align*}
+
+And then, the within-class scatter matrix is calculated,
+
+\begin{align*}    
+	S_+              & = \sum_{i \in +}(\boldsymbol{x_i} -\boldsymbol{m_+})(\boldsymbol{x_i} -\boldsymbol{m_+})^T \\
+	                 & = \begin{pmatrix}                                                                          
+	2 \\
+	0
+	\end{pmatrix} \begin{pmatrix}
+	2                & 0                                                                                          
+	\end{pmatrix} + \begin{pmatrix}
+	-1 \\
+	2
+	\end{pmatrix} \begin{pmatrix}
+	-1               & 2                                                                                          
+	\end{pmatrix} + \begin{pmatrix}
+	-1 \\
+	-2
+	\end{pmatrix} \begin{pmatrix}
+	-1               & -2                                                                                         
+	\end{pmatrix}  \\
+	                 & = \begin{pmatrix}                                                                          
+	6                & 0                                                                                          \\
+	0                & 8                                                                                          
+	\end{pmatrix} \\
+	S_-              & = \sum_{i \in -}(\boldsymbol{x_i} -\boldsymbol{m_-})(\boldsymbol{x_i} -\boldsymbol{m_-})^T \\
+	                 & = \begin{pmatrix}                                                                          
+	0 \\
+	0
+	\end{pmatrix} \begin{pmatrix}
+	0                & 0                                                                                          
+	\end{pmatrix} + \begin{pmatrix}
+	-1 \\
+	1
+	\end{pmatrix} \begin{pmatrix}
+	-1               & 1                                                                                          
+	\end{pmatrix} + \begin{pmatrix}
+	1 \\
+	-1
+	\end{pmatrix} \begin{pmatrix}
+	1                & -1                                                                                         
+	\end{pmatrix}  \\
+	                 & = \begin{pmatrix}                                                                          
+	2                & -2                                                                                         \\
+	-2               & 2                                                                                          
+	\end{pmatrix} \\
+	\boldsymbol{S_W} & = \boldsymbol{S_+} + \boldsymbol{S_-}                                                      \\
+	                 & = \begin{pmatrix}                                                                          
+	8                & -2                                                                                         \\
+	-2               & 10                                                                                         
+	\end{pmatrix}
+\end{align*}
+
+The eigenvalue problem is formulated as,
+
+\begin{align*}
+	\boldsymbol{S_B}\boldsymbol{w} = \lambda \boldsymbol{S_W}\boldsymbol{w} 
+\end{align*}
+
+Equating the determinant of $\boldsymbol{S_B} - \lambda \boldsymbol{S_W}$ to zero,
+
+\begin{align*}
+	\begin{vmatrix}
+	25-8\lambda   & 2\lambda   \\
+	2\lambda      & -10\lambda 
+	\end{vmatrix} & = 0        \\
+	\lambda = \frac{125}{38}
+\end{align*}
+
+The corresponding eigenvector amounts to $\frac{1}{\sqrt{26}}\begin{pmatrix}
+5 \\
+1
+\end{pmatrix}$ which is the direction of projection. The below plot helps to visualize how this projection direction divides the two classes.
+
+\FloatBarrier\clearpage
+\begin{figure}[htbp]
+	\centering
+	\begin{tikzpicture}
+		\tikzstyle {point line} = [line width=0.15em]
+		\tikzstyle {margin} = [dashed]
+												
+		\draw[step=1.0, gray, very thin] (-5.5, -2.5) grid (5.5, 4.5);
+																    
+		\draw[-latex] (-6,0) -- (6,0) node[right]{x1};
+		\draw[-latex] (0,-3) -- (0,5) node[left]{x2};	
+														
+		\draw[point line] (-1.3, 1) -- (-0.7, 1);	
+		\draw[point line] (-1, 0.7) -- (-1, 1.3);
+		\draw (-1, 1) node [below right] {(-1, 1)};    	
+												
+		\draw[point line] (-4.3, -1) -- (-3.7, -1);	
+		\draw[point line] (-4, -1.3) -- (-4, -0.7);	
+		\draw (-4, -1) node [below left] {(-4, -1)};   
+												
+		\draw[point line] (-4.3, 3) -- (-3.7, 3);	
+		\draw[point line] (-4, 2.7) -- (-4, 3.3);	
+		\draw (-4, 3) node [above left] {(-4, 3)};   
+												
+		\draw[point line] (1.7, 1) -- (2.3, 1);		
+		\draw (2, 1) node [above left] {(2, 1)}; 
+				
+		\draw[point line] (2.7, 0) -- (3.3, 0);		
+		\draw (3, 0) node [above left] {(3, 0)};
+				
+		\draw[point line] (0.7, 2) -- (1.3, 2);		
+		\draw (1, 2) node [above left] {(1, 2)};
+				
+		\draw[dashed] (5.5, 1.1) -- (-5.5, -1.1);	
+		\draw[thin] (-4, -1) -- (-4.04, -0.81);	
+		\draw[thin] (-1, 1) -- (-0.77, -0.15);
+		\draw[thin] (-4, 3) -- (-3.27, -0.66);
+			    	
+		\draw[thin] (1, 2) -- (1.35, 0.27);
+		\draw[thin] (2, 1) -- (2.12, 0.42);	    	    
+		\draw[thin] (3, 0) -- (2.88, 0.58);	    
+													   		
+	\end{tikzpicture}
+\end{figure}
 
 \section{Multi-Class Case}
  
