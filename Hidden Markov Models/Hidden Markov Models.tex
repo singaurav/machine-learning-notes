@@ -22,7 +22,7 @@ Hidden Markov Models(HMMs) are statistical tools to model sequential observation
 \begin{center}
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=5cm,
 		semithick]
-		
+				
 		\node[initial,state] (I)                    {$$};
 		\node[state]         (S) [below left of=I] {$S$};
 		\node[state]         (T) [below right of=I] {$T$};
@@ -32,7 +32,7 @@ Hidden Markov Models(HMMs) are statistical tools to model sequential observation
 		\node[rectangle]         (TX) [below left of=T,yshift=-1.2cm,xshift=1cm]     {$X$};
 		\node[rectangle]         (TY) [below of=T]     {$Y$};  
 		\node[rectangle]         (TZ) [below right of=T,yshift=-1.2cm,xshift=-1cm]     {$Z$};  
-		
+				
 		\path (I) edge [bend right]    node {0.6} (S)
 		edge [bend left]     node {0.4} (T)
 		(S) edge [loop left]    node {0.7} (S)
@@ -130,6 +130,40 @@ Each of the terms on R.H.S. can be calculated using the following law of probabi
 \end{table}
 
 Calculation in this manner is expensive because probabilities corresponding to all permutations of hidden states of the same length as the length of observed sequence have to be calculated. 
+
+To visualize the above calculation, consider the following diagrammatic represntation.
+
+\begin{center}
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+		semithick]
+				
+		\node[state] (Start)                    {$Start$};
+		\node[state] (S1) [above right of=Start] {$S$};
+		\node[state] (T1) [below right of=Start] {$T$};
+		\node[state] (S2) [right of=S1] {$S$};
+		\node[state] (T2) [right of=T1] {$T$};
+		\node[state] (S3) [right of=S2] {$S$};
+		\node[state] (T3) [right of=T2] {$T$};
+		\node[state] (End) [below right of=S3] {$End$};
+		\node [rectangle, node distance=2cm] (Z) [above of=S1] {Z};
+		\node [rectangle, node distance=2cm] (X) [above of=S2] {X};
+		\node [rectangle, node distance=2cm] (Y) [above of=S3] {Y};						
+				                
+		\path (Start) edge  node {0.6} (S1)
+		edge  node {0.4} (T1)
+		(S1) edge  node {0.5*0.7} (S2)
+		edge  node [pos=0.2] {0.5*0.3} (T2)
+		(T1) edge  node [pos=0.2] {0.1*0.4} (S2)
+		edge  node {0.1*0.6} (T2)
+		(S2) edge  node {0.1*0.7} (S3)
+		edge node [pos=0.2] {0.1*0.3} (T3)
+		(T2) edge node [pos=0.2] {0.7*0.4} (S3)
+		edge node {0.7*0.6} (T3)
+		(S3) edge node {0.4} (End)
+		(T3) edge node {0.2} (End);                     
+	\end{tikzpicture}
+\end{center}
+
 
 \subsection{The Decoding Problem}
 
