@@ -22,7 +22,7 @@ Hidden Markov Models(HMMs) are statistical tools to model sequential observation
 \begin{center}
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=5cm,
 		semithick]
-								
+										
 		\node[initial,state] (I)                    {$$};
 		\node[state]         (S) [below left of=I] {$S$};
 		\node[state]         (T) [below right of=I] {$T$};
@@ -32,7 +32,7 @@ Hidden Markov Models(HMMs) are statistical tools to model sequential observation
 		\node[rectangle]         (TX) [below left of=T,yshift=-1.2cm,xshift=1cm]     {$X$};
 		\node[rectangle]         (TY) [below of=T]     {$Y$};  
 		\node[rectangle]         (TZ) [below right of=T,yshift=-1.2cm,xshift=-1cm]     {$Z$};  
-								
+										
 		\path (I) edge [bend right]    node {0.6} (S)
 		edge [bend left]     node {0.4} (T)
 		(S) edge [loop left]    node {0.7} (S)
@@ -136,7 +136,7 @@ To visualize the above calculation, consider the following diagrammatic represnt
 \begin{center}
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
 		semithick]
-								
+										
 		\node[state] (Start)                    {$Start$};
 		\node[state] (S1) [above right of=Start] {$S$};
 		\node[state] (T1) [below right of=Start] {$T$};
@@ -148,7 +148,7 @@ To visualize the above calculation, consider the following diagrammatic represnt
 		\node [rectangle, node distance=2cm] (Z) [above of=S1] {Z};
 		\node [rectangle, node distance=2cm] (X) [above of=S2] {X};
 		\node [rectangle, node distance=2cm] (Y) [above of=S3] {Y};						
-								                
+										                
 		\path (Start) edge  node {0.6} (S1)
 		edge  node {0.4} (T1)
 		(S1) edge  node {0.5*0.7} (S2)
@@ -176,7 +176,7 @@ Dynamic Programming can be used to circumvent enumeration and speed up the compu
 \begin{center}
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
 		semithick]
-								
+										
 		\node[state] (Start)                    {$1$};
 		\node[state] (S1) [above right of=Start] {$0.6$};
 		\node[rectangle, node distance=2cm] (D1) [right of=S1] {$=1*0.6$};
@@ -192,14 +192,14 @@ Dynamic Programming can be used to circumvent enumeration and speed up the compu
 \begin{center}
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
 		semithick]
-								
+										
 		\node[state] (S1) {$0.6$};
 		\node[state] (T1) [below of=S1] {$0.4$};
 		\node[state] (S2) [right of=S1] {$0.226$};
 		\node[rectangle, node distance=4cm] (D2) [right of=S2] {$=0.6*0.5*0.7 + 0.4*0.1*0.4$};	
 		\node[state] (T2) [right of=T1] {$0.114$};
 		\node[rectangle, node distance=4cm] (D2) [right of=T2] {$=0.6*0.5*0.3 + 0.4*0.1*0.6$};				
-					                
+							                
 		\path 
 		(S1) edge  node {0.5*0.7} (S2)
 		edge  node [pos=0.2] {0.5*0.3} (T2)
@@ -213,15 +213,15 @@ Dynamic Programming can be used to circumvent enumeration and speed up the compu
 \begin{center}
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
 		semithick]
-								
+										
 		\node[state] (S2) {$0.226$};
 		\node[state] (T2) [below of=S2] {$0.114$};
 		\node[state] (S3) [right of=S2] {$0.04774$};
 		\node[rectangle, node distance=4cm] (D3) [right of=S3] {$=0.226*0.1*0.7 + 0.114*0.7*0.4$};
 		\node[state] (T3) [right of=T2] {$0.05466$};
 		\node[rectangle, node distance=4cm] (D3) [right of=T3] {$=0.226*0.1*0.3 + 0.114*0.7*0.6$};
-							
-								                
+									
+										                
 		\path 
 		(S2) edge  node {0.1*0.7} (S3)
 		edge node [pos=0.2] {0.1*0.3} (T3)
@@ -235,7 +235,7 @@ Dynamic Programming can be used to circumvent enumeration and speed up the compu
 \begin{center}
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
 		semithick]
-								
+										
 		\node[state] (S3) {$0.04774$};
 		\node[state] (T3) [below of=S3] {$0.05466$};
 		\node[state] (End) [above right of=T3] {$0.030028$};
@@ -282,7 +282,8 @@ It is apparent that the following relation must hold,
  
 \subsection{The Decoding Problem}
 
-Given a HMM, $\lambda = (A, B, \pi)$ and a set of observations O, find the most likely sequence of hidden states that led the model to emit O. The solution to this is straightforward. At each time step, the state corrresponding to maximum value of $\alpha_t(state)*\beta_t(state)$ is chosen.
+Given a HMM, $\lambda = (A, B, \pi)$ and a set of observations $O$, find the most likely sequence of hidden states that led the model to emit $O
+$. The solution to this is straightforward. At each time step, the state corrresponding to maximum value of $\alpha_t(state)*\beta_t(state)$ is chosen.
 
 \begin{table}[h!]
 	\centering
@@ -302,5 +303,55 @@ Given a HMM, $\lambda = (A, B, \pi)$ and a set of observations O, find the most 
 
 \subsection{The Learning Problem}
 
+If only the observation sequence $O$ were given, how can one estimate $\lambda$? Make a good guess of the number of hidden states and follow:
+
+\begin{enumerate}
+	\item Non uniformly initialize a model $\lambda = (A, B, \pi)$.
+	\item Compute $\alpha_t(state)$ and $\beta_t(state)$ for all times and states using the solution to Problem 1.
+	\item Re-estimate the model $\lambda$.
+	\item Go to step 2 if $P(O|\lambda)$ increases reasonably or if out of iterations. 
+\end{enumerate}
+
+The only question that remains is: How to re-estimate $\lambda$?
+
+\begin{center}
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+		semithick]
+										
+		\node[state] (S1) {$S$};
+		\node[] (O1) [above of=S1, node distance=1cm]{$O_t$};
+		\node[state] (T1) [below of=S1] {$T$};	
+		\node[state] (S2) [right of=S1] {$S$};	
+		\node[] (O2) [above of=S2, node distance=1cm]{$O_{t+1}$};		
+		\node[state] (T2) [right of=T1] {$T$};				
+							                
+		\path 
+		(S1) edge  node {1} (S2)
+		edge  node [pos=0.2] {2} (T2)
+		(T1) edge  node [pos=0.2] {} (S2)
+		edge  node {} (T2);		
+	\end{tikzpicture}
+\end{center}
+
+Remember that $P(O|\lambda)$ is the sum of values if all paths from $Start$ to $End$. A fraction of $P(O|\lambda)$ comes from the sum of values of all paths that contain transtion $(state_t =S \rightarrow state_{t+1}=S)$ labelled by $1$ in the above figure. Denote it by $\gamma_t(S \rightarrow S)$.
+
+A yet another fraction comes from the sum of values of all paths that contain transtion $(state_t =S \rightarrow state_{t+1}=T)$ labelled by $2$ denoted by $\gamma_t(S \rightarrow T)$. Also let, 
+\begin{align*}
+	\gamma_t(S) = \gamma_t(S \rightarrow S) + \gamma_t(S \rightarrow T) 
+\end{align*}
+
+Is $\frac{\gamma_t(S \rightarrow S)}{\gamma_t(S)}$ a good estimate of $A(S \rightarrow S)$? Kind of. But remember that only one time $t$ is considered. A better estimate would be,
+
+\begin{align*}
+	A(S \rightarrow S) \approx \frac{\sum_t \gamma_t(S \rightarrow S)}{\sum_t \gamma_t(S)} 
+\end{align*} 
+
+Similarly, $B(S \rightarrow OS)$ is estimated by,
+
+\begin{align*}
+	B(S \rightarrow OS) \approx \frac{\sum_{t|O_t = OS} \gamma_t(S)}{\sum_t \gamma_t(S)} 
+\end{align*} 
+
+This completes the discussion of the solution to the learning problem in HMMs.
 
 \end{document}
