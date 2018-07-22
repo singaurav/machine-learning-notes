@@ -1,0 +1,157 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+
+\begin{document}
+
+\title{LOGISTIC REGRESSION}
+\date{}
+\maketitle
+
+The classification problem can be written as follows:
+
+\begin{align*}
+	\mathbf{Y} = \operatorname*{argmax}_{y_k}\left\{    
+	\mathbf{P}(\mathbf{Y}=y_k\ |\ x_1,\ x_2,\ ...\ x_p) 
+	\right.                                             
+\end{align*}
+
+``Generative'' classifiers like the Naive Bayes classifier solve this problem using
+
+\begin{align*}
+	\mathbf{P}(\mathbf{Y}=y_k\ |\ x_1,\ x_2,\ ...\ x_p) = \frac{\mathbf{P}(x_1,\ x_2,\ ...\ x_p|\mathbf{Y}=y_k) \times \mathbf{P}(\mathbf{Y}=y_k)}{\mathbf{P}(x_1,\ x_2,\ ...\ x_p)} \\
+\end{align*}
+
+and modelling
+
+\begin{align*}
+	\mathbf{P}(x_1,\ x_2,\ ...\ x_p|\mathbf{Y}=y_k) 
+\end{align*}
+
+On the other hand, ``Discriminative'' classifiers like Logistic Regression model
+
+\begin{align*}
+	\mathbf{P}(\mathbf{Y}=y_k\ |\ x_1,\ x_2,\ ...\ x_p) 
+\end{align*}
+
+directly. 
+
+\section{Probability Model}
+
+Assume the binary classification problem. Logistic Regression assumes:
+
+\begin{align*}
+	\mathbf{P}(\mathbf{Y}=1\ |\ x_1,\ x_2,\ ...\ x_p) = \frac{e^{\beta_0 + \beta_1 x_1 +\  ...\  + \beta_p x_p}}{1 + e^{\beta_0 + \beta_1 x_1 +\  ...\  + \beta_p x_p}} 
+\end{align*}
+
+To simplify this equation, the following notation is used,
+
+\begin{align*}
+	\boldsymbol{\beta} = \begin{pmatrix} \beta_0 \\ \beta_1 \\ . \\ . \\ .  \\ \beta_p \end{pmatrix} \ \text{and}\ 
+	\boldsymbol{x} = \begin{pmatrix} 0           \\ x_1 \\ . \\ . \\ .  \\ x_p \end{pmatrix}
+\end{align*}
+
+The equation now becomes,
+
+\begin{align*}
+	\mathbf{P}(\mathbf{Y}=1|\mathbf{X} = \boldsymbol{x}) = \frac{e^{\boldsymbol{\beta}^T\boldsymbol{x}}}{1 + e^{\boldsymbol{\beta}^T\boldsymbol{x}}} 
+\end{align*}
+
+The other half of this equation is,
+
+\begin{align*}
+	\mathbf{P}(\mathbf{Y}=0|\mathbf{X} = \boldsymbol{x}) = \frac{1}{1 + e^{\boldsymbol{\beta}^T\boldsymbol{x}}} 
+\end{align*}
+
+
+These half equations can be combined as follows,
+
+\begin{align*}
+	\mathbf{P}(\mathbf{Y}=y|\mathbf{X} = \boldsymbol{x}) = \left(\frac{e^{\boldsymbol{\beta}^T\boldsymbol{x}}}{1 + e^{\boldsymbol{\beta}^T\boldsymbol{x}}}\right) ^y \left(\frac{1}{1 + e^{\boldsymbol{\beta}^T\boldsymbol{x}}}\right)^{1-y} 
+\end{align*}
+
+\section{Maximum Likelihood estimation}
+
+If the form of a Probability Density Function(PDF) is known and some independent and identically distributed(i.i.d.) observations are given, Maximum Likelihood Estimation(MLE) can be used to estimate the optimal parameters of the PDF.
+
+For example, consider a random variable whose PDF is known to be Gaussian,
+
+\begin{align*}
+	f(x|\mu, \sigma^2) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x-\mu)^2}{2\sigma^2}} 
+\end{align*}
+
+If some i.i.d. observations $x_1, x_2, \ ...\ x_n$ are given, likelihood can be written as follows,
+
+\begin{align*}
+	l(\mu, \sigma^2) & = P(x_1, x_2,\ ... \ x_n|\mu, \sigma^2) \\
+	                 & = \prod_i P(x_i|\mu, \sigma^2)          
+\end{align*}
+
+Log likelihood is more desirable to work with most of the times and expressed as follows,
+
+\begin{align*}
+	L(\mu, \sigma^2) & = \sum_i log(P(x_i|\mu, \sigma^2))                                        \\
+	                 & = -\frac{n}{2} log(2 \pi \sigma^2) - \sum_i \frac{(x_i-\mu)^2}{2\sigma^2} 
+\end{align*}
+
+To maximize log likelihood, its derivative must be equated to zero.
+
+\begin{align*}
+	\frac{\partial L(\mu, \sigma^2)}{\partial \mu}                                                                    & = 0 \\
+	\frac{\partial}{\partial \mu}\left(-\frac{n}{2} log(2 \pi \sigma^2) - \sum_i \frac{(x_i-\mu)^2}{2\sigma^2}\right) & = 0 \\
+	\sum_i (x_i - \mu)                                                                                                & = 0 \\
+	\mu = \frac{1}{n} \sum_i x_i
+\end{align*}
+
+So, in this case, MLE estimates $\mu$ to be average of the observations.
+
+\section{MLE application to Logistic Regression}
+
+\begin{align*}
+	L(\boldsymbol{\beta}) & = \sum_i log\left\{ \left(\frac{e^{\boldsymbol{\beta}^T\boldsymbol{x_i}}}{1 + e^{\boldsymbol{\beta}^T\boldsymbol{x_i}}}\right) ^{y_i} \left(\frac{1}{1 + e^{\boldsymbol{\beta}^T\boldsymbol{x_i}}}\right)^{1-y_i}\right\} \\
+	                      & = \sum_i \left(y_i \boldsymbol{\beta}^T\boldsymbol{x_i} - log(1 + e^{\boldsymbol{\beta}^T\boldsymbol{x_i}})\right)                                                                                                        
+\end{align*}
+
+
+Taking the derivative and equating it to zero,
+
+
+\begin{align*}
+	\frac{\partial \boldsymbol{L}(\boldsymbol{\beta})} {\partial \boldsymbol{\beta}}                                                                          & = 0 \\
+	\sum_i \left(y_i \boldsymbol{x_i} - \frac{e^{\boldsymbol{\beta}^T\boldsymbol{x_i}}}{1 + e^{\boldsymbol{\beta}^T\boldsymbol{x_i}}} \boldsymbol{x_i}\right) & = 0 \\
+\end{align*}
+
+Unfortunately, no closed form solution exists in this case and hence this equation must be solved by numerical methods like the Newton-Raphson method. The objective function is always convex, so there are no problems of local maxima.
+
+\section {Newton-Raphson Method}
+
+Newton-Raphson method successively finds better approximations to the root of a real valued function.
+
+\begin{figure}[htbp]
+	\centering
+	\begin{tikzpicture}
+		\draw[-latex] (0,0) -- (8,0) node[right]{x};
+		\draw[-latex] (0,0) -- (0,5) node[left]{y};	
+												
+		\draw[line width=1pt] (1,-1) .. controls (5,1) .. (6,4); 
+				
+		\draw[] (5.5,2.3) -- (4,0);
+		\draw[] (5,1.6) -- (5,0);	
+				
+		\draw (5, 4) node [above right] {$y = f(x)$};'
+		\draw (4, 0) node [below] {$x_{n+1}$};
+		\draw (5, 0) node [below] {$x_n$};
+		\draw (5, 1.6) node [right] {($x_n, f(x_n))$};
+	\end{tikzpicture}
+\end{figure}
+
+\begin{align*}
+	f'(x) \approx \frac{f(x_n)}{x_n - x_{n+1}}   \\
+	x_{n+1} \approx x_n - \frac{f(x_n)}{f'(x_n)} 
+\end{align*}
+
+The method starts with an initial guess $x_0$ and then applies the above updation logic to come up with $x_1,\ x_2,\ ...$ until convergence.
+
+\end{document}
