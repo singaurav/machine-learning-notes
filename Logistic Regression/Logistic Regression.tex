@@ -1,4 +1,4 @@
- \documentclass[11pt, a4paper]{article}
+\documentclass[11pt, a4paper]{article}
 
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -136,12 +136,12 @@ Newton-Raphson method successively finds better approximations to the root of a 
 	\begin{tikzpicture}
 		\draw[-latex] (0,0) -- (8,0) node[right]{x};
 		\draw[-latex] (0,0) -- (0,5) node[left]{y};	
-												
+														
 		\draw[line width=1pt] (1,-1) .. controls (5,1) .. (6,4); 
-				
+						
 		\draw[] (5.5,2.3) -- (4,0);
 		\draw[] (5,1.6) -- (5,0);	
-				
+						
 		\draw (5, 4) node [above right] {$y = f(x)$};'
 		\draw (4, 0) node [below] {$x_{n+1}$};
 		\draw (5, 0) node [below] {$x_n$};
@@ -156,9 +156,9 @@ Newton-Raphson method successively finds better approximations to the root of a 
 Setting $f(x+\Delta x) = 0$ to find a better approximation of the root,
 
 \begin{align*}
-	f(x) + f'(x) \Delta x &\approx 0  \\
-	\Delta x &\approx - \frac{f(x)}{f'(x)} \\
-	x_{n+1} - x_{n} &\approx - \frac{f(x)}{f'(x)}
+	f(x) + f'(x) \Delta x & \approx 0                    \\
+	\Delta x              & \approx - \frac{f(x)}{f'(x)} \\
+	x_{n+1} - x_{n}       & \approx - \frac{f(x)}{f'(x)} 
 \end{align*}
 
 The method starts with an initial guess $x_0$ and then applies the above updation logic to come up with $x_1,\ x_2,\ ...$ until convergence.
@@ -173,21 +173,106 @@ The method starts with an initial guess $x_0$ and then applies the above updatio
 These two equations can be written in matrix form as follows,
 
 \begin{align*}
-\begin{pmatrix} f_1(x+\Delta x, y+\Delta y) \\ f_2(x+\Delta x, y+\Delta y)\end{pmatrix} \approx \begin{pmatrix} f_1(x, y) \\ f_2(x, y) \end{pmatrix} + \begin{pmatrix} \frac{\partial f_1}{\partial x}, \frac{\partial f_1}{\partial y} \\ \frac{\partial f_2}{\partial x}, \frac{\partial f_2}{\partial y}\end{pmatrix} \begin{pmatrix} \Delta x \\ \Delta y \end{pmatrix} 
+	\begin{pmatrix} f_1(x+\Delta x, y+\Delta y) \\ f_2(x+\Delta x, y+\Delta y)\end{pmatrix} \approx \begin{pmatrix} f_1(x, y) \\ f_2(x, y) \end{pmatrix} + \begin{pmatrix} \frac{\partial f_1}{\partial x}, \frac{\partial f_1}{\partial y} \\ \frac{\partial f_2}{\partial x}, \frac{\partial f_2}{\partial y}\end{pmatrix} \begin{pmatrix} \Delta x \\ \Delta y \end{pmatrix} 
 \end{align*}
 
 Setting the l.h.s to zero and solving,
 
 \begin{align*}
-\begin{pmatrix} \Delta x \\ \Delta y \end{pmatrix}  \approx -\begin{pmatrix} \frac{\partial f_1}{\partial x}, \frac{\partial f_1}{\partial y} \\ \frac{\partial f_2}{\partial x}, \frac{\partial f_2}{\partial y}\end{pmatrix}^{-1} \begin{pmatrix} f_1(x, y) \\ f_2(x, y) \end{pmatrix}
+	\begin{pmatrix} \Delta x \\ \Delta y \end{pmatrix}  \approx -\begin{pmatrix} \frac{\partial f_1}{\partial x}, \frac{\partial f_1}{\partial y} \\ \frac{\partial f_2}{\partial x}, \frac{\partial f_2}{\partial y}\end{pmatrix}^{-1} \begin{pmatrix} f_1(x, y) \\ f_2(x, y) \end{pmatrix}
 \end{align*}
 
 The $2\times2$ matrix of partial derivatives is called Jacobian and denoted by $J$. The same idea can be extended to any number of variables.
 
-\subsection{Newton-Raphson application to Logistic Regression}
+\section{Newton-Raphson application to Logistic Regression}
+
+To find optimal parameter $\beta$ for Logistic Regression using MLE, the roots of the following equation must be found,
+
+\begin{align*}
+	\frac{\partial \boldsymbol{L}(\boldsymbol{\beta})} {\partial \boldsymbol{\beta}} & = 0 \\
+\end{align*}
+
+The Newton-Raphson update rule for this has the form,
+
+\begin{align*}
+	\Delta \boldsymbol{\beta} & = -\left(\frac{\partial^2 L(\boldsymbol{\beta})}{\partial \boldsymbol{\beta} \partial \boldsymbol{\beta}^T}\right)^{-1} \frac{\partial \boldsymbol{L}(\boldsymbol{\beta})} {\partial \boldsymbol{\beta}}                                                                                                                                                                                                                \\
+	\Delta \boldsymbol{\beta} & = \left[ \sum_i \left(\frac{e^{\boldsymbol{\beta}^T\boldsymbol{x_i}}}{1 + e^{\boldsymbol{\beta}^T\boldsymbol{x_i}}}\right) \left(\frac{1}{1 + e^{\boldsymbol{\beta}^T\boldsymbol{x_i}}}\right) \boldsymbol{x_i} \boldsymbol{x_i}^T \right]^{-1} \left[ \sum_i \left(y_i \boldsymbol{x_i} - \frac{e^{\boldsymbol{\beta}^T\boldsymbol{x_i}}}{1 + e^{\boldsymbol{\beta}^T\boldsymbol{x_i}}} \boldsymbol{x_i}\right)\right] 
+\end{align*} 
+
+Using the following notation
+
+\begin{align*}
+	\boldsymbol{X} & = \begin{pmatrix} \boldsymbol{x_1}, \boldsymbol{x_2}, .., \boldsymbol{x_N}\end{pmatrix}         \\
+	P_i            & = \frac{e^{\boldsymbol{\beta}^T\boldsymbol{x_i}}}{1 + e^{\boldsymbol{\beta}^T\boldsymbol{x_i}}} \\
+	\boldsymbol{Y} & = \begin{pmatrix} y_1                                                                           \\ y_2 \\ . \\ . \\ . \\ y_N \end{pmatrix} 
+	\boldsymbol{P} = \begin{pmatrix} P_1 \\ P_2 \\ . \\ . \\ . \\ P_N \end{pmatrix}
+\end{align*} 
+
+the update rule can be rewritten as
+
+\begin{align*}
+	\Delta \boldsymbol{\beta} = [\boldsymbol{X}\boldsymbol{W}\boldsymbol{X}^T]^{-1}\boldsymbol{X}(\boldsymbol{Y}-\boldsymbol{P}) 
+\end{align*}
+
+where $\boldsymbol{W}$ is a $N\times N$ diagonal matrix of $P_i(1-P_i)$s with N as total number of $\boldsymbol{x_i}^T, y_i$ pairs. This equation bears a surprising resemblance with the OLS solution of the problem of linear regression. In fact $\Delta \boldsymbol{\beta}$ is solutions to the following linear regression problem.
+
+\begin{align*}
+	(\boldsymbol{Y}-\boldsymbol{P}) = \boldsymbol{W}\boldsymbol{X}^T \Delta \boldsymbol{\beta} 
+\end{align*}
 
 
+Hence, the update in each iteration of Newton-Raphson method for Logistic Regression is the solution of a weighted least square linear regression problem where the response is the difference between the observed response and estimated probability of the Logistic Regression model.
 
 
+\section{Interpretation}
+
+\subsection{Coefficients}
+
+Rewriting the base equations for Logistic Regression
+
+\begin{align*}
+	\mathbf{P}(\mathbf{Y}=1\ |\ x_1,\ x_2,\ ...\ x_p) = \frac{e^{\beta_0 + \beta_1 x_1 +\  ...\  + \beta_p x_p}}{1 + e^{\beta_0 + \beta_1 x_1 +\  ...\  + \beta_p x_p}} \\
+	\mathbf{P}(\mathbf{Y}=0\ |\ x_1,\ x_2,\ ...\ x_p) = \frac{1}{1 + e^{\beta_0 + \beta_1 x_1 +\  ...\  + \beta_p x_p}}                                                 
+\end{align*}
+
+Dividing both equations
+
+\begin{align*}
+	\frac{\mathbf{P}(\mathbf{Y}=1\ |\ x_1,\ x_2,\ ...\ x_p)}{\mathbf{P}(\mathbf{Y}=0\ |\ x_1,\ x_2,\ ...\ x_p) } = e^{\beta_0 + \beta_1 x_1 +\  ...\  + \beta_p x_p} 
+\end{align*}
+
+The left side of the equation: the ratio of the probability of an event occurring to the probability of it not occurring is called the ``odds" for the event. Hence, the odds of the event $\mathbf{Y}=1$  is equal to $e$ raised to a linear function of the input features. Every other thing remaining equal, if one of the input features is increased by one unit, the odds are multiplied by $e$ raised to the coefficient of the input features. Positive coefficients have a multiplicative effect on the odds, but negative coefficients have a divisive effect.
+
+\subsection{Coordinate Freedom}
+
+Rewriting the MLE solution equation again,
+
+\begin{align*}
+	\sum_i \left(y_i \boldsymbol{x_i} - \frac{e^{\boldsymbol{\beta}^T\boldsymbol{x_i}}}{1 + e^{\boldsymbol{\beta}^T\boldsymbol{x_i}}} \boldsymbol{x_i}\right) & = 0 \\
+\end{align*}
+
+or 
+
+\begin{align*}
+	\sum_i \left(y_i \boldsymbol{x_i} - P_i \boldsymbol{x_i}\right) & = 0 \\
+\end{align*}
+
+or 
+
+\begin{align*}
+	\boldsymbol{X}(\boldsymbol{Y}-\boldsymbol{P}) = 0 
+\end{align*}
+
+If $\boldsymbol{P}$ satisfies $ \boldsymbol{X}(\boldsymbol{Y}-\boldsymbol{P}) = 0$, then it will also satisfy $\boldsymbol{M}\boldsymbol{X}(\boldsymbol{Y}-\boldsymbol{P}) = 0$ for non singular matrix $\boldsymbol{M}$. Since $\boldsymbol{M}\boldsymbol{X}$ is related to $\boldsymbol{X}$ by linear transformations, it is clear that linear combinations of input features like rescaling and combination will not have any effect on the probabilities estimated by a Logistic Regression model. Hence, Logistic regression is a coordinate free model.
+
+\subsection{Marginal Probability Preservation}
+
+Since the Logistic Regression model demands,
+
+\begin{align*}
+	\sum_i \left(y_i \boldsymbol{x_i} - P_i \boldsymbol{x_i}\right) & = 0 \\
+\end{align*}
+
+For every feature, the sum of the input feature values corresponding to positive response will be equal to the weighted sum of the all the input feature values where the probabilities estimated by the model serve as the weights. Hence, Logistic Regression preserves marginal probabilities of the input.
 
 \end{document}
