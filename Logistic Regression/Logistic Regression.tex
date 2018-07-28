@@ -1,4 +1,4 @@
-\documentclass[11pt, a4paper]{article}
+ \documentclass[11pt, a4paper]{article}
 
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -129,6 +129,8 @@ Unfortunately, no closed form solution exists in this case and hence this equati
 
 Newton-Raphson method successively finds better approximations to the root of a real valued function.
 
+\subsection {Single varable}
+
 \begin{figure}[htbp]
 	\centering
 	\begin{tikzpicture}
@@ -148,10 +150,44 @@ Newton-Raphson method successively finds better approximations to the root of a 
 \end{figure}
 
 \begin{align*}
-	f'(x) \approx \frac{f(x_n)}{x_n - x_{n+1}}   \\
-	x_{n+1} \approx x_n - \frac{f(x_n)}{f'(x_n)} 
+	f(x+\Delta x) \approx f(x) + f'(x) \Delta x 
+\end{align*}
+
+Setting $f(x+\Delta x) = 0$ to find a better approximation of the root,
+
+\begin{align*}
+	f(x) + f'(x) \Delta x &\approx 0  \\
+	\Delta x &\approx - \frac{f(x)}{f'(x)} \\
+	x_{n+1} - x_{n} &\approx - \frac{f(x)}{f'(x)}
 \end{align*}
 
 The method starts with an initial guess $x_0$ and then applies the above updation logic to come up with $x_1,\ x_2,\ ...$ until convergence.
+
+\subsection{Multiple Variables}
+
+\begin{align*}
+	f_1(x+\Delta x, y+\Delta y) \approx f_1(x, y) + \begin{pmatrix} \frac{\partial f_1}{\partial x}, \frac{\partial f_1}{\partial y} \end{pmatrix} \begin{pmatrix} \Delta x \\ \Delta y \end{pmatrix} \\
+	f_2(x+\Delta x, y+\Delta y) \approx f_2(x, y) + \begin{pmatrix} \frac{\partial f_2}{\partial x}, \frac{\partial f_2}{\partial y} \end{pmatrix} \begin{pmatrix} \Delta x \\ \Delta y \end{pmatrix} 	
+\end{align*}
+
+These two equations can be written in matrix form as follows,
+
+\begin{align*}
+\begin{pmatrix} f_1(x+\Delta x, y+\Delta y) \\ f_2(x+\Delta x, y+\Delta y)\end{pmatrix} \approx \begin{pmatrix} f_1(x, y) \\ f_2(x, y) \end{pmatrix} + \begin{pmatrix} \frac{\partial f_1}{\partial x}, \frac{\partial f_1}{\partial y} \\ \frac{\partial f_2}{\partial x}, \frac{\partial f_2}{\partial y}\end{pmatrix} \begin{pmatrix} \Delta x \\ \Delta y \end{pmatrix} 
+\end{align*}
+
+Setting the l.h.s to zero and solving,
+
+\begin{align*}
+\begin{pmatrix} \Delta x \\ \Delta y \end{pmatrix}  \approx -\begin{pmatrix} \frac{\partial f_1}{\partial x}, \frac{\partial f_1}{\partial y} \\ \frac{\partial f_2}{\partial x}, \frac{\partial f_2}{\partial y}\end{pmatrix}^{-1} \begin{pmatrix} f_1(x, y) \\ f_2(x, y) \end{pmatrix}
+\end{align*}
+
+The $2\times2$ matrix of partial derivatives is called Jacobian and denoted by $J$. The same idea can be extended to any number of variables.
+
+\subsection{Newton-Raphson application to Logistic Regression}
+
+
+
+
 
 \end{document}
