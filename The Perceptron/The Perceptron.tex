@@ -1,0 +1,32 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+
+\begin{document}
+
+\title{THE PERCEPTRON}
+\date{}
+\maketitle
+
+The perceptron is a learning algorithm for binary classification of real valued vectors. 
+
+\section{Introduction}
+
+The perceptron binary classifier can be thought of as the following function,
+
+\begin{align*}
+	f(\boldsymbol{x}) = \left\{                       
+	\begin{array}{ll}                                 
+	1\ \text{if}\ \boldsymbol{w}^T \boldsymbol{x} > 0 \\
+	0\ \text{otherwise}                               \\
+	\end{array}                                       
+	\right.                                           
+\end{align*}
+
+The vector $\boldsymbol{w}$ is learned from training data as usual. The algorithm for learning the same is presented in the next section. 
+
+\section{Learning Algorithm}
+	
+\end{document}
