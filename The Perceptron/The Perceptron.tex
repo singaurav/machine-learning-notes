@@ -3,6 +3,8 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{pgfplots}
+\usepackage{algorithm}
+\usepackage{algorithmic}
 
 \begin{document}
 
@@ -30,16 +32,16 @@ The perceptron binary classifier can be thought of as the following function,
 	\begin{tikzpicture}
 		\tikzstyle {point line} = [line width=0.15em]
 		\tikzstyle {margin} = [dashed]
-								    
+										    
 		\draw[-latex] (-3,0) -- (3,0) node[right]{$x_1$};
 		\draw[-latex] (0,-2) -- (0,2) node[left]{$x_2$};	
-					    
+							    
 		\draw[margin] (-1, 2) -- (1, -2);
 		\draw (1, -2) node [below right] {Separating Plane};   
-				
+						
 		\draw[very thick,->, >=stealth] (0, 0) -- (1, 0.5);
 		\draw (1, 0.5) node [above right] {$\vec{\boldsymbol{w}}$};  
-				
+						
 		\draw (-0.1, -0.3) node [below left] {$f(\boldsymbol{x}) < 0$};   
 		\draw (0.5, 0) node [below right] {$f(\boldsymbol{x}) > 0$};   				
 	\end{tikzpicture}
@@ -74,5 +76,36 @@ becomes a hyperplane passing through origin in the new dimensional space. This s
 The vector $\boldsymbol{w}$ is learned from training data as usual. The algorithm for learning the same is presented in the next section. 
 
 \section{Learning Algorithm}
-	
+
+The training data consists of $N$ pairs of $d$-dimensional real input vectors $\boldsymbol{x}_i$s and the output binary labels $y_i$s. For mathematical convenience, positive output labels are denoted by $+1$ and negative output labels by {-1}. 
+The learning algorithm makes the following assumptions:
+
+\begin{itemize}
+	\item It is assumed that the input vectors have already been extended to account for the bias term.
+	\item The training data is assumed to be linearly separable at origin. So, there exists a unit vector $\boldsymbol{w}^*$ such that $y_i\boldsymbol{w}^{*T}\boldsymbol{x_i} > \gamma \ \ \forall i \ \ \text{where}\ \ \gamma > 0$.
+	\item It is assumed that all training input vectors are finite.
+\end{itemize} 
+
+The algorithm is defined as follows.
+
+\begin{algorithm}
+	\renewcommand{\thealgorithm}{}
+	\caption{The Perceptron Learning Algorithm}
+	\begin{algorithmic} 
+		\STATE $k \leftarrow 1$
+		\STATE $\boldsymbol{w}_k \leftarrow 0$
+		
+		\WHILE {any input vector is misclassified}
+		\STATE pick any misclassified vector $\boldsymbol{x}_i$
+		\STATE $\boldsymbol{w}_{k+1} \leftarrow \boldsymbol{w}_k + y_i \boldsymbol{\boldsymbol{x}_i}$
+		\STATE $ k \leftarrow k + 1$
+		\ENDWHILE
+		\RETURN $\boldsymbol{w}_k$
+	\end{algorithmic}
+\end{algorithm}
+
+\section{Example}
+
+\section{Proof of Convergence}
+
 \end{document}
