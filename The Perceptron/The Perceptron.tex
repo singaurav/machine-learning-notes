@@ -25,6 +25,52 @@ The perceptron binary classifier can be thought of as the following function,
 	\right.                                           
 \end{align*}
 
+\begin{figure}[htbp]
+	\centering
+	\begin{tikzpicture}
+		\tikzstyle {point line} = [line width=0.15em]
+		\tikzstyle {margin} = [dashed]
+								    
+		\draw[-latex] (-3,0) -- (3,0) node[right]{$x_1$};
+		\draw[-latex] (0,-2) -- (0,2) node[left]{$x_2$};	
+					    
+		\draw[margin] (-1, 2) -- (1, -2);
+		\draw (1, -2) node [below right] {Separating Plane};   
+				
+		\draw[very thick,->, >=stealth] (0, 0) -- (1, 0.5);
+		\draw (1, 0.5) node [above right] {$\vec{\boldsymbol{w}}$};  
+				
+		\draw (-0.1, -0.3) node [below left] {$f(\boldsymbol{x}) < 0$};   
+		\draw (0.5, 0) node [below right] {$f(\boldsymbol{x}) > 0$};   				
+	\end{tikzpicture}
+\end{figure}
+
+One severe limitation of this formulation is that the separating hyperplane always passes through origin which might be undesirable in many cases. However, this limitation can be overcome in the following way,
+
+\begin{align*}
+	f(\boldsymbol{x}) = \left\{                           
+	\begin{array}{ll}                                     
+	1\ \text{if}\ \boldsymbol{w}^T \boldsymbol{x} + b > 0 \\
+	0\ \text{otherwise}                                   \\
+	\end{array}                                           
+	\right.                                               
+\end{align*}
+
+The bias term $b$ frees the separating hyperplane from origin. Additionally, we can employ a trick to simplify the expression as follows.
+
+\begin{align*}
+	f(\boldsymbol{x}) = \left\{                                                                    
+	\begin{array}{ll}                                                                              
+	1\ \text{if}\ \begin{pmatrix} \boldsymbol{w}^T, b \end{pmatrix} \begin{pmatrix} \boldsymbol{x} \\ 
+	1 \end{pmatrix} > 0                                                                            \\
+	0\ \text{otherwise}                                                                            \\
+	\end{array}                                                                                    
+	\right.                                                                                        
+\end{align*}
+
+Hence, by increasing the dimension of input by one and defaulting the intercept on the new dimension to 1 for every input vector, any separating hyperplane in the old dimensional space 
+becomes a hyperplane passing through origin in the new dimensional space. This simplifies the mathematics without constraining the classifier.
+
 The vector $\boldsymbol{w}$ is learned from training data as usual. The algorithm for learning the same is presented in the next section. 
 
 \section{Learning Algorithm}
