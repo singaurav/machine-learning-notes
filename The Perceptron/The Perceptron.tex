@@ -4,7 +4,9 @@
 \usepackage{amssymb}
 \usepackage{pgfplots}
 \usepackage{algorithm}
+\usepackage{placeins}
 \usepackage{algorithmic}
+\usepackage{booktabs}
 
 \begin{document}
 
@@ -31,17 +33,16 @@ The perceptron binary classifier can be thought of as the following function,
 	\centering
 	\begin{tikzpicture}
 		\tikzstyle {point line} = [line width=0.15em]
-		\tikzstyle {margin} = [dashed]
-										    
+												    
 		\draw[-latex] (-3,0) -- (3,0) node[right]{$x_1$};
 		\draw[-latex] (0,-2) -- (0,2) node[left]{$x_2$};	
-							    
-		\draw[margin] (-1, 2) -- (1, -2);
+									    
+		\draw[dashed] (-1, 2) -- (1, -2);
 		\draw (1, -2) node [below right] {Separating Plane};   
-						
+								
 		\draw[very thick,->, >=stealth] (0, 0) -- (1, 0.5);
 		\draw (1, 0.5) node [above right] {$\vec{\boldsymbol{w}}$};  
-						
+								
 		\draw (-0.1, -0.3) node [below left] {$f(\boldsymbol{x}) < 0$};   
 		\draw (0.5, 0) node [below right] {$f(\boldsymbol{x}) > 0$};   				
 	\end{tikzpicture}
@@ -94,9 +95,9 @@ The algorithm is defined as follows.
 	\begin{algorithmic} 
 		\STATE $k \leftarrow 1$
 		\STATE $\boldsymbol{w}_k \leftarrow 0$
-		
-		\WHILE {any input vector is misclassified}
-		\STATE pick any misclassified vector $\boldsymbol{x}_i$
+				
+		\WHILE {there exists $j \in \{1, 2, .., N\}$ such that $ y_j\boldsymbol{w}^{*T}\boldsymbol{x_j} <= 0$ }
+		\STATE {pick $i \in \{1, 2, .., N\}$ such that $ y_i\boldsymbol{w}^{*T}\boldsymbol{x_i} <= 0$}
 		\STATE $\boldsymbol{w}_{k+1} \leftarrow \boldsymbol{w}_k + y_i \boldsymbol{\boldsymbol{x}_i}$
 		\STATE $ k \leftarrow k + 1$
 		\ENDWHILE
@@ -105,6 +106,185 @@ The algorithm is defined as follows.
 \end{algorithm}
 
 \section{Example}
+
+The algorithm is illustrated on a very simple example.
+
+\begin{figure}[htbp]
+	\centering
+	\begin{tikzpicture}
+		\tikzstyle {point line} = [line width=0.15em]
+						    
+		\draw[-latex] (-4,0) -- (4,0) node[right]{$x_1$};
+		\draw[-latex] (0,-3) -- (0,3) node[left]{$x_2$};
+							
+		\draw[help lines] (-3.5,-2.5) grid (3.5,2.5);
+							
+		\draw[point line] (-1.7,0) -- (-2.3,0);
+		\draw[point line] (-0.3,-2) -- (0.3,-2);      
+				
+		\draw[point line] (-1.7,2) -- (-2.3,2);
+		\draw[point line] (-2,1.7) -- (-2,2.3);  
+				
+		\draw[point line] (1.7,2) -- (2.3,2);
+		\draw[point line] (2,1.7) -- (2,2.3); 	
+				
+		\draw (-2, 2) node [below right] {(-2, 2)};
+		\draw (2, 2) node [below left] {(2, 2)};
+		\draw (-2, 0) node [below right] {(-2, 0)};
+		\draw (0, -2) node [below right] {(0, -2)};
+	\end{tikzpicture}
+\end{figure}
+
+\FloatBarrier
+
+\subsection{Iteration 1}
+
+\begin{align*}
+	\boldsymbol{w}_1 = \begin{pmatrix} 0 \\ 0 \end{pmatrix}
+\end{align*}
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\toprule
+		$\boldsymbol{x}$    \\
+		\midrule
+		$\begin{pmatrix} -2 \\ 0 \end{pmatrix}$ & -1 & 0 \\
+		$\begin{pmatrix} 0  \\ -2 \end{pmatrix}$ & -1 & 0 \\
+		$\begin{pmatrix} -2 \\ 2 \end{pmatrix}$ & 1 & 0 \\
+		$\begin{pmatrix} 2  \\ 2 \end{pmatrix}$ & 1 & 0 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\subsection{Iteration 2}
+
+\begin{align*}
+	\boldsymbol{w}_2 & = \begin{pmatrix} 0 \\ 0 \end{pmatrix} + (-1)  \begin{pmatrix} -2 \\ 0 \end{pmatrix}  \\
+	                 & = \begin{pmatrix} 2 \\ 0 \end{pmatrix}
+\end{align*}
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\toprule
+		$\boldsymbol{x}$    \\
+		\midrule
+		$\begin{pmatrix} -2 \\ 0 \end{pmatrix}$ & -1 & 4 \\
+		$\begin{pmatrix} 0  \\ -2 \end{pmatrix}$ & -1 & 0 \\
+		$\begin{pmatrix} -2 \\ 2 \end{pmatrix}$ & 1 & -4 \\
+		$\begin{pmatrix} 2  \\ 2 \end{pmatrix}$ & 1 & 4 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\FloatBarrier
+
+\subsection{Iteration 3}
+
+\begin{align*}
+	\boldsymbol{w}_3 & = \begin{pmatrix} 2 \\ 0 \end{pmatrix} + (-1)  \begin{pmatrix} 0 \\ -2 \end{pmatrix}  \\
+	                 & = \begin{pmatrix} 2 \\ 2 \end{pmatrix}
+\end{align*}
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\toprule
+		$\boldsymbol{x}$    \\
+		\midrule
+		$\begin{pmatrix} -2 \\ 0 \end{pmatrix}$ & -1 & 4 \\
+		$\begin{pmatrix} 0  \\ -2 \end{pmatrix}$ & -1 & 4 \\
+		$\begin{pmatrix} -2 \\ 2 \end{pmatrix}$ & 1 & 0 \\
+		$\begin{pmatrix} 2  \\ 2 \end{pmatrix}$ & 1 & 8 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\FloatBarrier
+
+\subsection{Iteration 4}
+
+\begin{align*}
+	\boldsymbol{w}_4 & = \begin{pmatrix} 2 \\ 2 \end{pmatrix} + (1)  \begin{pmatrix} -2 \\ 2 \end{pmatrix}  \\
+	                 & = \begin{pmatrix} 0 \\ 4 \end{pmatrix}
+\end{align*}
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\toprule
+		$\boldsymbol{x}$    \\
+		\midrule
+		$\begin{pmatrix} -2 \\ 0 \end{pmatrix}$ & -1 & 0 \\
+		$\begin{pmatrix} 0  \\ -2 \end{pmatrix}$ & -1 & 8 \\
+		$\begin{pmatrix} -2 \\ 2 \end{pmatrix}$ & 1 & 8 \\
+		$\begin{pmatrix} 2  \\ 2 \end{pmatrix}$ & 1 & 8 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\FloatBarrier
+
+\subsection{Iteration 5}
+
+\begin{align*}
+	\boldsymbol{w}_5 & = \begin{pmatrix} 0 \\ 4 \end{pmatrix} + (-1)  \begin{pmatrix} -2 \\ 0 \end{pmatrix}  \\
+	                 & = \begin{pmatrix} 2 \\ 4 \end{pmatrix}
+\end{align*}
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\toprule
+		$\boldsymbol{x}$    \\
+		\midrule
+		$\begin{pmatrix} -2 \\ 0 \end{pmatrix}$ & -1 & 4 \\
+		$\begin{pmatrix} 0  \\ -2 \end{pmatrix}$ & -1 & 8 \\
+		$\begin{pmatrix} -2 \\ 2 \end{pmatrix}$ & 1 & 4 \\
+		$\begin{pmatrix} 2  \\ 2 \end{pmatrix}$ & 1 & 12 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\FloatBarrier
+
+All the points are correctly classified, hence the algorithm terminates. The algorithm converged in 5 iterations. In fact, as will be proved later, the algorithm is always guaranteed to converge in finite iterations.The resulting separating hyperplanes is shown below.
+
+\begin{figure}[htbp]
+	\centering
+	\begin{tikzpicture}
+		\tikzstyle {point line} = [line width=0.15em]
+						    
+		\draw[-latex] (-5,0) -- (5,0) node[right]{$x_1$};
+		\draw[-latex] (0,-5) -- (0,5) node[left]{$x_2$};
+							
+		\draw[help lines] (-4.5,-4.5) grid (4.5,4.5);
+							
+		\draw[point line] (-1.7,0) -- (-2.3,0);
+		\draw[point line] (-0.3,-2) -- (0.3,-2);      
+				
+		\draw[point line] (-1.7,2) -- (-2.3,2);
+		\draw[point line] (-2,1.7) -- (-2,2.3);  
+				
+		\draw[point line] (1.7,2) -- (2.3,2);
+		\draw[point line] (2,1.7) -- (2,2.3); 	
+				
+		\draw (-2, 2) node [below right] {(-2, 2)};
+		\draw (2, 2) node [below left] {(2, 2)};
+		\draw (-2, 0) node [below right] {(-2, 0)};
+		\draw (0, -2) node [below right] {(0, -2)};
+									
+		\draw [dashed] (-4, 2) -- (4, -2);
+		\draw (4, -2) node [below right] {Separating Plane};   
+								
+		\draw[very thick,->, >=stealth] (0, 0) -- (2, 4);
+		\draw (2, 4) node [above right] {$\vec{\boldsymbol{w}_5}$};  
+				
+	\end{tikzpicture}
+\end{figure}
+
+\FloatBarrier
 
 \section{Proof of Convergence}
 
