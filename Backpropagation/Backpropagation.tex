@@ -2,6 +2,7 @@
 
 \usepackage{tikz}
 \usetikzlibrary{arrows,automata, shapes, petri}
+\usepackage{amsmath}
 
 \begin{document}
 
@@ -16,31 +17,89 @@ Backpropagation is a computer algorithm used for supervised training of Artifici
 \begin{center}
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,
 		semithick]
-										
-		\node[state] (I1)                    {$a^1_1$};
-		\node[state] (I2) [below of=I1, node distance=5em] {$a^1_2$};
-		\node[state] (I3) [below of=I2, node distance=5em] {$a^1_3$};
-		
+												
+		\node[state] (I1)                    {$\ \ a^1_1$};
+		\node[state] (I2) [below of=I1, node distance=5em] {$\ \ a^1_2$};
+		\node[state] (I3) [below of=I2, node distance=5em] {$\ \ a^1_3$};
+				
 		\node[state] (J1) [above right of=I1, node distance=8em]  {$z^2_1|a^2_1$};
 		\node[state] (J2) [below of=J1, node distance=7em] {$z^2_2|a^2_2$};
 		\node[state] (J3) [below of=J2, node distance=7em] {$z^2_3|a^2_3$};
 		\node[state] (J4) [below of=J3, node distance=7em] {$z^2_4|a^2_4$};	
-		
+				
 		\node[state] (K1) [below right of=J1, node distance=10em]  {$z^3_1|a^3_1$};
 		\node[state] (K2) [below of=K1, node distance=7em] {$z^3_2|a^3_2$};	
-		
+				
 		\node [rectangle, node distance=2cm] (I) [above of=I1] {1};
 		\node [rectangle, node distance=2cm] (J) [above of=J1] {2};
 		\node [rectangle, node distance=2cm] (K) [above of=K1] {3};	
-		
+				
 		\path (I2) edge  node {$w^2_{32}$} (J3);	
 		\path (J4) edge  node {$w^3_{24}$} (K2);		
-		                   
+				                   
 	\end{tikzpicture}
 \end{center}
 
 The layers are of the Neural Network are denoted by positive integers with input layer denoted by $1$, the first hidden layer by $2$ and so on till the output layer. The inputs in the input layer are denoted by $a^1_{i}$ as shown above. For all the other neurons in other layers, $z^l_i$ denotes the weighted sum of the neuron activations in the previous layer and $a^l_i$ denotes that neuron's activation. The weights are superscripted by the index of the layer of the neuron at the end, and subscripted first by the layer index of the end neuron and then by that of the start neuron.
 
-\section{Forward Propagation}
+\section{Forward Pass}
+
+For any layer $l$ which is apart from the input layer, it can be written,
+
+\begin{align*}
+	z^l_i = \left( \sum_j w^l_{ij}a^{l-1}_j \right)  + b^l_i 
+\end{align*} 
+
+Taking examples from the figure,
+
+\begin{align*}
+	z^2_1 = (w^2_{11}a^1_1  + w^2_{12}a^1_2  +  w^2_{13}a^1_3) + b^2_1 \\ 
+	z^2_2 = (w^2_{21}a^1_1  + w^2_{22}a^1_2  +  w^2_{23}a^1_3) + b^2_2 \\
+	z^2_3 = (w^2_{31}a^1_1  + w^2_{32}a^1_2  +  w^2_{33}a^1_3) + b^2_3 \\
+	z^2_4 = (w^2_{41}a^1_1  + w^2_{42}a^1_2  +  w^2_{43}a^1_3) + b^2_4 
+\end{align*}
+
+These equations can be rewritten in matrix form as follows,
+
+\begin{align*}
+	\begin{pmatrix} z^2_1 \\ z^2_2 \\ z^2_3 \\z^2_4 \end{pmatrix} = \begin{pmatrix}  w^2_{11} & w^2_{12} & w^2_{13} \\ w^2_{21} & w^2_{22} & w^2_{23} \\ w^2_{31} & w^2_{32} & w^2_{33} \\w^2_{41} & w^2_{42} & w^2_{43}  \end{pmatrix} \begin{pmatrix} a^1_1 \\ a^1_2 \\ a^1_3 \\ \end{pmatrix} + \begin{pmatrix} b^2_1 \\ b^2_2 \\ b^2_3 \\b^2_4 \end{pmatrix}	
+\end{align*}
+
+or 
+
+\begin{align*}
+	\boldsymbol{Z}^2 = \boldsymbol{W}^2 \boldsymbol{A}^1 + \boldsymbol{B}^2 
+\end{align*}
+
+Generalizing for all layers,
+
+\begin{align}
+	\boldsymbol{Z}^l = \boldsymbol{W}^l \boldsymbol{A}^{l-1} + \boldsymbol{B}^l 
+\end{align}
+
+Activation function $\sigma$ is applied to $z^l_i$ to yield $a^l_i$.
+
+\begin{align*}
+	a^2_1 = \sigma(z^2_1) \\
+	a^2_2 = \sigma(z^2_2) \\
+	a^2_3 = \sigma(z^2_3) \\
+	a^2_4 = \sigma(z^2_4) \\
+\end{align*} 
+
+which can be written in matrix form as,
+
+\begin{align*}
+	\boldsymbol{Z}^2 = \sigma(\boldsymbol{A}^2) 
+\end{align*}
+
+or more generally as,
+
+\begin{align}
+	\boldsymbol{Z}^l = \sigma(\boldsymbol{A}^l) 
+\end{align}
+
+Given $\boldsymbol{A}^1$, any $\boldsymbol{Z}^l$ or $\boldsymbol{A}^l$ can be calculated using the two equations (1) and (2). This completes the analysis of the forward pass of backpropagation algorithm.
+
+\section{Backward Pass}
 
 \end{document}
