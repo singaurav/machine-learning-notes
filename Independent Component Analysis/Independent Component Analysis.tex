@@ -1,8 +1,9 @@
 \documentclass[11pt, a4paper]{article}
 
 \usepackage{tikz}
-\usetikzlibrary{arrows,automata, shapes, petri}
 \usepackage{amsmath}
+\usepackage{placeins}
+\usepackage{booktabs}
 
 \begin{document}
 
@@ -10,9 +11,89 @@
 \date{}
 \maketitle
 
-Independent Component Analysis is a statistical generative model which aims to reveal hidden independent factors from multi-dimensional data.
+Independent Component Analysis is a statistical generative model which aims to reveal hidden independent additive components from multi-dimensional data.
 
 \section{Mathematical Preliminaries}
+
+\subsection{Single Random Variable}
+
+Let the Probability Mass Function of a discrete random variable X be defined as follows
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|}
+		\toprule
+		         & $x=1$         & $x=2$         & $x=3$         & $x=4$         \\
+		\midrule
+		$P(X=x)$ & $\frac{1}{6}$ & $\frac{1}{3}$ & $\frac{1}{3}$ & $\frac{1}{6}$ \\
+		\hline
+	\end{tabular}
+\end{table}
+
+The expectation $E(X)$ of this random variable is defined as follows
+
+\begin{align*}
+	E(X) & = \sum_k x_k P(X=x_k)                                                                       \\
+	     & = 1 \times \frac{1}{6} + 2 \times \frac{1}{3} + 3 \times \frac{1}{3} + 4 \times \frac{1}{6} \\
+	     & = \frac{15}{6}                                                                              
+\end{align*}
+
+If a new variable $Y=2X+1$ is defined, the PMF of $Y$ becomes
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|}
+		\toprule
+		                & $y=2 \times 1  + 1$ & $y=2 \times 2  + 1$ & $y=2 \times 3  + 1$ & $y=2 \times 4  + 1$ \\
+		\midrule
+		$P(Y=y=2x + 1)$ & $\frac{1}{6}$       & $\frac{1}{3}$       & $\frac{1}{3}$       & $\frac{1}{6}$       \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\begin{align*}
+	E(Y) & = \sum_k y_k P(Y=y_k)         \\ 
+	     & = \sum_k (2 x_k + 1) P(Y=y_k) \\
+	     & = \sum_k (2x_k + 1) P(X=x_k)  \\
+	     & = 2E(X) + 1                   
+\end{align*}
+
+Hence, expectation is a linear operator which satisfies $E(aX + b) = aE(X) + b$.
+
+The variance of a discrete random variable $X$ is defined as
+
+\begin{align*}
+	Var(X) & = E((X-E(X))(X-E(X)))           \\
+	       & = E(X^2 - 2E(X)X + E(X)E(X))    \\
+	       & = E(X^2) - 2E(X)E(X) + E(X)E(X) \\
+	       & = E(X^2) - E(X)^2               
+\end{align*}
+
+In case of continuous random variables, instead of Probability Mass Function a Probability Density Function is defined because the sample space is continuous and infinite as opposed to discrete and finite.
+
+The expectation and variance of a continuous random variable are defined as
+
+\begin{align*}
+	E(X)   & = \int x P(X=x) dx            \\
+	Var(X) & = \int (x - E(X))^2 P(X=x) dx 
+\end{align*}
+
+Just as in the case of discrete random variables where the sum of probabilities of all events in sample space must sum to 1, the area under PDF curve in the case of continuous random variable must also integrate to 1.
+
+An example of a well known continuous random variable is the Gaussian random variable whose PDF is defined as follows
+
+\begin{align*}
+	P(X=x) & = \frac{1}{\sqrt{2\pi\sigma^2}} e^{\frac{-(x-\mu)^2}{2\sigma^2}} \\
+\end{align*}
+
+with the following expectation and variance
+
+\begin{align*}
+	E(X)   & = \mu      \\
+	Var(X) & = \sigma^2 
+\end{align*}
+
+\subsection{A Pair of Random Variables}
 
 
 \end{document}
