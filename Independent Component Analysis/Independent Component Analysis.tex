@@ -17,20 +17,20 @@ Independent Component Analysis is a statistical generative model which aims to r
 
 \subsection{Single Random Variable}
 
-Let the Probability Mass Function of a discrete random variable X be defined as follows
+Let the Probability Mass Function of a discrete random variable X be defined as follows.
 
 \begin{table}[htbp]
 	\centering
 	\begin{tabular}{|c|c|c|c|c|}
 		\toprule
-		         & $x=1$         & $x=2$         & $x=3$         & $x=4$         \\
+		         & $x=1$ & $x=2$ & $x=3$ & $x=4$ \\
 		\midrule
-		$P(X=x)$ & $\frac{1}{6}$ & $\frac{1}{3}$ & $\frac{1}{3}$ & $\frac{1}{6}$ \\
+		$P(X=x)$ & 1/6   & 1/3   & 1/3   & 1/6   \\
 		\hline
 	\end{tabular}
 \end{table}
 
-The expectation $E(X)$ of this random variable is defined as follows
+The expectation $E(X)$ of this random variable is defined as follows.
 
 \begin{align*}
 	E(X) & = \sum_k x_k P(X=x_k)                                                                       \\
@@ -46,7 +46,7 @@ If a new variable $Y=2X+1$ is defined, the PMF of $Y$ becomes
 		\toprule
 		                & $y=2 \times 1  + 1$ & $y=2 \times 2  + 1$ & $y=2 \times 3  + 1$ & $y=2 \times 4  + 1$ \\
 		\midrule
-		$P(Y=y=2x + 1)$ & $\frac{1}{6}$       & $\frac{1}{3}$       & $\frac{1}{3}$       & $\frac{1}{6}$       \\
+		$P(Y=y=2x + 1)$ & 1/6                 & 1/3                 & 1/3                 & 1/6                 \\
 		\hline
 	\end{tabular}
 \end{table}
@@ -80,13 +80,13 @@ The expectation and variance of a continuous random variable are defined as
 
 Just as in the case of discrete random variables where the sum of probabilities of all events in sample space must sum to 1, the area under PDF curve in the case of continuous random variable must also integrate to 1.
 
-An example of a well known continuous random variable is the Gaussian random variable whose PDF is defined as follows
+An example of a well known continuous random variable is the Gaussian random variable whose PDF is defined as follows.
 
 \begin{align*}
 	P(X=x) & = \frac{1}{\sqrt{2\pi\sigma^2}} e^{\frac{-(x-\mu)^2}{2\sigma^2}} \\
 \end{align*}
 
-with the following expectation and variance
+with the following expectation and variance.
 
 \begin{align*}
 	E(X)   & = \mu      \\
@@ -95,5 +95,86 @@ with the following expectation and variance
 
 \subsection{A Pair of Random Variables}
 
+Let the joint Probability Mass Function of a pair of discrete random variables X  and Y be defined as follows.
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\toprule
+		P(X=x,\ Y=y) & $x=1$ & $x=2$ & $x=3$ \\
+		\midrule
+		$y=1$        & 3/8   & 3/16  & 3/16  \\
+		$y=2$        & 1/8   & 1/16  & 1/16  \\
+		\hline
+	\end{tabular}
+\end{table}
+
+As usual, the sum of all probabilities is equal to 1. 
+
+Given the joint distribution of a set of random variables, one can also find out the distribution of a subset of those random variables and the distribution of such a subset is called the marginal distribution. In the above example, the marginal distribution of $X$ and $Y$can be computed by summing up each column and row respectively in the table above.
+
+\begin{align*}
+	P(X=x_k) = \sum_{y_l} P(X=x_k,\ y=y_l) \\
+	P(Y=y_k) = \sum_{x_l} P(X=x_l,\ y=y_k) \\	
+\end{align*}
+
+In the case of a pair of continuous random variables, their joint Probability Distribution Function becomes a surface in three dimensions. The marginal distributions take the following formulae.
+
+\begin{align*}
+	P(X=x) = \int_y P(X=x,\ y=y)dy \\
+	P(Y=y) = \int_x P(X=x,\ y=y)dx \\
+\end{align*}
+
+Two random variables are said to statistically independent if and only if
+
+\begin{align*}
+	P(X=x,\ Y=y) = P(X=x)P(Y=y) 
+\end{align*}
+
+For independent random variables, the following result holds.
+
+\begin{align*}
+	E(f(X)g(Y)) & = \int \int f(x)g(y)P(X=x,\ Y=y)dxdy      \\ 
+	            & = \int \int f(x)g(y) P(X=x) P(Y=y) dxdy   \\
+	            & = \int f(x) P(X=x) dx \int g(y) P(Y=y) dy \\
+	            & = E(f(X))E(g(Y))                          
+\end{align*}
+
+A weaker form of independence is uncorrelatedness. If $f(X)$ and $g(Y)$ are defined such that $f(X)=X$ and $g(Y) = Y$ and $E(XY) = E(X)E(Y)$ holds true, then two variables are said to be uncorrelated.
+
+\subsection {Sum of Random Variables}
+
+If $X$ denotes the outcome of roll of a dice and $Y$ denotes the outcome of roll of another dice, then $Z=X+Y$ denotes a random variable whose value is equal to the sum of the two rolls. If PMFs of $X$ and $Y$ are known, what is the PMF of $Z=X+Y$?
+
+\begin{align*}
+	P(Z=X+Y=z) & = \sum_x P(X=x,\ Y=z-x) \\
+	           & = \sum_y P(X=z-y,\ Y=y) 
+\end{align*}
+
+It is easy to see why the above equation holds. To find $P(Z=z)$, one has to sum the probabilities $P(X=x,\ Y=y)$ of all possible scenarios where $x+y=z$. In the case of continuous random variables the formulae become
+
+\begin{align*}
+	P(Z=X+Y=z) & = \int P(X=x,\ Y=z-x) dx \\
+	           & = \int P(X=z-y,\ Y=y) dy 
+\end{align*}
+
+The expectation of a sum of two random variables is the sum of expectations of individual random variables.
+
+\begin{align*}
+	E(X+Y) & = \int \int (x+y)P(X=x,\ Y=y)dxdy                                     \\
+	       & = \int \int xP(X=x,\ Y=y)dxdy + \int yP(X=x,\ Y=y)dxdy                \\
+	       & = \int x\ \int P(X=x,\ Y=y) dy\ dx + \int y\ \int P(X=x,\ Y=y) dx\ dy \\
+	       & = \int xP(X=x)dx + \int yP(Y=y)dy                                     \\
+	       & = E(X) + E(Y)                                                         
+\end{align*}
+
+Interestingly, If $X$ and $Y$ are independent Gaussian random variables then the above result holds for variances too.
+
+\begin{align*}
+	E(X+Y)   & = E(X) + E(Y)     \\
+	Var(X+Y) & = Var(X) + Var(Y) 
+\end{align*}
+
+\section{ICA Motivation}
 
 \end{document}
