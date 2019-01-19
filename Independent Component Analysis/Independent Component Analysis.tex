@@ -217,21 +217,21 @@ Denote each speaker's sound as a random variable $S_i$ (S stands for signal). A 
 	S_N 
 	\end{pmatrix} \\
 	\\
-	\boldsymbol{X} &= A \boldsymbol{S}
+	X &= A S
 \end{align*}
 
-If the $j$th column of the matrix $A$ is denoted by $\boldsymbol{a_j}$, then the equation becomes
+If the $j$th column of the matrix $A$ is denoted by $a_j$, then the equation becomes
 
 \begin{align*}
-	\boldsymbol{X} = \sum_j \boldsymbol{a_j} S_j 
+	X = \sum_j a_j S_j 
 \end{align*}
 
-A set of observations corresponding to $\boldsymbol{X}$ are given and the goal is to recover $\boldsymbol{S}$.
+A set of observations corresponding to $X$ are given and the goal is to recover $S$.
 
 \begin{align*}
-	\boldsymbol{X} & = A \boldsymbol{S}      \\
-	\boldsymbol{S} & = A^{-1} \boldsymbol{X} \\
-	\boldsymbol{S} & = W \boldsymbol{X}      
+	X & = A S      \\
+	S & = A^{-1} X \\
+	S & = W X      
 \end{align*}
 
 The goal is to find this un-mixing matrix $W$.
@@ -248,7 +248,7 @@ The goal is to find this un-mixing matrix $W$.
 	      	             & =  \sum_j w_{ij}E(S_j) \\
 	      	             & = 0\ \forall \ i       
 	      \end{align*}
-	      	      	        
+	      	      	      	        
 \end{itemize}
 
 \section{Ambiguities}
@@ -278,10 +278,10 @@ The goal is to find this un-mixing matrix $W$.
 	      	S_2
 	      	\end{pmatrix} 
 	      \end{align*}
-	      	      	      
+	      	      	      	      
 	      Hence the variances of all signals are assumed to be equal to unity.       
 	\item The order of signals can't be recovered.
-	      	      	       
+	      	      	      	       
 	      \begin{align*}
 	      	\begin{pmatrix} 
 	      	X_1 \\ 
@@ -314,20 +314,20 @@ Let $S_1$ and $S_2$ be two independent signals with a uniform density of $1/2$ f
 \begin{figure}[htbp]
 	\centering
 	\begin{tikzpicture}
-														    
-		\draw[-latex] (-4,0) -- (4,0) node[right]{$s$};
-		\draw[-latex] (0,-2) -- (0,2) node[above]{$P(S=s)$};
-															
-		\draw[line width=0.15em] (-3.8,0) -- (-2,0);
-		\draw[line width=0.15em] (-2,0) -- (-2,1);
-		\draw[line width=0.15em] (-2,1) -- (2,1);
-		\draw[line width=0.15em] (2,1) -- (2,0);
-		\draw[line width=0.15em] (2,0) -- (3.8,0);		
-							
-												
-		\draw (-2, 1) node [above left] {(-1, 1/2)};
-		\draw (2, 1) node [above right] {(1, 1/2)};
-						
+																    
+		\draw[-latex] (-2,0) -- (2,0) node[right]{$s$};
+		\draw[-latex] (0,-1) -- (0,1) node[above]{$P(S=s)$};
+																	
+		\draw[line width=0.15em] (-1.8,0) -- (-1,0);
+		\draw[line width=0.15em] (-1,0) -- (-1,0.5);
+		\draw[line width=0.15em] (-1,0.5) -- (1,0.5);
+		\draw[line width=0.15em] (1,0.5) -- (1,0);
+		\draw[line width=0.15em] (1,0) -- (1.8,0);		
+									
+														
+		\draw (-1, 0.5) node [above left] {(-1, 1/2)};
+		\draw (1, 0.5) node [above right] {(1, 1/2)};
+								
 	\end{tikzpicture}
 \end{figure}
 
@@ -341,16 +341,16 @@ Their joint distribution takes the the following form.
 \begin{figure}[htbp]
 	\centering
 	\begin{tikzpicture}
-														    
-		\draw[-latex] (-4,0) -- (4,0) node[right]{$s_1$};
-		\draw[-latex] (0,-4) -- (0,4) node[above]{$s_2$};
-															
-		\draw [fill=gray, opacity=0.3] (-2,-2) rectangle (2,2);
-								
-		\draw (-2, -2) node [below left] {(-1, -1)};
-		\draw (-2, 2) node [above left] {(-1, 1)};
-		\draw (2, -2) node [below right] {(1, -1)};
-		\draw (2, 2) node [above right] {(1, 1)};
+																    
+		\draw[-latex] (-2,0) -- (2,0) node[right]{$s_1$};
+		\draw[-latex] (0,-2) -- (0,2) node[above]{$s_2$};
+																	
+		\draw [fill=gray, opacity=0.3] (-1,-1) rectangle (1,1);
+										
+		\draw (-1, -1) node [below left] {(-1, -1)};
+		\draw (-1, 1) node [above left] {(-1, 1)};
+		\draw (1, -1) node [below right] {(1, -1)};
+		\draw (1, 1) node [above right] {(1, 1)};
 	\end{tikzpicture}
 \end{figure}
 
@@ -365,7 +365,7 @@ Consider the following linear transformation of these signals.
 	\end{pmatrix} & = 
 	\begin{pmatrix} 
 	1             & 1 \\ 
-	1             & 2 
+	3             & 1 
 	\end{pmatrix}
 	\begin{pmatrix} 
 	S_1 \\ 
@@ -376,68 +376,141 @@ Consider the following linear transformation of these signals.
 The joint density of the observed signals becomes
 
 \begin{align*}
-	P(X_1=x_1,\ X_2=x_2) & = \frac{1}{2\sqrt{5}}\ \ \ if\ (x_1, x_2)\ lie\ in\  parallelogram\ below \\
-	                     & = 0\ \ \ otherwise                                                        
+	P(X_1=x_1,\ X_2=x_2) & = \frac{1}{2} \times \frac{1}{4}                                     
+	= \frac{1}{\begin{vmatrix} 
+	1                    & 1                                                                    \\ 
+	3                    & 1                                                                    
+	\end{vmatrix}} \times \frac{1}{4} \ \ \ if\ (x_1, x_2)\ lie\ in\  parallelogram\ below \\
+	                     & = 0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherwise 
 \end{align*}
 
 
 \begin{figure}[htbp]
 	\centering
 	\begin{tikzpicture}
-														    
+																    
 		\draw[-latex] (-4,0) -- (4,0) node[right]{$x_1$};
 		\draw[-latex] (0,-4) -- (0,4) node[above]{$x_2$};
-															
-		\draw [fill=gray,  opacity=0.3] (2,3) -- (0,1) -- (-2,-3) -- (0,-1) -- cycle;
-								
-		\draw (2, 3) node [above right] {(2, 3)};
-		\draw (0, 1) node [above left] {(0, 1)};
-		\draw (-2, -3) node [below left] {(-2, -3)};
-		\draw (0, -1) node [below right] {(0, -1)};
+																	
+		\draw [fill=gray,  opacity=0.3] (2,4) -- (0,2) -- (-2,-4) -- (0,-2) -- cycle;
+										
+		\draw (2, 4) node [above right] {(2, 4)};
+		\draw (0, 2) node [above left] {(0, 2)};
+		\draw (-2, -4) node [below left] {(-2, -4)};
+		\draw (0, -2) node [below right] {(0, -2)};
 	\end{tikzpicture}
 \end{figure}
 
 \FloatBarrier
 
-One edge of the parallelogram points in the direction $(1, 1)$ and the other in $(1, 2)$. These are the same as the rows in the mixing matrix. This gives some hope that ICA could exploit some properties of the joint distribution to recover the original signals like in this case where the edges of the joint density give the mixing matrix away. 
+One edge of the parallelogram points in the direction $(1, 1)$ and the other in $(1, 3)$. These are the same as the columns in the mixing matrix. This gives some hope that ICA could exploit some properties of the joint distribution to recover the original signals like in this case where the edges of the joint density give the mixing matrix away. 
+
+\section{Density Under Linear Transformation}
+
+Consider a random vector $X$ with the following PDF.
+
+\begin{figure}[htbp]
+	\centering
+	\begin{tikzpicture}
+																    
+		\draw[-latex] (-2,0) -- (2,0) node[right]{$x$};
+		\draw[-latex] (0,-1) -- (0,2) node[above]{$P(X=x)$};
+				
+		\draw[line width=0.15em] (-1.8,0) -- (-1,0);
+		\draw[line width=0.15em] (-1,0) -- (0,1);
+		\draw[line width=0.15em] (0,1) -- (1,0);
+		\draw[line width=0.15em] (1,0) -- (1.8,0);	
+				
+		\draw (-1, 0) node [below] {(-1, 0)};
+		\draw (1, 0) node [below] {(1, 0)};
+		\draw (0, 1) node [above right] {(0, 1)};					
+	\end{tikzpicture}
+\end{figure}
+
+\FloatBarrier
+
+Consider another random vector $Y=2X$. How is the PDF of $Y$ related to that of $X$? One can proceed in the following manner.
+
+\begin{align*}
+	P(Y=y) & = P(2X = y)          \\
+	       & = P(X= \frac{y}{2})) 
+\end{align*}
+
+The calculated PDF is drawn below.
+
+\begin{figure}[htbp]
+	\centering
+	\begin{tikzpicture}
+																    
+		\draw[-latex] (-4,0) -- (4,0) node[right]{$y$};
+		\draw[-latex] (0,-1) -- (0,2) node[above]{$P(Y=y)$};
+				
+		\draw[line width=0.15em] (-3.8,0) -- (-2,0);
+		\draw[line width=0.15em] (-2,0) -- (0,1);
+		\draw[line width=0.15em] (0,1) -- (2,0);
+		\draw[line width=0.15em] (2,0) -- (3.8,0);	
+				
+		\draw (-2, 0) node [below] {(-2, 0)};
+		\draw (2, 0) node [below] {(2, 0)};
+		\draw (0, 1) node [above right] {(0, 1)};					
+	\end{tikzpicture}
+\end{figure}
+
+On closer inspection, the calculated PDF is wrong as the area under it is 2. Thus a division by 2 is necessary. Thus,
+
+\begin{align*}
+	Y      & = \alpha X                               \\
+	X      & = \frac{1}{\alpha} Y                     \\
+	P(Y=y) & = \frac{1}{\alpha} P(X=\frac{y}{\alpha}) \\
+	P(X=x) & = \alpha P(Y=\alpha x)                   
+\end{align*}
+
+More generally,
+
+\begin{align*}
+	Y                                 & = \alpha X                                                                \\
+	\begin{pmatrix} Y_1               &                                                                           \\ Y_2 \\ ... \\Y_N \end{pmatrix} &= \begin{pmatrix} \alpha_1^T \\ \alpha_2^T \\ ... \\  \alpha_N^T \end{pmatrix} \begin{pmatrix} X_1 \\ X_2 \\... \\  X_N \end{pmatrix}  \\
+	P(X_1=x_1, X_2=x_2, ..., X_N=x_N) & =  \begin{vmatrix} \alpha_1^T                                             \\ \alpha_2^T \\ ... \\  \alpha_N^T \end{vmatrix}  P(Y_1=\alpha_1^T X, Y_2=\alpha_2^T X, ..., Y_N=\alpha_N^T X) \\
+	P(X_1=x_1, X_2=x_2, ..., X_N=x_N) & =  |\alpha|  P(Y_1=\alpha_1^T X, Y_2=\alpha_2^T X, ..., Y_N=\alpha_N^T X) 
+\end{align*}
 
 \section{Relation to PCA}
 
-Given a centered random vector $\boldsymbol{X}$, PCA defines a linear transform $\boldsymbol{Y}\ =\ P \boldsymbol{X}$ such that the resulting vector has uncorrelated components. $P$ is a matrix of orthonormal eigenvectors of the covariance matrix of $\boldsymbol{X}$.
+Given a centered random vector $X$, PCA defines a linear transform $Y\ =\ P X$ such that the resulting vector has uncorrelated components. $P$ is a matrix of orthonormal eigenvectors of the covariance matrix of $X$.
 
 \begin{align*}
-	E(\boldsymbol{XX^T}) & = P^TDP 
+	E(XX^T) & = P^TDP 
 \end{align*}
 
 The covariance matrix of the transformed random vector is diagonalized.
 
 \begin{align*}
-	E(\boldsymbol{YY^T}) & = E(P\boldsymbol{XX^T}P^T) \\
-	                     & = PE(\boldsymbol{XX^T})P^T \\
-	                     & = PP^TDPP^T                \\
-	                     & = D                        
+	E(YY^T) & = E(PXX^TP^T) \\
+	        & = PE(XX^T)P^T \\
+	        & = PP^TDPP^T   \\
+	        & = D           
 \end{align*}
 
-One can go a step further to define $\boldsymbol{Y}\ =\ D^{-1/2}P\boldsymbol{X}$. Now the covariance matrix of the transformed random vector becomes identity.
+One can go a step further to define $Y\ =\ D^{-1/2}PX$. Now the covariance matrix of the transformed random vector becomes identity.
 
 \begin{align*}
-	E(\boldsymbol{YY^T}) & = D^{-1/2}PE(\boldsymbol{XX^T})P^TD^{-1/2T} \\
-	                     & = D^{-1/2}PP^TDPP^TD^{-1/2T}                \\
-	                     & = I                                         
+	E(YY^T) & = D^{-1/2}PE(XX^T)P^TD^{-1/2T} \\
+	        & = D^{-1/2}PP^TDPP^TD^{-1/2T}   \\
+	        & = I                            
 \end{align*}
 
-Such a transformation of $\boldsymbol{X}$ is called whitening. Whitening is often a preprocessing step of ICA. Intuitively, whitening makes the transformed components uncorrelated and then ICA will make them independent. So whitening solves half the problem of ICA. More formally, whitening restricts the space of mixing matrix to orthogonal matrices thus making the problem easier. To understand why, consider $\boldsymbol{Y}\ =\  A\boldsymbol{S}$ such that $\boldsymbol{Y}$ is white.
+Such a transformation of $X$ is called whitening. Whitening is often a preprocessing step of ICA. Intuitively, whitening makes the transformed components uncorrelated and then ICA will make them independent. So whitening solves half the problem of ICA. More formally, whitening restricts the space of mixing matrix to orthogonal matrices thus making the problem easier. To understand why, consider $Y\ =\  AS$ such that $Y$ is white.
 
 \begin{align*}
-	E(\boldsymbol{YY^T}) = I      \\
-	AE(\boldsymbol{SS^T}) A^T = I \\
+	E(YY^T) = I      \\
+	AE(SS^T) A^T = I \\
 \end{align*}
 
 Since signals are independent with unit variances as per an assumption above,
 
 \begin{align*}
-	E(\boldsymbol{SS^T}) & = I \\
-	AA^T                 & = I \\
+	E(SS^T) & = I \\
+	AA^T    & = I \\
 \end{align*}
 
 proving that $A$ must be orthogonal. Hence, in case of a random vector of size $N$, instead of estimating $N^2$ parameters of the matrix $A$, ICA only has to estimate $N(N-1)/2$ parameters since $A$ is orthogonal and an orthogonal matrix has $N(N-1)/2$ degrees of freedom. This is equal to estimating almost half the parameters. Thus, literally too, whitening solves half the problem of ICA.
@@ -450,17 +523,10 @@ Consider a Gaussian random variable,
 	P(X=x) & = \frac{1}{\sqrt{2\pi\sigma^2}} e^{\frac{-(x-\mu)^2}{2\sigma^2}} \\
 \end{align*}
 
-Consider another random variable $Y=\alpha X$. What does the PDF of $Y$ look like? One can proceed in the following manner.
+Consider another random variable $Y=\alpha X$. What does the PDF of $Y$ look like? 
 
 \begin{align*}
-	P(Y=y) & = P(\alpha X=y)                                                                 \\
-	       & = P(X=\frac{y}{\alpha})                                                         \\
-	       & = \frac{1}{\sqrt{2\pi\sigma^2}} e^{\frac{-(\frac{y}{\alpha}-\mu)^2}{2\sigma^2}} 
-\end{align*} 
-
-However, this is incorrect as as area under the PDF must equal to unity and for that to happen a division by $\alpha$ is necessary.
-
-\begin{align*}
+	P(Y=y) & = \frac{1}{\alpha} P(X=\frac{y}{\alpha})                                                     \\
 	P(Y=y) & = \frac{1}{\alpha \sqrt{2\pi\sigma^2}} e^{\frac{-(\frac{y}{\alpha}-\mu)^2}{2\sigma^2}}       \\
 	       & = \frac{1}{\sqrt{2\pi \alpha^2 \sigma^2}} e^{\frac{-(y- \alpha \mu)^2}{2 \alpha^2 \sigma^2}} 
 \end{align*}
@@ -513,6 +579,55 @@ So, upon the transformation due to any orthogonal matrix the signals remain unch
 
 \section{Algorithm}
 
-\section{Comments}
+$T$ training samples are given of the form,
+
+\begin{align*}
+	\begin{pmatrix}
+	x_1^1 & x_1^2 & ... & x_1^T \\
+	x_2^1 & x_2^2 & ... & x_2^T \\
+	... \\
+	x_N^1 & x_N^2 & ... & x_N^T 
+	\end{pmatrix}
+\end{align*}
+
+The log-likelihood can be written as,
+
+\begin{align*}
+	L = log \left( \prod_i P(X_1 = x_1^i, X_2=x_2^i, ..., X_N=x_N^i) \right) 
+\end{align*}
+
+Rewriting ICA equation,
+
+\begin{align*}
+	S   &= WX              \\
+	\begin{pmatrix} S_1 \\ S_2 \\ ... \\S_N \end{pmatrix} &= \begin{pmatrix} w_1^T \\ w_2^T \\ ... \\  w_N^T \end{pmatrix} \begin{pmatrix} X_1 \\ X_2 \\... \\  X_N \end{pmatrix}  \\
+\end{align*}
+
+Using the density transformation rule,
+
+\begin{align*}
+	L(W) = log \left( \prod_i \left( P(S_1 = w_1^{T} X^i, S_2=w_2^{T} X^i, ..., S_N= w_N^{T} X^i) |W| \right) \right) 
+\end{align*}
+
+Since the signals are independent,
+
+\begin{align*}
+	L(W)= log \left( \prod_i \left( \prod_j  P(S_j = w_j^{T}X^i) |W| \right) \right) \\
+	L(W) = \sum_i \left( \sum_j  log (P(S_j = w_j^{T}X^i)) + log(|W|) \right)        
+\end{align*}
+
+$P(S_j = w_j^{T}X^i)$ is estimated by the sigmoid function.
+
+\begin{align*}
+	P(S_j = w_j^{T}X^i) = \frac{e^{-w_j^{T}X^i}}{1 + e^{-w_j^{T}X^i}} 
+\end{align*}
+
+The log-likelihood equation becomes,
+
+\begin{align*}
+	L(W) = \sum_i \left( \sum_j  log \left( \frac{e^{-w_j^{T}X^i}}{1 + e^{-w_j^{T}X^i}} \right) + log(|W|) \right) 
+\end{align*}
+
+To maximize $L(W)$ gradient descent can be applied. At convergence, the optimal $W$ can be multiplied to $X$ to recover sought $S$.  
 
 \end{document}
