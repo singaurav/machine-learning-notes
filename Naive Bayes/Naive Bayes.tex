@@ -10,7 +10,7 @@
 \date{}
 \maketitle
 
-Supervised learning algorithm based on the application of Bayes\textsc{\char13} theorem with the 
+Supervised learning algorithm based on the application of Bayes\textsc{\char13} theorem with the
 ``naive'' assumption of independence between every pair of features.
 
 \section{Bayes' Theorem}
@@ -19,7 +19,7 @@ Supervised learning algorithm based on the application of Bayes\textsc{\char13} 
 	\mathbf{P}(A\cap B) = \mathbf{P}(A|B) \times \mathbf{P}(B)                   \\
 	= \mathbf{P}(B|A) \times \mathbf{P}(A)                                       \\
 	                                                                             \\
-	\mathbf{P}(A|B) = \frac{\mathbf{P}(B|A) \times \mathbf{P}(A)}{\mathbf{P}(B)} 
+	\mathbf{P}(A|B) = \frac{\mathbf{P}(B|A) \times \mathbf{P}(A)}{\mathbf{P}(B)}
 \end{align*}
 
 \section{Derivation}
@@ -28,33 +28,33 @@ Supervised learning algorithm based on the application of Bayes\textsc{\char13} 
 	\mathbf{P}(\mathbf{Y}=y_k\ |\ x_1,\ x_2,\ ...\ x_p) = \frac{\mathbf{P}(x_1,\ x_2,\ ...\ x_p|\mathbf{Y}=y_k) \times \mathbf{P}(\mathbf{Y}=y_k)}{\mathbf{P}(x_1,\ x_2,\ ...\ x_p)} \\
 \end{align*}
 
-Choose $y_k$ which maximizes $\mathbf{P}(\mathbf{Y}=y_k | x_1,\ x_2,\ ...\ x_p)$. 
+Choose $y_k$ which maximizes $\mathbf{P}(\mathbf{Y}=y_k | x_1,\ x_2,\ ...\ x_p)$.
 
 \begin{align*}
-	\mathbf{Y} = \operatorname*{argmax}_{y_k}\left\{                                                                             
-	\begin{array}{ll}                                                                                                            
+	\mathbf{Y} = \operatorname*{argmax}_{y_k}\left\{
+	\begin{array}{ll}
 	\frac{\mathbf{P}(x_1,\ x_2,\ ...\ x_p | \mathbf{Y}=y_k) \times \mathbf{P}(\mathbf{Y=y_k)}}{\mathbf{P}(x_1,\ x_2,\ ...\ x_p)} \\
-	\end{array}                                                                                                                  
+	\end{array}
 	\right.                                                                                                                      \\
 \end{align*}
 
-Since $\mathbf{P}(x_1,\ x_2,\ ...\ x_p)$ is constant for all $y_k$, the above can be written as follows: 
+Since $\mathbf{P}(x_1,\ x_2,\ ...\ x_p)$ is constant for all $y_k$, the above can be written as follows:
 
 \begin{align*}
-	\mathbf{Y} = \operatorname*{argmax}_{y_k}\left\{                                    
-	\begin{array}{ll}                                                                   
+	\mathbf{Y} = \operatorname*{argmax}_{y_k}\left\{
+	\begin{array}{ll}
 	\mathbf{P}(x_1,\ x_2,\ ...\ x_p | \mathbf{Y}=y_k) \times \mathbf{P}(\mathbf{Y=y_k)} \\
-	\end{array}                                                                         
+	\end{array}
 	\right.                                                                             \\
 \end{align*}
 
 The ``naive'' assumption that all $\mathbf{X_1},\ \mathbf{X_2},\ ...\ \mathbf{X_p}$ are independent allows for the following simplification.
 
 \begin{align*}
-	\mathbf{Y} = \operatorname*{argmax}_{y_k}\left\{                           
-	\begin{array}{ll}                                                          
+	\mathbf{Y} = \operatorname*{argmax}_{y_k}\left\{
+	\begin{array}{ll}
 	\prod_{i} \mathbf{P}(x_i|\mathbf{Y}=y_k) \times \mathbf{P}(\mathbf{Y=y_k)} \\
-	\end{array}                                                                
+	\end{array}
 	\right.                                                                    \\
 \end{align*}
 
@@ -131,11 +131,11 @@ All the terms on the right are easy to calculate.
 	\end{tabular}
 \end{table}
 
-If $X = (Sunny, Hot, Normal, False)$, then 
+If $X = (Sunny, Hot, Normal, False)$, then
 
 \begin{align*}
-	\mathbf{PlayGolf} = \operatorname*{argmax}_{y_k}\left\{          
-	\begin{array}{ll}                                                
+	\mathbf{PlayGolf} = \operatorname*{argmax}_{y_k}\left\{
+	\begin{array}{ll}
 	\mathbf{P}(\textbf{Outlook}=Sunny|\textbf{PlayGolf}=Yes)         \\
 	\times\mathbf{P}(\textbf{Temprature}=Hot|\textbf{PlayGolf}=Yes)  \\
 	\times\mathbf{P}(\textbf{Humidity}=Normal|\textbf{PlayGolf}=Yes) \\
@@ -147,13 +147,13 @@ If $X = (Sunny, Hot, Normal, False)$, then
 	\times\mathbf{P}(\textbf{Humidity}=Normal|\textbf{PlayGolf}=No)  \\
 	\times\mathbf{P}(\textbf{Windy}=False|\textbf{PlayGolf}=No)      \\
 	\times\mathbf{P}(\textbf{PlayGolf}=No)                           \\
-	\end{array}                                                      
-	\right.                                                          
+	\end{array}
+	\right.
 \end{align*}
 
 \begin{align*}
-	\mathbf{PlayGolf} = \operatorname*{argmax}_{y_k}\left\{ 
-	\begin{array}{ll}                                       
+	\mathbf{PlayGolf} = \operatorname*{argmax}_{y_k}\left\{
+	\begin{array}{ll}
 	3/9                                                     \\
 	\times2/9                                               \\
 	\times6/9                                               \\
@@ -165,26 +165,26 @@ If $X = (Sunny, Hot, Normal, False)$, then
 	\times1/5                                               \\
 	\times2/5                                               \\
 	\times5/14                                              \\
-	\end{array}                                             
-	\right.                                                 
+	\end{array}
+	\right.
 \end{align*}
 
 \begin{align*}
-	\mathbf{PlayGolf} = \operatorname*{argmax}_{y_k}\left\{ 
-	\begin{array}{ll}                                       
-	0.0212                                                  
+	\mathbf{PlayGolf} = \operatorname*{argmax}_{y_k}\left\{
+	\begin{array}{ll}
+	0.0212
 	                                                        \\
 	0.0046                                                  \\
-	\end{array}                                             
-	\right.                                                 
+	\end{array}
+	\right.
 \end{align*}
 
 Therefore, $\textbf{PlayGolf}=Yes$ because $0.0212 > 0.0046$.
 
-\section{Extensions} 
+\section{Extensions}
 
 \begin{itemize}
-	\item For a continuous input feature, assumption regarding the distribution needs to be made. Examples: \textbf{Gaussian}, \textbf{Multinomial} and \textbf{Bernoulli}. 
+	\item For a continuous input feature, assumption regarding the distribution needs to be made. Examples: \textbf{Gaussian}, \textbf{Multinomial} and \textbf{Bernoulli}.
 	\item Smoothing may be required to prevent the multiplication from being zero when one probability term is zero.
 \end{itemize}
 
