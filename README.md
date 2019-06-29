@@ -3,7 +3,7 @@
 ## Supervised learning
   + [AdaBoost](AdaBoost/AdaBoost.pdf)
   + [Backpropagation](Backpropagation/Backpropagation.pdf)
-  + [Decision trees](Decision trees/Decision trees.pdf)
+  + [Decision trees](Decision%20trees/Decision%20trees.pdf)
   + [Fisher's Linear Discriminant Analysis](Fisher's Linear Discriminant Analysis/Fisher's Linear Discriminant Analysis.pdf)
   + [Linear Regression](Linear Regression/Linear Regression.pdf)
   + [Logistic Regression](Logistic Regression/Logistic Regression.pdf)
